@@ -15,6 +15,7 @@
 		939C19D81F14EF7200C392CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 939C19D61F14EF7200C392CA /* LaunchScreen.storyboard */; };
 		939C19E31F14EF7200C392CA /* LittleFarmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19E21F14EF7200C392CA /* LittleFarmTests.swift */; };
 		939C19EE1F14EF7200C392CA /* LittleFarmUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19ED1F14EF7200C392CA /* LittleFarmUITests.swift */; };
+		939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19FE1F14FDF800C392CA /* LandingController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		939C19E91F14EF7200C392CA /* LittleFarmUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LittleFarmUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		939C19ED1F14EF7200C392CA /* LittleFarmUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleFarmUITests.swift; sourceTree = "<group>"; };
 		939C19EF1F14EF7200C392CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		939C19FE1F14FDF800C392CA /* LandingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,12 +102,13 @@
 			isa = PBXGroup;
 			children = (
 				939C19CB1F14EF7100C392CA /* AppDelegate.swift */,
-				939C19CD1F14EF7200C392CA /* art.scnassets */,
 				939C19CF1F14EF7200C392CA /* ViewController.swift */,
+				939C19FE1F14FDF800C392CA /* LandingController.swift */,
 				939C19D11F14EF7200C392CA /* Main.storyboard */,
-				939C19D41F14EF7200C392CA /* Assets.xcassets */,
 				939C19D61F14EF7200C392CA /* LaunchScreen.storyboard */,
 				939C19D91F14EF7200C392CA /* Info.plist */,
+				939C19D41F14EF7200C392CA /* Assets.xcassets */,
+				939C19CD1F14EF7200C392CA /* art.scnassets */,
 			);
 			path = LittleFarm;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */,
 				939C19D01F14EF7200C392CA /* ViewController.swift in Sources */,
 				939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */,
 			);
@@ -528,6 +532,7 @@
 				939C19F41F14EF7200C392CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		939C19F51F14EF7200C392CA /* Build configuration list for PBXNativeTarget "LittleFarmTests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +541,7 @@
 				939C19F71F14EF7200C392CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		939C19F81F14EF7200C392CA /* Build configuration list for PBXNativeTarget "LittleFarmUITests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +550,7 @@
 				939C19FA1F14EF7200C392CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
