@@ -23,7 +23,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1051" y="-775"/>
+            <point key="canvasLocation" x="1107" y="-1110"/>
         </scene>
         <!--Landing Controller-->
         <scene sceneID="WON-vf-lW5">
@@ -37,8 +37,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LittleFarm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLC-Gc-zTH">
+                                <rect key="frame" x="169" y="86" width="76" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7RY-5M-pKc">
-                                <rect key="frame" x="167" y="221.33333333333331" width="80" height="41.999999999999943"/>
+                                <rect key="frame" x="167" y="221" width="80" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Cyborg"/>
                                 <connections>
@@ -54,7 +60,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="swM-Rh-NiU">
-                                <rect key="frame" x="171" y="284.33333333333331" width="73" height="44"/>
+                                <rect key="frame" x="171" y="284" width="73" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="73" id="0qG-St-SGv"/>
                                     <constraint firstAttribute="height" constant="44" id="KTs-y5-bqF"/>
@@ -66,32 +72,49 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="434-NC-hqh">
-                                <rect key="frame" x="163.66666666666666" y="343.33333333333331" width="87" height="42"/>
+                                <rect key="frame" x="164" y="343" width="87" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Pringles"/>
                                 <connections>
                                     <segue destination="BV1-FR-VrT" kind="show" identifier="pringlesView" id="zW2-Wc-glN"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LittleFarm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLC-Gc-zTH">
-                                <rect key="frame" x="169.33333333333334" y="86" width="76.333333333333314" height="20.333333333333329"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TJJ-f2-UY4">
+                                <rect key="frame" x="164" y="403" width="87" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Aucun"/>
+                                <connections>
+                                    <segue destination="BV1-FR-VrT" kind="show" identifier="noView" id="8jT-fQ-VNN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1G-mO-bS7">
+                                <rect key="frame" x="174" y="480" width="67" height="30"/>
+                                <color key="tintColor" red="0.074691816580000001" green="0.74124532320000003" blue="0.76758824479999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="QR CODE">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="RXr-G9-ptT" kind="show" id="f54-Jd-SVB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="MT4-u0-pjm" firstAttribute="top" secondItem="Btu-tS-pTS" secondAttribute="bottom" constant="20" id="09n-f3-1U3"/>
                             <constraint firstItem="434-NC-hqh" firstAttribute="top" secondItem="swM-Rh-NiU" secondAttribute="bottom" constant="15" id="0SV-MU-IyR"/>
                             <constraint firstItem="7RY-5M-pKc" firstAttribute="centerX" secondItem="9Bk-rM-OCG" secondAttribute="centerX" id="58v-Cc-zLE"/>
+                            <constraint firstItem="K1G-mO-bS7" firstAttribute="top" secondItem="TJJ-f2-UY4" secondAttribute="bottom" constant="35" id="6gY-tH-3de"/>
+                            <constraint firstItem="TJJ-f2-UY4" firstAttribute="centerX" secondItem="K1G-mO-bS7" secondAttribute="centerX" id="DoI-HU-It7"/>
                             <constraint firstItem="swM-Rh-NiU" firstAttribute="centerX" secondItem="434-NC-hqh" secondAttribute="centerX" id="KP8-fD-R7s"/>
+                            <constraint firstItem="TJJ-f2-UY4" firstAttribute="leading" secondItem="434-NC-hqh" secondAttribute="leading" id="Kow-od-R17"/>
                             <constraint firstItem="swM-Rh-NiU" firstAttribute="top" secondItem="7RY-5M-pKc" secondAttribute="bottom" constant="21" id="Uve-RS-TII"/>
                             <constraint firstItem="swM-Rh-NiU" firstAttribute="centerX" secondItem="7RY-5M-pKc" secondAttribute="centerX" id="WKX-Du-b8Y"/>
                             <constraint firstItem="Btu-tS-pTS" firstAttribute="leading" secondItem="9Bk-rM-OCG" secondAttribute="leadingMargin" constant="10" id="X7U-7n-Lng"/>
                             <constraint firstItem="7RY-5M-pKc" firstAttribute="top" secondItem="TLC-Gc-zTH" secondAttribute="bottom" constant="115" id="cCD-R0-5AE"/>
                             <constraint firstItem="TLC-Gc-zTH" firstAttribute="centerX" secondItem="9Bk-rM-OCG" secondAttribute="centerX" id="cKn-CQ-0KF"/>
                             <constraint firstItem="TLC-Gc-zTH" firstAttribute="top" secondItem="at7-YR-a2g" secondAttribute="bottom" constant="22" id="i76-HD-Kb1"/>
+                            <constraint firstItem="TJJ-f2-UY4" firstAttribute="trailing" secondItem="434-NC-hqh" secondAttribute="trailing" id="lUP-vI-Dvg"/>
+                            <constraint firstItem="TJJ-f2-UY4" firstAttribute="top" secondItem="434-NC-hqh" secondAttribute="bottom" constant="18" id="zfe-52-93V"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="xEP-Yi-jpy"/>
@@ -99,6 +122,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYC-uZ-qmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="166.66666666666669" y="-775.27173913043487"/>
+        </scene>
+        <!--Code View Controller-->
+        <scene sceneID="XBE-vF-0JE">
+            <objects>
+                <viewController id="RXr-G9-ptT" customClass="QRCodeViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Hcs-M6-GhD"/>
+                        <viewControllerLayoutGuide type="bottom" id="DU8-A4-4Mj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LRu-8t-ptX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No QR code is detected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSQ-a9-NdW">
+                                <rect key="frame" x="0.0" y="696" width="414" height="40"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="XZU-jJ-RMZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="hSQ-a9-NdW" secondAttribute="trailing" id="Xa1-sN-bbr"/>
+                            <constraint firstItem="hSQ-a9-NdW" firstAttribute="leading" secondItem="LRu-8t-ptX" secondAttribute="leading" id="c8B-fE-miZ"/>
+                            <constraint firstItem="hSQ-a9-NdW" firstAttribute="bottom" secondItem="DU8-A4-4Mj" secondAttribute="top" id="gUx-2Q-WCk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="messageLabel" destination="hSQ-a9-NdW" id="Phr-YD-0JG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N43-JL-We2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="934.78260869565224" y="-95.380434782608702"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Sjz-WM-36V">
@@ -138,6 +199,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="NDa-lj-ahH"/>
+        <segue reference="8jT-fQ-VNN"/>
     </inferredMetricsTieBreakers>
 </document>

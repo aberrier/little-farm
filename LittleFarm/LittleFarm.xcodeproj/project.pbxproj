@@ -16,6 +16,7 @@
 		939C19E31F14EF7200C392CA /* LittleFarmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19E21F14EF7200C392CA /* LittleFarmTests.swift */; };
 		939C19EE1F14EF7200C392CA /* LittleFarmUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19ED1F14EF7200C392CA /* LittleFarmUITests.swift */; };
 		939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19FE1F14FDF800C392CA /* LandingController.swift */; };
+		93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C43AE41F15427B00159522 /* QRCodeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		939C19ED1F14EF7200C392CA /* LittleFarmUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleFarmUITests.swift; sourceTree = "<group>"; };
 		939C19EF1F14EF7200C392CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		939C19FE1F14FDF800C392CA /* LandingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingController.swift; sourceTree = "<group>"; };
+		93C43AE41F15427B00159522 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				939C19CB1F14EF7100C392CA /* AppDelegate.swift */,
 				939C19CF1F14EF7200C392CA /* ViewController.swift */,
 				939C19FE1F14FDF800C392CA /* LandingController.swift */,
+				93C43AE41F15427B00159522 /* QRCodeViewController.swift */,
 				939C19D11F14EF7200C392CA /* Main.storyboard */,
 				939C19D61F14EF7200C392CA /* LaunchScreen.storyboard */,
 				939C19D91F14EF7200C392CA /* Info.plist */,
@@ -266,6 +269,7 @@
 				939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */,
 				939C19D01F14EF7200C392CA /* ViewController.swift in Sources */,
 				939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */,
+				93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

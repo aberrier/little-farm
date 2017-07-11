@@ -13,14 +13,24 @@ import ARKit
 class LandingController : UIViewController
 {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let ARView = segue.destination as! ViewController
-        switch(segue.identifier!)
+        
+        let destinationView : UIViewController = segue.destination
+        if destinationView is QRCodeViewController
         {
-        case "shipView": ARView.scene = SCNScene(named: "art.scnassets/ship.scn")!
-        case "cyborgView": ARView.scene = SCNScene(named: "art.scnassets/Cyborg.scn")!
-        case "pringlesView" : ARView.scene = SCNScene(named: "art.scnassets/Pringles.scn")!
-        default : ARView.scene = SCNScene(named: "art.scnassets/ship.scn")!
+            return
         }
+        if destinationView is ViewController
+        {
+            let ARView : ViewController = destinationView as! ViewController
+            switch(segue.identifier!)
+            {
+            case "shipView": ARView.scene = SCNScene(named: "art.scnassets/ship.scn")!
+            case "cyborgView": ARView.scene = SCNScene(named: "art.scnassets/Cyborg.scn")!
+            case "pringlesView" : ARView.scene = SCNScene(named: "art.scnassets/Pringles.scn")!
+            default : break
+            }
+        }
+        
         
     }
 }

@@ -13,7 +13,8 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
-    var scene : SCNScene = SCNScene(named: "art.scnassets/ship.scn")!
+    var scene : SCNScene = SCNScene.init()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,6 +27,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Set the scene to the view
         sceneView.scene = scene
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +39,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Run the view's session
         sceneView.session.run(configuration)
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
