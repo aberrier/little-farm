@@ -203,7 +203,14 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
         {
             let ARView : ViewController = destinationView as! ViewController
             ARView.isPositionGiven=true
-            ARView.qrZone = codeRectangle!
+            if let qrCode = codeRectangle
+            {
+                ARView.qrZone = qrCode
+            }
+            else
+            {
+                ARView.qrZone=CGRect.zero
+            }
         }
     }
     func calculatePosition(_ newRect: CGRect) -> CGRect

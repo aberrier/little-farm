@@ -61,6 +61,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbz-aF-Haq">
+                                <rect key="frame" x="0.0" y="64" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Go"/>
+                                <connections>
+                                    <action selector="changeSysCoord:" destination="BV1-FR-VrT" eventType="touchUpInside" id="oPn-KF-M39"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -79,6 +88,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="goButton" destination="xbz-aF-Haq" id="LMW-Y0-ImC"/>
                         <outlet property="labelX" destination="ycd-p1-l3U" id="7HM-3r-Kpc"/>
                         <outlet property="labelY" destination="lTK-Dv-F0b" id="sGt-wx-Fsy"/>
                         <outlet property="labelZ" destination="vU2-Nz-15k" id="7hJ-pq-hAA"/>

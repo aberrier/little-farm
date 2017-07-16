@@ -10,7 +10,7 @@ import UIKit
 import SceneKit
 import ARKit
 import CoreMotion
-class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     
@@ -22,10 +22,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     @IBOutlet var labelY : UILabel!
     @IBOutlet var labelZ : UILabel!
     
+    @IBOutlet var goButton : UIButton!
+    
     var qrZone : CGRect = CGRect.zero
     var scene : SCNScene = SCNScene.init()
     var isPositionGiven : Bool = false
     var positionGiven : SCNVector3 = SCNVector3(0,0,0)
+    
     var lastCameraTransform: matrix_float4x4?
     
     
@@ -46,86 +49,119 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         // Set the view's delegate
         sceneView.delegate = self
         
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
-        
-        
-        // Set the scene to the view
-        sceneView.scene = scene
-        
-        
     }
-    @objc func touch(sender : UITapGestureRecognizer)
-    {
-        for result in sceneView.hitTest(CGPoint(x: sender.location(in: view).x,y: sender.location(in: view).y), types: [.existingPlaneUsingExtent,.featurePoint])
-        {
-            alert("\(sender.location(in: view))", message: "\(result.worldTransform.columns.3)")
-            let objectList = sceneView.scene.rootNode.childNodes
-            
-            for object : SCNNode in objectList
-            {
-                object.removeFromParentNode()
-            }
-            addObject(SCNVector3(result.worldTransform.columns.3.x,result.worldTransform.columns.3.y,result.worldTransform.columns.3.z))
-        }
-        
-        
-    }
+    
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
         
         // Create a session configuration
         let configuration = ARWorldTrackingSessionConfiguration()
-        
         // Run the view's session
         sceneView.session.run(configuration)
         
+        /*
         if isPositionGiven
         {
-            positionGiven=SCNVector3(0,0,0)
-            /*
-             var cpts : Float = 0
-            for column in Int(qrZone.origin.x)...2*Int(qrZone.origin.x + qrZone.width)
+            let delay = 1.0
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delay, execute:
             {
-                for row in Int(qrZone.origin.y)...2*Int(qrZone.origin.y + qrZone.height)
+                
+                print("Let's go !")
+                self.placeObjectOnCamera()
+                self.updatePositionDisplay()
+                
+                /*
+                var cpts : Float = 0
+                for column in Int(self.qrZone.origin.x)...2*Int(self.qrZone.origin.x + self.qrZone.width)
                 {
-                    print("\(CGFloat(column)/2),\(CGFloat(row)/2)")
-                    for result in sceneView.hitTest(CGPoint(x: CGFloat(column)/2,y:CGFloat(row)/2), types: [.existingPlaneUsingExtent,.featurePoint])
+                    for row in Int(self.qrZone.origin.y)...2*Int(self.qrZone.origin.y + self.qrZone.height)
                     {
+                        //print("\(CGFloat(column)/2),\(CGFloat(row)/2)")
+                        for result in self.sceneView.hitTest(CGPoint(x: CGFloat(column)/2,y:CGFloat(row)/2), types: [.existingPlaneUsingExtent,.featurePoint])
+                        {
+                            
+                            self.positionGiven.x+=result.worldTransform.columns.3.x
+                            self.positionGiven.y+=result.worldTransform.columns.3.y
+                            self.positionGiven.z+=result.worldTransform.columns.3.z
+                            cpts+=1
+                        }
                         
-                        positionGiven.x+=result.worldTransform.columns.3.x
-                        positionGiven.y+=result.worldTransform.columns.3.y
-                        positionGiven.z+=result.worldTransform.columns.3.z
-                        cpts+=1
+                        
                     }
                 }
+                self.positionGiven.x=self.positionGiven.x/cpts
+                self.positionGiven.y=self.positionGiven.y/cpts
+                self.positionGiven.z=self.positionGiven.z/cpts
+                 */
             }
-            positionGiven.x=positionGiven.x/cpts
-            positionGiven.y=positionGiven.y/cpts
-            positionGiven.z=positionGiven.z/cpts
-            */
+           )
+            
+            
         }
         else {
-            positionGiven=SCNVector3(0,0,-1)
+            positionGiven=SCNVector3(0,0,-0.5)
         }
-        addObject(positionGiven)
-        stepperX.value=Double(positionGiven.x)
-        stepperY.value=Double(positionGiven.y)
-        stepperZ.value=Double(positionGiven.z)
-        labelX.text="x: \(positionGiven.x)"
-        labelY.text="y: \(positionGiven.y)"
-        labelZ.text="z: \(positionGiven.z)"
+         */
         
-    }
-    func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        labelZ.text="\(frame.camera.transform)"
+        positionGiven=SCNVector3(0,0,0)
+        let delay = 1.0
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delay, execute:
+        {
+            print("Let's go !")
+            self.placeObjectOnCamera()
+            self.updatePositionDisplay()
+        })
+        
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         // Pause the view's session
         sceneView.session.pause()
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Release any cached data, images, etc that aren't in use.
+    }
+    
+    @objc func touch(sender : UITapGestureRecognizer)
+    {
+        for result in sceneView.hitTest(CGPoint(x: sender.location(in: view).x,y: sender.location(in: view).y), types: [.existingPlaneUsingExtent,.featurePoint])
+        {
+            //Pop up message for testing
+            alert("\(sender.location(in: view))", message: "\(result.worldTransform.columns.3)\n Camera position : \(sceneView.session.currentFrame?.camera.transform)")
+            
+            //Moving the 3D Object to the new coordinates
+            let objectList = sceneView.scene.rootNode.childNodes
+            
+            for object : SCNNode in objectList
+            {
+                object.removeFromParentNode()
+            }
+            positionGiven = SCNVector3(result.worldTransform.columns.3.x,result.worldTransform.columns.3.y,result.worldTransform.columns.3.z)
+            addObject(position : positionGiven)
+            updatePositionDisplay()
+        }
+        
+        
+    }
+    
+    @IBAction func changeSysCoord(_ sender: UIButton) {
+        let objectList = sceneView.scene.rootNode.childNodes
+        
+        for object : SCNNode in objectList
+        {
+            object.removeFromParentNode()
+        }
+        let tree = testObject()
+        tree.loadModal()
+        sceneView.scene.rootNode.addChildNode(tree)
+        updatePositionDisplay()
     }
     
     @IBAction func modifyPosition(sender : UIStepper)
@@ -134,36 +170,57 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         {
         case stepperX:
             positionGiven.x=Float(stepperX.value)/100
-            labelX.text="x: \(positionGiven.x)"
         case stepperY:
             positionGiven.y=Float(stepperY.value)/100
-            labelY.text="y: \(positionGiven.y)"
         case stepperZ:
             positionGiven.z=Float(stepperZ.value)/100
-            labelZ.text="z: \(positionGiven.z)"
         default : break
         }
-        
         let objectList = sceneView.scene.rootNode.childNodes
         
         for object : SCNNode in objectList
         {
             object.removeFromParentNode()
         }
-        addObject(positionGiven)
+        addObject(position : positionGiven)
+        updatePositionDisplay()
     }
-    
-    func addObject(_ pos : SCNVector3) {
+    func updatePositionDisplay()
+    {
+        labelX.text="x: \(positionGiven.x)"
+        labelY.text="y: \(positionGiven.y)"
+        labelZ.text="z: \(positionGiven.z)"
+        stepperX.value=Double(positionGiven.x*100)
+        stepperY.value=Double(positionGiven.y*100)
+        stepperZ.value=Double(positionGiven.z*100)
+        
+    }
+    func addObject(position : SCNVector3) {
         let tree = testObject()
         tree.loadModal()
-        tree.position = pos
-        
+        tree.position = position
         sceneView.scene.rootNode.addChildNode(tree)
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
+    func placeObjectOnCamera()
+    {
+        
+        let objectList = sceneView.scene.rootNode.childNodes
+        //let transformation = sceneView.session.currentFrame!.camera.transform
+        for object : SCNNode in objectList
+        {
+            object.removeFromParentNode()
+        }
+        let tree = testObject()
+        tree.loadModal()
+        var translation = matrix_identity_float4x4
+        translation.columns.3.z = -0.7
+        translation.columns.3.x = -0.1
+        translation.columns.3.y  = -0.1
+        tree.simdTransform = matrix_multiply(sceneView.session.currentFrame!.camera.transform, translation)
+        sceneView.scene.rootNode.addChildNode(tree)
+        positionGiven = tree.position
+        
+        
     }
     
     // MARK: - ARSCNViewDelegate
