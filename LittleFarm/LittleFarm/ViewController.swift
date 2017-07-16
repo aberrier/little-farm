@@ -107,13 +107,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
          */
         
-        positionGiven=SCNVector3(0,0,0)
         let delay = 1.0
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delay, execute:
         {
             print("Let's go !")
-            self.placeObjectOnCamera()
+            let tree = testObject()
+            tree.loadModal()
+            tree.position = SCNVector3(0,0,0)
+            tree.simdTransform = self.TransformMatrixFor2Dto3DProjection(coordinates: CGPoint(x: CGFloat(self.positionGiven.x),y: CGFloat(self.positionGiven.y)), side: self.positionGiven.z)
+            self.sceneView.scene.rootNode.addChildNode(tree)
+            self.positionGiven=tree.position
             self.updatePositionDisplay()
+            
+            //Test tree
+            let tree2 = testObject()
+            tree2.loadModal()
+            tree2.position = SCNVector3(0,0,0)
+            tree2.simdTransform = self.TransformMatrixFor2Dto3DProjection(coordinates: CGPoint(x: 0,y: 0), side: self.positionGiven.z)
+            self.sceneView.scene.rootNode.addChildNode(tree2)
         })
         
         
@@ -131,6 +142,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     @objc func touch(sender : UITapGestureRecognizer)
     {
+        
         for result in sceneView.hitTest(CGPoint(x: sender.location(in: view).x,y: sender.location(in: view).y), types: [.existingPlaneUsingExtent,.featurePoint])
         {
             //Pop up message for testing
@@ -201,26 +213,26 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         tree.position = position
         sceneView.scene.rootNode.addChildNode(tree)
     }
-    func placeObjectOnCamera()
+    func TransformMatrixFor2Dto3DProjection(coordinates : CGPoint, side : Float)->simd_float4x4
     {
         
-        let objectList = sceneView.scene.rootNode.childNodes
-        //let transformation = sceneView.session.currentFrame!.camera.transform
-        for object : SCNNode in objectList
-        {
-            object.removeFromParentNode()
-        }
-        let tree = testObject()
-        tree.loadModal()
+        
+        //Conversion into meters
+        var x = Float(UIScreen.main.nativeScale*coordinates.x/10000)
+        var y = Float(UIScreen.main.nativeScale*coordinates.y/10000)
+        let alpha = 0.07/Float(UIScreen.main.nativeScale)*(side/10000) //Replace 0.07 by the real size of QRCode
+        alert("infos", message: "\(x),\(y),\(alpha)")
+        x*=alpha
+        y*=alpha
+        
         var translation = matrix_identity_float4x4
         translation.columns.3.z = -0.7
-        translation.columns.3.x = -0.1
-        translation.columns.3.y  = -0.1
-        tree.simdTransform = matrix_multiply(sceneView.session.currentFrame!.camera.transform, translation)
-        sceneView.scene.rootNode.addChildNode(tree)
-        positionGiven = tree.position
+        translation.columns.3.x = x
+        translation.columns.3.y  = y
         
         
+        let newTransformMatrix = matrix_multiply(sceneView.session.currentFrame!.camera.transform, translation)
+        return newTransformMatrix
     }
     
     // MARK: - ARSCNViewDelegate

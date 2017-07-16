@@ -64,7 +64,6 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
         do {
             // Get an instance of the AVCaptureDeviceInput class using the previous device object.
             let input = try AVCaptureDeviceInput(device: captureDevice!)
-            
             // Initialize the captureSession object.
             captureSession = AVCaptureSession()
             
@@ -206,6 +205,10 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
             if let qrCode = codeRectangle
             {
                 ARView.qrZone = qrCode
+                ARView.positionGiven=SCNVector3(0,0,0)
+                ARView.positionGiven.x = Float(qrCode.origin.x+qrCode.height/2)
+                ARView.positionGiven.y = Float(qrCode.origin.y+qrCode.width/2)
+                ARView.positionGiven.z = Float(qrCode.height+qrCode.width)/2
             }
             else
             {
@@ -213,22 +216,6 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
             }
         }
     }
-    func calculatePosition(_ newRect: CGRect) -> CGRect
-    {
-        
-        if let motionData = motionManager.deviceMotion {
-            
-            /*
-            let alphaX = motionData.gravity.x*180
-            let alphaY = motionData.gravity.y*180
-            let alphaZ = motionData.gravity.z*180
-            let newX = Float(sqrt(x*x+y*y))*sin(GLKMathDegreesToRadians(Float(alphaY)))
-            let newY = Float(sqrt(x*x+y*y))*sin(GLKMathDegreesToRadians(Float(alphaY)))
-             */
-            //return SCNVector3(x,y,0)
-        }
-        
-        return newRect
-    }
+    
 }
 
