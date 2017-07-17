@@ -23,6 +23,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var labelZ : UILabel!
     
     @IBOutlet var goButton : UIButton!
+    @IBOutlet var infoLabel : UILabel!
     
     var qrZone : CGRect = CGRect.zero
     var scene : SCNScene = SCNScene.init()
@@ -62,55 +63,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Run the view's session
         sceneView.session.run(configuration)
         
-        /*
-        if isPositionGiven
-        {
-            let delay = 1.0
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delay, execute:
-            {
-                
-                print("Let's go !")
-                self.placeObjectOnCamera()
-                self.updatePositionDisplay()
-                
-                /*
-                var cpts : Float = 0
-                for column in Int(self.qrZone.origin.x)...2*Int(self.qrZone.origin.x + self.qrZone.width)
-                {
-                    for row in Int(self.qrZone.origin.y)...2*Int(self.qrZone.origin.y + self.qrZone.height)
-                    {
-                        //print("\(CGFloat(column)/2),\(CGFloat(row)/2)")
-                        for result in self.sceneView.hitTest(CGPoint(x: CGFloat(column)/2,y:CGFloat(row)/2), types: [.existingPlaneUsingExtent,.featurePoint])
-                        {
-                            
-                            self.positionGiven.x+=result.worldTransform.columns.3.x
-                            self.positionGiven.y+=result.worldTransform.columns.3.y
-                            self.positionGiven.z+=result.worldTransform.columns.3.z
-                            cpts+=1
-                        }
-                        
-                        
-                    }
-                }
-                self.positionGiven.x=self.positionGiven.x/cpts
-                self.positionGiven.y=self.positionGiven.y/cpts
-                self.positionGiven.z=self.positionGiven.z/cpts
-                 */
-            }
-           )
-            
-            
-        }
-        else {
-            positionGiven=SCNVector3(0,0,-0.5)
-        }
-         */
         
         let delay = 1.0
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delay, execute:
         {
             print("Let's go !")
+            print("\(self.hitTestOnRect(rect: self.qrZone))")
             let tree = testObject()
             tree.loadModal()
             tree.position = SCNVector3(0,0,0)
@@ -119,12 +77,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             self.positionGiven=tree.position
             self.updatePositionDisplay()
             
-            //Test tree
-            let tree2 = testObject()
-            tree2.loadModal()
-            tree2.position = SCNVector3(0,0,0)
-            tree2.simdTransform = self.TransformMatrixFor2Dto3DProjection(coordinates: CGPoint(x: 0,y: 0), side: self.positionGiven.z)
-            self.sceneView.scene.rootNode.addChildNode(tree2)
         })
         
         
@@ -140,28 +92,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Release any cached data, images, etc that aren't in use.
     }
     
-    @objc func touch(sender : UITapGestureRecognizer)
-    {
-        
-        for result in sceneView.hitTest(CGPoint(x: sender.location(in: view).x,y: sender.location(in: view).y), types: [.existingPlaneUsingExtent,.featurePoint])
-        {
-            //Pop up message for testing
-            alert("\(sender.location(in: view))", message: "\(result.worldTransform.columns.3)\n Camera position : \(sceneView.session.currentFrame?.camera.transform)")
-            
-            //Moving the 3D Object to the new coordinates
-            let objectList = sceneView.scene.rootNode.childNodes
-            
-            for object : SCNNode in objectList
-            {
-                object.removeFromParentNode()
-            }
-            positionGiven = SCNVector3(result.worldTransform.columns.3.x,result.worldTransform.columns.3.y,result.worldTransform.columns.3.z)
-            addObject(position : positionGiven)
-            updatePositionDisplay()
-        }
-        
-        
-    }
     
     @IBAction func changeSysCoord(_ sender: UIButton) {
         let objectList = sceneView.scene.rootNode.childNodes
@@ -217,16 +147,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     {
         
         
-        //Conversion into meters
-        var x = Float(UIScreen.main.nativeScale*coordinates.x/10000)
-        var y = Float(UIScreen.main.nativeScale*coordinates.y/10000)
-        let alpha = 0.07/Float(UIScreen.main.nativeScale)*(side/10000) //Replace 0.07 by the real size of QRCode
-        alert("infos", message: "\(x),\(y),\(alpha)")
-        x*=alpha
-        y*=alpha
+        let physicalSize : Float = 0.07 //Replace 0.07 by the real size of QRCode
+        let focalLength : Float = 0.03
+        let coefAdjustment : Float = 9
         
+        let alpha = physicalSize/Float(UIScreen.main.nativeScale)*(side/1000)
+        let z =  focalLength/(coefAdjustment*alpha)
+        let x = Float(UIScreen.main.nativeScale*coordinates.x/1000)*alpha
+        let y = Float(UIScreen.main.nativeScale*coordinates.y/1000)*alpha
+        
+        
+        alert("infos", message: "x:\(x),y:\(y),z:\(z),\(alpha)")
         var translation = matrix_identity_float4x4
-        translation.columns.3.z = -0.7
+        translation.columns.3.z = -z
         translation.columns.3.x = x
         translation.columns.3.y  = y
         
@@ -235,6 +168,58 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         return newTransformMatrix
     }
     
+    @objc func touch(sender : UITapGestureRecognizer)
+    {
+        
+        for result in sceneView.hitTest(CGPoint(x: sender.location(in: view).x,y: sender.location(in: view).y), types: [.existingPlaneUsingExtent,.featurePoint])
+        {
+            //Pop up message for testing
+            alert("\(sender.location(in: view))", message: "\(result.worldTransform.columns.3)\n Camera position : \(sceneView.session.currentFrame?.camera.transform ?? matrix_identity_float4x4)")
+            
+            //Moving the 3D Object to the new coordinates
+            let objectList = sceneView.scene.rootNode.childNodes
+            
+            for object : SCNNode in objectList
+            {
+                object.removeFromParentNode()
+            }
+            positionGiven = SCNVector3(result.worldTransform.columns.3.x,result.worldTransform.columns.3.y,result.worldTransform.columns.3.z)
+            addObject(position : positionGiven)
+            updatePositionDisplay()
+        }
+        
+        
+    }
+    
+    
+    func hitTestOnRect(rect : CGRect) -> SCNVector3
+    {
+        var cpts : Float = 0
+        var newPosition = SCNVector3(0,0,0)
+        for column in Int(rect.origin.x)...Int(rect.origin.x + rect.width)
+        {
+            for row in Int(rect.origin.y)...Int(rect.origin.y + rect.height)
+            {
+                let newPoint = CGPoint(x: CGFloat(column)/view.frame.size.height,y:CGFloat(row)/view.frame.size.width)
+                print("\(newPoint)")
+                for result in self.sceneView.hitTest(newPoint, types: [.existingPlaneUsingExtent,.featurePoint])
+                {
+                    
+                    newPosition.x+=result.worldTransform.columns.3.x
+                    newPosition.y+=result.worldTransform.columns.3.y
+                    newPosition.z+=result.worldTransform.columns.3.z
+                    cpts+=1
+                }
+                
+                
+            }
+        }
+        
+        newPosition.x=newPosition.x/cpts
+        newPosition.y=newPosition.y/cpts
+        newPosition.z=newPosition.z/cpts
+        return newPosition
+    }
     // MARK: - ARSCNViewDelegate
     
 /*

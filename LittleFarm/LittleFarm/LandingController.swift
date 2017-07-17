@@ -9,6 +9,7 @@
 import UIKit
 import SceneKit
 import ARKit
+import CoreSpotlight
 
 class LandingController : UIViewController
 {
@@ -31,6 +32,10 @@ class LandingController : UIViewController
             }
         }
         
+        
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
     }
 }
