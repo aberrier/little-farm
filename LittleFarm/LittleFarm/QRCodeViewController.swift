@@ -131,6 +131,7 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
             ARView.QRDataVector.x = Float(qrCode.origin.x+qrCode.height/2)
             ARView.QRDataVector.y = Float(qrCode.origin.y+qrCode.width/2)
             ARView.QRDataVector.z = Float(qrCode.height+qrCode.width)/2
+            print("Coordinates sended : \(ARView.QRDataVector)")
         }
         else
         {
@@ -258,8 +259,8 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
             {
                 ARView.qrZone = qrCode
                 ARView.QRDataVector=SCNVector3(0,0,0)
-                ARView.QRDataVector.x = Float(qrCode.origin.x+qrCode.height/2)
-                ARView.QRDataVector.y = Float(qrCode.origin.y+qrCode.width/2)
+                ARView.QRDataVector.x = Float(qrCode.origin.x-qrCode.height/2)
+                ARView.QRDataVector.y = Float(qrCode.origin.y-qrCode.width/2)
                 ARView.QRDataVector.z = Float(qrCode.height+qrCode.width)/2
             }
             else

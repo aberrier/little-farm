@@ -23,7 +23,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var labelY : UILabel!
     @IBOutlet var labelZ : UILabel!
     @IBOutlet var infoLabel : UILabel!
-    
+    @IBOutlet var dragSwitch : UISwitch!
+    @IBOutlet var swiftText : UILabel!
     var qrZone : CGRect = CGRect.zero
     var scene : SCNScene = SCNScene.init()
     var isPositionGiven : Bool = false
@@ -56,6 +57,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         
         super.viewWillAppear(animated)
         
+        view.bringSubview(toFront: dragSwitch)
+        view.bringSubview(toFront: swiftText)
         // Create a session configuration
         let configuration = ARWorldTrackingSessionConfiguration()
         // Run the view's session
@@ -161,6 +164,28 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         tree.position = position
         sceneView.scene.rootNode.addChildNode(tree)
     }
+    /*
+    func PositionFor2Dto3DProjection(coordinates : CGPoint, side : Float)->SCNVector3
+    {
+        let physicalSize : Float = 0.07 //Replace 0.07 by the real size of QRCode
+        let focalLength : Float = 0.03
+        let coefAdjustment : Float = 13
+        let virtualSize = side/(2*1000*Float(UIScreen.main.nativeScale))
+        let alpha = physicalSize/virtualSize
+        //let alpha = physicalSize/Float(UIScreen.main.nativeScale)*(side/1000)
+        
+        let z =  focalLength*alpha*coefAdjustment
+        let x = (alpha*Float(coordinates.x))/(10*1000*Float(UIScreen.main.nativeScale))
+        let y = (alpha*Float(coordinates.y))/(30*1000*Float(UIScreen.main.nativeScale))
+        
+        print("Virtual length : \(virtualSize)")
+        print("ALPHA : \(alpha)")
+        print("x:\(x),y:\(y),z:\(-z)")
+        let originalVector4 = vector4(x, y, -z, 1)
+        let newVector4 = matrix_multiply(sceneView.session.currentFrame!.camera.transform, originalVector4)
+        return SCNVector3(newVector4.x/newVector4.w,newVector4.y/newVector4.w,newVector4.z/newVector4.w)
+    }
+    */
     func PositionFor2Dto3DProjection(coordinates : CGPoint, side : Float)->SCNVector3
     {
         let physicalSize : Float = 0.07 //Replace 0.07 by the real size of QRCode
@@ -168,6 +193,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         let coefAdjustment : Float = 9
         
         let alpha = physicalSize/Float(UIScreen.main.nativeScale)*(side/1000)
+        
         let z =  focalLength/(coefAdjustment*alpha)
         let x = Float(UIScreen.main.nativeScale*coordinates.x/1000)*alpha
         let y = Float(UIScreen.main.nativeScale*coordinates.y/1000)*alpha
@@ -204,21 +230,19 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     @objc func touch(sender : UITapGestureRecognizer)
     {
         
-        for result in sceneView.hitTest(CGPoint(x: sender.location(in: view).x,y: sender.location(in: view).y), types: [.existingPlaneUsingExtent,.featurePoint])
+        if(dragSwitch.isOn)
         {
-            //Pop up message for testing
-            alert("\(sender.location(in: view))", message: "\(result.worldTransform.columns.3)\n Camera position : \(sceneView.session.currentFrame?.camera.transform ?? matrix_identity_float4x4)")
-            
-            //Moving the 3D Object to the new coordinates
-            let objectList = sceneView.scene.rootNode.childNodes
-            
-            for object : SCNNode in objectList
+            for result in sceneView.hitTest(CGPoint(x: sender.location(in: view).x,y: sender.location(in: view).y), types: [.existingPlaneUsingExtent,.featurePoint])
             {
-                object.removeFromParentNode()
+                //Pop up message for testing
+                infoLabel.text="You move the object to \(result.worldTransform.columns.3)"
+                
+                //Moving the 3D Object to the new coordinates
+                object3D?.position = SCNVector3(result.worldTransform.columns.3.x,result.worldTransform.columns.3.y,result.worldTransform.columns.3.z)
+                updatePositionDisplay()
             }
-            object3D?.position = SCNVector3(result.worldTransform.columns.3.x,result.worldTransform.columns.3.y,result.worldTransform.columns.3.z)
-            updatePositionDisplay()
         }
+        
         
         
     }
