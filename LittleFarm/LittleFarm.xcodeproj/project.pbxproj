@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		936ACA251F163DF700156AD8 /* test3DObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936ACA241F163DF700156AD8 /* test3DObject.swift */; };
+		937FE96F1F1E1ED600C3B0D7 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937FE96E1F1E1ED600C3B0D7 /* KDCircularProgress.swift */; };
 		939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19CB1F14EF7100C392CA /* AppDelegate.swift */; };
 		939C19CE1F14EF7200C392CA /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 939C19CD1F14EF7200C392CA /* art.scnassets */; };
-		939C19D01F14EF7200C392CA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19CF1F14EF7200C392CA /* ViewController.swift */; };
+		939C19D01F14EF7200C392CA /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19CF1F14EF7200C392CA /* ARViewController.swift */; };
 		939C19D31F14EF7200C392CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 939C19D11F14EF7200C392CA /* Main.storyboard */; };
 		939C19D51F14EF7200C392CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 939C19D41F14EF7200C392CA /* Assets.xcassets */; };
 		939C19D81F14EF7200C392CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 939C19D61F14EF7200C392CA /* LaunchScreen.storyboard */; };
@@ -39,10 +40,11 @@
 
 /* Begin PBXFileReference section */
 		936ACA241F163DF700156AD8 /* test3DObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test3DObject.swift; sourceTree = "<group>"; };
+		937FE96E1F1E1ED600C3B0D7 /* KDCircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		939C19C81F14EF7100C392CA /* LittleFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		939C19CB1F14EF7100C392CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		939C19CD1F14EF7200C392CA /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		939C19CF1F14EF7200C392CA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		939C19CF1F14EF7200C392CA /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
 		939C19D21F14EF7200C392CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		939C19D41F14EF7200C392CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		939C19D71F14EF7200C392CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -82,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		937FE96B1F1E1E9D00C3B0D7 /* extern */ = {
+			isa = PBXGroup;
+			children = (
+				937FE96E1F1E1ED600C3B0D7 /* KDCircularProgress.swift */,
+			);
+			path = extern;
+			sourceTree = "<group>";
+		};
 		939C19BF1F14EF7100C392CA = {
 			isa = PBXGroup;
 			children = (
@@ -105,9 +115,10 @@
 		939C19CA1F14EF7100C392CA /* LittleFarm */ = {
 			isa = PBXGroup;
 			children = (
+				937FE96B1F1E1E9D00C3B0D7 /* extern */,
 				939C19CB1F14EF7100C392CA /* AppDelegate.swift */,
 				939C19FE1F14FDF800C392CA /* LandingController.swift */,
-				939C19CF1F14EF7200C392CA /* ViewController.swift */,
+				939C19CF1F14EF7200C392CA /* ARViewController.swift */,
 				93C43AE41F15427B00159522 /* QRCodeViewController.swift */,
 				936ACA241F163DF700156AD8 /* test3DObject.swift */,
 				939C19D11F14EF7200C392CA /* Main.storyboard */,
@@ -270,10 +281,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */,
-				939C19D01F14EF7200C392CA /* ViewController.swift in Sources */,
+				939C19D01F14EF7200C392CA /* ARViewController.swift in Sources */,
 				936ACA251F163DF700156AD8 /* test3DObject.swift in Sources */,
 				939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */,
 				93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */,
+				937FE96F1F1E1ED600C3B0D7 /* KDCircularProgress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

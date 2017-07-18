@@ -20,9 +20,9 @@ class LandingController : UIViewController
         {
             return
         }
-        if destinationView is ViewController
+        if destinationView is ARViewController
         {
-            let ARView : ViewController = destinationView as! ViewController
+            let ARView : ARViewController = destinationView as! ARViewController
             switch(segue.identifier!)
             {
             case "shipView": ARView.scene = SCNScene(named: "art.scnassets/ship.scn")!

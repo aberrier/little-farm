@@ -10,7 +10,8 @@ import UIKit
 import SceneKit
 import ARKit
 import CoreMotion
-class ViewController: UIViewController, ARSCNViewDelegate {
+
+class ARViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     
@@ -21,18 +22,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var labelX : UILabel!
     @IBOutlet var labelY : UILabel!
     @IBOutlet var labelZ : UILabel!
-    
-    @IBOutlet var goButton : UIButton!
     @IBOutlet var infoLabel : UILabel!
     
     var qrZone : CGRect = CGRect.zero
     var scene : SCNScene = SCNScene.init()
     var isPositionGiven : Bool = false
-    var positionGiven : SCNVector3 = SCNVector3(0,0,0)
-    
-    var lastCameraTransform: matrix_float4x4?
-    
-    
+    var testObjectIsInstancied : Bool = false
+    var QRDataVector : SCNVector3 = SCNVector3(0,0,0)
+    var object3D : testObject?
+    var positionBuffer : SCNVector3 = SCNVector3(0,0,0)
     //Display popup
     func alert(_ title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -63,22 +61,38 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Run the view's session
         sceneView.session.run(configuration)
         
-        
         let delay = 1.0
+        /*
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delay, execute:
         {
             print("Let's go !")
-            print("\(self.hitTestOnRect(rect: self.qrZone))")
-            let tree = testObject()
-            tree.loadModal()
-            tree.position = SCNVector3(0,0,0)
-            tree.simdTransform = self.TransformMatrixFor2Dto3DProjection(coordinates: CGPoint(x: CGFloat(self.positionGiven.x),y: CGFloat(self.positionGiven.y)), side: self.positionGiven.z)
-            self.sceneView.scene.rootNode.addChildNode(tree)
-            self.positionGiven=tree.position
+            //print("\(self.hitTestOnRect(rect: self.qrZone))")
+            self.object3D = testObject()
+            self.object3D?.loadModal()
+            self.object3D?.position = SCNVector3(0,0,0)
+            self.object3D?.simdTransform = self.TransformMatrixFor2Dto3DProjection(coordinates: CGPoint(x: CGFloat(self.QRDataVector.x),y: CGFloat(self.QRDataVector.y)), side: self.QRDataVector.z)
+            self.object3D?.eulerAngles.z=90
+            self.sceneView.scene.rootNode.addChildNode(self.object3D!)
             self.updatePositionDisplay()
             
         })
-        
+        */
+        self.infoLabel.text="Initialization"
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delay, execute:
+            {
+                print("Calculating coordinates")
+                self.positionBuffer=self.PositionFor2Dto3DProjection(coordinates: CGPoint(x: CGFloat(self.QRDataVector.x),y: CGFloat(self.QRDataVector.y)), side: self.QRDataVector.z)
+                self.infoLabel.text="Look around for 4 seconds"
+                
+        })
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+4, execute:
+            {
+                self.addObjectTest()
+                self.object3D?.position = self.positionBuffer
+                self.updatePositionDisplay()
+                self.infoLabel.text="Object placed"
+                
+        })
         
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -93,55 +107,74 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     
-    @IBAction func changeSysCoord(_ sender: UIButton) {
-        let objectList = sceneView.scene.rootNode.childNodes
-        
-        for object : SCNNode in objectList
-        {
-            object.removeFromParentNode()
-        }
-        let tree = testObject()
-        tree.loadModal()
-        sceneView.scene.rootNode.addChildNode(tree)
-        updatePositionDisplay()
-    }
     
     @IBAction func modifyPosition(sender : UIStepper)
     {
         switch(sender)
         {
         case stepperX:
-            positionGiven.x=Float(stepperX.value)/100
+            object3D?.position.x=Float(stepperX.value)/100
         case stepperY:
-            positionGiven.y=Float(stepperY.value)/100
+            object3D?.position.y=Float(stepperY.value)/100
         case stepperZ:
-            positionGiven.z=Float(stepperZ.value)/100
+            object3D?.position.z=Float(stepperZ.value)/100
         default : break
         }
+        /*
         let objectList = sceneView.scene.rootNode.childNodes
         
         for object : SCNNode in objectList
         {
             object.removeFromParentNode()
         }
-        addObject(position : positionGiven)
+        addObject(position : QRDataVector)
+ */
         updatePositionDisplay()
     }
     func updatePositionDisplay()
     {
-        labelX.text="x: \(positionGiven.x)"
-        labelY.text="y: \(positionGiven.y)"
-        labelZ.text="z: \(positionGiven.z)"
-        stepperX.value=Double(positionGiven.x*100)
-        stepperY.value=Double(positionGiven.y*100)
-        stepperZ.value=Double(positionGiven.z*100)
+        labelX.text="x: \(object3D?.position.x ?? 0)"
+        labelY.text="y: \(object3D?.position.y ?? 0)"
+        labelZ.text="z: \(object3D?.position.z ?? 0)"
+        stepperX.value=Double(object3D!.position.x*100)
+        stepperY.value=Double(object3D!.position.y*100)
+        stepperZ.value=Double(object3D!.position.z*100)
         
     }
-    func addObject(position : SCNVector3) {
+    func addObjectTest() {
+        
+        if(!testObjectIsInstancied)
+        {
+            object3D = testObject()
+            object3D?.loadModal()
+            sceneView.scene.rootNode.addChildNode(object3D!)
+            testObjectIsInstancied=true
+        }
+        else{
+            print("Test object already instancied.")
+        }
+        
+    }
+    func addNewObject(position : SCNVector3) {
         let tree = testObject()
         tree.loadModal()
         tree.position = position
         sceneView.scene.rootNode.addChildNode(tree)
+    }
+    func PositionFor2Dto3DProjection(coordinates : CGPoint, side : Float)->SCNVector3
+    {
+        let physicalSize : Float = 0.07 //Replace 0.07 by the real size of QRCode
+        let focalLength : Float = 0.03
+        let coefAdjustment : Float = 9
+        
+        let alpha = physicalSize/Float(UIScreen.main.nativeScale)*(side/1000)
+        let z =  focalLength/(coefAdjustment*alpha)
+        let x = Float(UIScreen.main.nativeScale*coordinates.x/1000)*alpha
+        let y = Float(UIScreen.main.nativeScale*coordinates.y/1000)*alpha
+        
+        let originalVector4 = vector4(x, y, -z, 1)
+        let newVector4 = matrix_multiply(sceneView.session.currentFrame!.camera.transform, originalVector4)
+        return SCNVector3(newVector4.x/newVector4.w,newVector4.y/newVector4.w,newVector4.z/newVector4.w)
     }
     func TransformMatrixFor2Dto3DProjection(coordinates : CGPoint, side : Float)->simd_float4x4
     {
@@ -157,7 +190,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let y = Float(UIScreen.main.nativeScale*coordinates.y/1000)*alpha
         
         
-        alert("infos", message: "x:\(x),y:\(y),z:\(z),\(alpha)")
+        //alert("infos", message: "x:\(x),y:\(y),z:\(z),\(alpha)")
         var translation = matrix_identity_float4x4
         translation.columns.3.z = -z
         translation.columns.3.x = x
@@ -183,8 +216,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             {
                 object.removeFromParentNode()
             }
-            positionGiven = SCNVector3(result.worldTransform.columns.3.x,result.worldTransform.columns.3.y,result.worldTransform.columns.3.z)
-            addObject(position : positionGiven)
+            object3D?.position = SCNVector3(result.worldTransform.columns.3.x,result.worldTransform.columns.3.y,result.worldTransform.columns.3.z)
             updatePositionDisplay()
         }
         

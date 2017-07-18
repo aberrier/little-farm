@@ -14,17 +14,21 @@ import CoreMotion
 class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     @IBOutlet var messageLabel:UILabel!
-    @IBOutlet var redPoint:UIButton!
-    @IBOutlet var bluePoint:UIButton!
     @IBOutlet var goAR:UIButton!
-    @IBOutlet var rotationLabel : UILabel!
-    @IBOutlet var coordLabel : UILabel!
+    @IBOutlet weak var circularProgressView: KDCircularProgress!
     
     var codeRectangle:CGRect?
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
     
+    
+    var QRCodeIsDetected : Bool = false
+    var maxCountDownValue  = 3.0
+    var currentCountDownValue  = 0.0
+    var timeInterval = 0.1
+    var progressPerSecond = 1.0
+    var ARIsInstancied = false
     let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
                               AVMetadataObject.ObjectType.code39,
                               AVMetadataObject.ObjectType.code39Mod43,
@@ -38,24 +42,15 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
     
     
     var motionManager = CMMotionManager()
-    var timer = Timer()
+    var timerDetection = Timer()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //Set the pan gesture recognizer
-        bluePoint.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(drag)))
-        //Set the motion manager
-        if(motionManager.isDeviceMotionAvailable)
-        {
-            motionManager.deviceMotionUpdateInterval=0.1;
-            motionManager.startDeviceMotionUpdates()
-            
-        }
-        else
-        {
-            print("Device motion is not available")
-        }
+        
+        circularProgressView.isHidden = true
+        
+        //QR Code initializer
         
         // Get an instance of the AVCaptureDevice class to initialize a device object and provide the video as the media type parameter.
         
@@ -90,22 +85,13 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
             // Move to the front
             view.bringSubview(toFront: messageLabel)
             view.bringSubview(toFront: goAR)
+            view.bringSubview(toFront: circularProgressView)
             // Initialize QR Code Frame to highlight the QR code
             qrCodeFrameView = UIView()
             
             if let qrCodeFrameView = qrCodeFrameView {
                 qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
                 qrCodeFrameView.layer.borderWidth = 2
-                
-                view.addSubview(redPoint)
-                view.addSubview(bluePoint)
-                bluePoint.center=CGPoint(x: 100, y: 100)
-                
-                view.bringSubview(toFront: redPoint)
-                view.bringSubview(toFront: bluePoint)
-                view.bringSubview(toFront: rotationLabel)
-                view.bringSubview(toFront: coordLabel)
-                
                 view.addSubview(qrCodeFrameView)
                 view.bringSubview(toFront: qrCodeFrameView)
                 
@@ -120,20 +106,41 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
     override func viewWillAppear(_ animated: Bool) {
         //Create a timer for tilt tracking
         super.viewWillAppear(animated)
-        timer=Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: (#selector(updateTilt)), userInfo: nil, repeats: true)
+        ARIsInstancied = false
+        circularProgressView.isHidden=true
+        //timer=Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: (#selector(updateTilt)), userInfo: nil, repeats: true)
         
-        //Display coordinates
-        coordLabel.text="Size:[\(view.center.x),\(view.center.y)],Coord[\(bluePoint.center.x),\(bluePoint.center.y)]"
+        
     }
     @objc func drag(sender : UIPanGestureRecognizer)
     {
         let step = sender.view!
         let coord = sender.location(in: self.view)
         step.center = coord
-        //Display coordinates
-        coordLabel.text="Size:[\(view.frame.size.height),\(view.frame.size.width)],Coord[\(bluePoint.center.x),\(bluePoint.center.y)]"
         
     }
+    
+    func initiateARView()
+    {
+        let storyboard = UIStoryboard(name : "Main", bundle : nil)
+        let ARView = storyboard.instantiateViewController(withIdentifier: "ARView") as! ARViewController
+        if let qrCode = codeRectangle
+        {
+            ARView.qrZone = qrCode
+            ARView.QRDataVector=SCNVector3(0,0,0)
+            ARView.QRDataVector.x = Float(qrCode.origin.x+qrCode.height/2)
+            ARView.QRDataVector.y = Float(qrCode.origin.y+qrCode.width/2)
+            ARView.QRDataVector.z = Float(qrCode.height+qrCode.width)/2
+        }
+        else
+        {
+            print("No QR zone detected.")
+            ARView.QRDataVector=SCNVector3(0,0,-1)
+            ARView.qrZone=CGRect.zero
+        }
+        self.navigationController?.show(ARView, sender: self)
+    }
+    /*
     @objc func updateTilt()
     {
         
@@ -145,13 +152,28 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
         }
         
     }
+     */
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
     }
-    func stopUpdateTilt()
+    @objc func displayCountDown()
     {
-        timer.invalidate()
+        if(currentCountDownValue >= maxCountDownValue && !ARIsInstancied)
+        {
+            stopTimerDetection()
+            initiateARView()
+            ARIsInstancied=true
+        }
+        else
+        {
+            increaseProgress(progressPerSecond*timeInterval)
+        }
+        
+    }
+    func stopTimerDetection()
+    {
+        timerDetection.invalidate()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -165,7 +187,10 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
         
         // Check if the metadataObjects array is not nil and it contains at least one object.
         if metadataObjects.count == 0 {
+            
             qrCodeFrameView?.frame = CGRect.zero
+            stopTimerDetection()
+            resetProgress()
             messageLabel.text = "No QR/barcode is detected"
             return
         }
@@ -180,35 +205,62 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
             qrCodeFrameView?.frame = barCodeObject!.bounds
             codeRectangle=barCodeObject!.bounds
             
-            let rect = barCodeObject!.bounds
+            self.QRCodeIsDetected=true
             
-            let height = rect.height
-            let width = rect.width
-            let coord = rect.origin
-            redPoint.center=(videoPreviewLayer?.layerPointConverted(fromCaptureDevicePoint: coord))!
-            
-            if metadataObj.stringValue != nil {
-                messageLabel.text = metadataObj.stringValue! + "[\(height),\(width)] x:\(rect.origin.x),y:\(rect.origin.y)"
+            //Start countdown
+            if !timerDetection.isValid
+            {
+                //Display progress circle
+                circularProgressView.isHidden=false
+                timerDetection=Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: (#selector(displayCountDown)), userInfo: nil, repeats: true)
             }
+            
+            
+            //Display message
+            messageLabel.text = "Code : " + metadataObj.stringValue! + " is detected."
+            
+        }
+        else
+        {
+            qrCodeFrameView?.frame = CGRect.zero
+            stopTimerDetection()
+            resetProgress()
+            messageLabel.text = "Unreadable code"
+            return
         }
         
         
-        
     }
+    func increaseProgress(_ step : Double) {
+        if currentCountDownValue != maxCountDownValue {
+            currentCountDownValue += step
+            let newAngleValue = newAngle()
+            circularProgressView.animate(toAngle: newAngleValue, duration: 0.5, completion: nil)
+        }
+    }
+    func newAngle() -> Double {
+        return 360 * (currentCountDownValue / maxCountDownValue)
+    }
+    func resetProgress() {
+        currentCountDownValue = 0
+        circularProgressView.animate(fromAngle: circularProgressView.angle, toAngle: 0, duration: 0.5, completion: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         let destinationView : UIViewController = segue.destination
-        if destinationView is ViewController
+        if destinationView is ARViewController
         {
-            let ARView : ViewController = destinationView as! ViewController
+            let ARView : ARViewController = destinationView as! ARViewController
             ARView.isPositionGiven=true
+            
             if let qrCode = codeRectangle
             {
                 ARView.qrZone = qrCode
-                ARView.positionGiven=SCNVector3(0,0,0)
-                ARView.positionGiven.x = Float(qrCode.origin.x+qrCode.height/2)
-                ARView.positionGiven.y = Float(qrCode.origin.y+qrCode.width/2)
-                ARView.positionGiven.z = Float(qrCode.height+qrCode.width)/2
+                ARView.QRDataVector=SCNVector3(0,0,0)
+                ARView.QRDataVector.x = Float(qrCode.origin.x+qrCode.height/2)
+                ARView.QRDataVector.y = Float(qrCode.origin.y+qrCode.width/2)
+                ARView.QRDataVector.z = Float(qrCode.height+qrCode.width)/2
             }
             else
             {
