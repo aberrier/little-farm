@@ -324,6 +324,9 @@ public class KDCircularProgress: UIView, CAAnimationDelegate {
         progressLayer.setNeedsDisplay()
     }
     
+    
+    
+    
     private class KDCircularProgressViewLayer: CALayer {
         @NSManaged var angle: Double
         var radius: CGFloat = 0 {

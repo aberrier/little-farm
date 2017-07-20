@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		93281F581F20F6E7004C93E2 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F571F20F6E7004C93E2 /* MenuViewController.swift */; };
+		93281F5A1F20F94A004C93E2 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F591F20F94A004C93E2 /* RegisterViewController.swift */; };
+		93281F5C1F20F984004C93E2 /* BadgesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F5B1F20F984004C93E2 /* BadgesViewController.swift */; };
+		93281F5E1F20FAA1004C93E2 /* ExplorationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F5D1F20FAA1004C93E2 /* ExplorationViewController.swift */; };
+		93281F601F20FAC4004C93E2 /* TreeInventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */; };
+		93281F621F20FB47004C93E2 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F611F20FB47004C93E2 /* StoryView.swift */; };
+		93281F691F20FC6C004C93E2 /* actionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F681F20FC6C004C93E2 /* actionButton.swift */; };
+		93281F6B1F210E00004C93E2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F6A1F210E00004C93E2 /* Color.swift */; };
 		936ACA251F163DF700156AD8 /* test3DObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936ACA241F163DF700156AD8 /* test3DObject.swift */; };
 		937FE96F1F1E1ED600C3B0D7 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937FE96E1F1E1ED600C3B0D7 /* KDCircularProgress.swift */; };
 		939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19CB1F14EF7100C392CA /* AppDelegate.swift */; };
@@ -39,6 +47,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		93281F571F20F6E7004C93E2 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		93281F591F20F94A004C93E2 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		93281F5B1F20F984004C93E2 /* BadgesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesViewController.swift; sourceTree = "<group>"; };
+		93281F5D1F20FAA1004C93E2 /* ExplorationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorationViewController.swift; sourceTree = "<group>"; };
+		93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeInventoryViewController.swift; sourceTree = "<group>"; };
+		93281F611F20FB47004C93E2 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
+		93281F681F20FC6C004C93E2 /* actionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = actionButton.swift; sourceTree = "<group>"; };
+		93281F6A1F210E00004C93E2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		936ACA241F163DF700156AD8 /* test3DObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test3DObject.swift; sourceTree = "<group>"; };
 		937FE96E1F1E1ED600C3B0D7 /* KDCircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		939C19C81F14EF7100C392CA /* LittleFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +100,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		93281F671F20FBA4004C93E2 /* parameters */ = {
+			isa = PBXGroup;
+			children = (
+				93281F6A1F210E00004C93E2 /* Color.swift */,
+			);
+			path = parameters;
+			sourceTree = "<group>";
+		};
+		937C33511F20A9DB008361BB /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				939C19FE1F14FDF800C392CA /* LandingController.swift */,
+				939C19CF1F14EF7200C392CA /* ARViewController.swift */,
+				93C43AE41F15427B00159522 /* QRCodeViewController.swift */,
+				93281F571F20F6E7004C93E2 /* MenuViewController.swift */,
+				93281F591F20F94A004C93E2 /* RegisterViewController.swift */,
+				93281F5B1F20F984004C93E2 /* BadgesViewController.swift */,
+				93281F5D1F20FAA1004C93E2 /* ExplorationViewController.swift */,
+				93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		937C33521F20A9E8008361BB /* model */ = {
+			isa = PBXGroup;
+			children = (
+				93281F611F20FB47004C93E2 /* StoryView.swift */,
+				936ACA241F163DF700156AD8 /* test3DObject.swift */,
+				93281F681F20FC6C004C93E2 /* actionButton.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		937FE96B1F1E1E9D00C3B0D7 /* extern */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,14 +164,13 @@
 		939C19CA1F14EF7100C392CA /* LittleFarm */ = {
 			isa = PBXGroup;
 			children = (
-				937FE96B1F1E1E9D00C3B0D7 /* extern */,
 				939C19CB1F14EF7100C392CA /* AppDelegate.swift */,
-				939C19FE1F14FDF800C392CA /* LandingController.swift */,
-				939C19CF1F14EF7200C392CA /* ARViewController.swift */,
-				93C43AE41F15427B00159522 /* QRCodeViewController.swift */,
-				936ACA241F163DF700156AD8 /* test3DObject.swift */,
 				939C19D11F14EF7200C392CA /* Main.storyboard */,
 				939C19D61F14EF7200C392CA /* LaunchScreen.storyboard */,
+				93281F671F20FBA4004C93E2 /* parameters */,
+				937C33521F20A9E8008361BB /* model */,
+				937C33511F20A9DB008361BB /* controller */,
+				937FE96B1F1E1E9D00C3B0D7 /* extern */,
 				939C19D91F14EF7200C392CA /* Info.plist */,
 				939C19D41F14EF7200C392CA /* Assets.xcassets */,
 				939C19CD1F14EF7200C392CA /* art.scnassets */,
@@ -280,11 +328,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93281F621F20FB47004C93E2 /* StoryView.swift in Sources */,
 				939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */,
+				93281F5C1F20F984004C93E2 /* BadgesViewController.swift in Sources */,
 				939C19D01F14EF7200C392CA /* ARViewController.swift in Sources */,
 				936ACA251F163DF700156AD8 /* test3DObject.swift in Sources */,
+				93281F5A1F20F94A004C93E2 /* RegisterViewController.swift in Sources */,
+				93281F601F20FAC4004C93E2 /* TreeInventoryViewController.swift in Sources */,
+				93281F691F20FC6C004C93E2 /* actionButton.swift in Sources */,
+				93281F581F20F6E7004C93E2 /* MenuViewController.swift in Sources */,
+				93281F6B1F210E00004C93E2 /* Color.swift in Sources */,
 				939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */,
 				93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */,
+				93281F5E1F20FAA1004C93E2 /* ExplorationViewController.swift in Sources */,
 				937FE96F1F1E1ED600C3B0D7 /* KDCircularProgress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

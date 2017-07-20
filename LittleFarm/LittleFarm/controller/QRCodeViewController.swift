@@ -250,6 +250,8 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         let destinationView : UIViewController = segue.destination
+        
+        //Force AR
         if destinationView is ARViewController
         {
             let ARView : ARViewController = destinationView as! ARViewController
@@ -258,10 +260,7 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
             if let qrCode = codeRectangle
             {
                 ARView.qrZone = qrCode
-                ARView.QRDataVector=SCNVector3(0,0,0)
-                ARView.QRDataVector.x = Float(qrCode.origin.x-qrCode.height/2)
-                ARView.QRDataVector.y = Float(qrCode.origin.y-qrCode.width/2)
-                ARView.QRDataVector.z = Float(qrCode.height+qrCode.width)/2
+                ARView.QRDataVector=SCNVector3(0,0,-1)
             }
             else
             {
