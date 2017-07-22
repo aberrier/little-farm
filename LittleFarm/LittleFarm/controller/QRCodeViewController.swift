@@ -139,7 +139,7 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
             ARView.QRDataVector=SCNVector3(0,0,-1)
             ARView.qrZone=CGRect.zero
         }
-        self.navigationController?.show(ARView, sender: self)
+        self.present(ARView, animated: true, completion: nil)
     }
     /*
     @objc func updateTilt()

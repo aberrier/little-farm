@@ -15,13 +15,17 @@
 		93281F621F20FB47004C93E2 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F611F20FB47004C93E2 /* StoryView.swift */; };
 		93281F691F20FC6C004C93E2 /* actionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F681F20FC6C004C93E2 /* actionButton.swift */; };
 		93281F6B1F210E00004C93E2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F6A1F210E00004C93E2 /* Color.swift */; };
+		93510F5E1F2218B400296425 /* frameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93510F5D1F2218B400296425 /* frameButton.swift */; };
+		93510F601F22197C00296425 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93510F5F1F22197C00296425 /* Assets.xcassets */; };
 		936ACA251F163DF700156AD8 /* test3DObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936ACA241F163DF700156AD8 /* test3DObject.swift */; };
+		937517661F2395B6007EF547 /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937517651F2395B6007EF547 /* General.swift */; };
+		937517681F23BA97007EF547 /* menuSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937517671F23BA97007EF547 /* menuSection.swift */; };
+		9375176A1F23C85F007EF547 /* menuSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937517691F23C85F007EF547 /* menuSection.xib */; };
 		937FE96F1F1E1ED600C3B0D7 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937FE96E1F1E1ED600C3B0D7 /* KDCircularProgress.swift */; };
 		939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19CB1F14EF7100C392CA /* AppDelegate.swift */; };
 		939C19CE1F14EF7200C392CA /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 939C19CD1F14EF7200C392CA /* art.scnassets */; };
 		939C19D01F14EF7200C392CA /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19CF1F14EF7200C392CA /* ARViewController.swift */; };
 		939C19D31F14EF7200C392CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 939C19D11F14EF7200C392CA /* Main.storyboard */; };
-		939C19D51F14EF7200C392CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 939C19D41F14EF7200C392CA /* Assets.xcassets */; };
 		939C19D81F14EF7200C392CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 939C19D61F14EF7200C392CA /* LaunchScreen.storyboard */; };
 		939C19E31F14EF7200C392CA /* LittleFarmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19E21F14EF7200C392CA /* LittleFarmTests.swift */; };
 		939C19EE1F14EF7200C392CA /* LittleFarmUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19ED1F14EF7200C392CA /* LittleFarmUITests.swift */; };
@@ -55,14 +59,18 @@
 		93281F611F20FB47004C93E2 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
 		93281F681F20FC6C004C93E2 /* actionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = actionButton.swift; sourceTree = "<group>"; };
 		93281F6A1F210E00004C93E2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		93510F5D1F2218B400296425 /* frameButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = frameButton.swift; sourceTree = "<group>"; };
+		93510F5F1F22197C00296425 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		936ACA241F163DF700156AD8 /* test3DObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test3DObject.swift; sourceTree = "<group>"; };
+		937517651F2395B6007EF547 /* General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
+		937517671F23BA97007EF547 /* menuSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuSection.swift; sourceTree = "<group>"; };
+		937517691F23C85F007EF547 /* menuSection.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = menuSection.xib; sourceTree = "<group>"; };
 		937FE96E1F1E1ED600C3B0D7 /* KDCircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		939C19C81F14EF7100C392CA /* LittleFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		939C19CB1F14EF7100C392CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		939C19CD1F14EF7200C392CA /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		939C19CF1F14EF7200C392CA /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
 		939C19D21F14EF7200C392CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		939C19D41F14EF7200C392CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		939C19D71F14EF7200C392CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		939C19D91F14EF7200C392CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		939C19DE1F14EF7200C392CA /* LittleFarmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LittleFarmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				93281F6A1F210E00004C93E2 /* Color.swift */,
+				937517651F2395B6007EF547 /* General.swift */,
 			);
 			path = parameters;
 			sourceTree = "<group>";
@@ -111,10 +120,10 @@
 		937C33511F20A9DB008361BB /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				93281F571F20F6E7004C93E2 /* MenuViewController.swift */,
 				939C19FE1F14FDF800C392CA /* LandingController.swift */,
 				939C19CF1F14EF7200C392CA /* ARViewController.swift */,
 				93C43AE41F15427B00159522 /* QRCodeViewController.swift */,
-				93281F571F20F6E7004C93E2 /* MenuViewController.swift */,
 				93281F591F20F94A004C93E2 /* RegisterViewController.swift */,
 				93281F5B1F20F984004C93E2 /* BadgesViewController.swift */,
 				93281F5D1F20FAA1004C93E2 /* ExplorationViewController.swift */,
@@ -129,6 +138,9 @@
 				93281F611F20FB47004C93E2 /* StoryView.swift */,
 				936ACA241F163DF700156AD8 /* test3DObject.swift */,
 				93281F681F20FC6C004C93E2 /* actionButton.swift */,
+				93510F5D1F2218B400296425 /* frameButton.swift */,
+				937517671F23BA97007EF547 /* menuSection.swift */,
+				937517691F23C85F007EF547 /* menuSection.xib */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -172,7 +184,7 @@
 				937C33511F20A9DB008361BB /* controller */,
 				937FE96B1F1E1E9D00C3B0D7 /* extern */,
 				939C19D91F14EF7200C392CA /* Info.plist */,
-				939C19D41F14EF7200C392CA /* Assets.xcassets */,
+				93510F5F1F22197C00296425 /* Assets.xcassets */,
 				939C19CD1F14EF7200C392CA /* art.scnassets */,
 			);
 			path = LittleFarm;
@@ -258,6 +270,9 @@
 		939C19C01F14EF7100C392CA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					imageLeft,
+				);
 				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = alain;
@@ -302,8 +317,9 @@
 			files = (
 				939C19CE1F14EF7200C392CA /* art.scnassets in Resources */,
 				939C19D81F14EF7200C392CA /* LaunchScreen.storyboard in Resources */,
-				939C19D51F14EF7200C392CA /* Assets.xcassets in Resources */,
+				93510F601F22197C00296425 /* Assets.xcassets in Resources */,
 				939C19D31F14EF7200C392CA /* Main.storyboard in Resources */,
+				9375176A1F23C85F007EF547 /* menuSection.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,9 +346,11 @@
 			files = (
 				93281F621F20FB47004C93E2 /* StoryView.swift in Sources */,
 				939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */,
+				93510F5E1F2218B400296425 /* frameButton.swift in Sources */,
 				93281F5C1F20F984004C93E2 /* BadgesViewController.swift in Sources */,
 				939C19D01F14EF7200C392CA /* ARViewController.swift in Sources */,
 				936ACA251F163DF700156AD8 /* test3DObject.swift in Sources */,
+				937517661F2395B6007EF547 /* General.swift in Sources */,
 				93281F5A1F20F94A004C93E2 /* RegisterViewController.swift in Sources */,
 				93281F601F20FAC4004C93E2 /* TreeInventoryViewController.swift in Sources */,
 				93281F691F20FC6C004C93E2 /* actionButton.swift in Sources */,
@@ -342,6 +360,7 @@
 				93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */,
 				93281F5E1F20FAA1004C93E2 /* ExplorationViewController.swift in Sources */,
 				937FE96F1F1E1ED600C3B0D7 /* KDCircularProgress.swift in Sources */,
+				937517681F23BA97007EF547 /* menuSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,6 +32,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     var QRDataVector : SCNVector3 = SCNVector3(0,0,0)
     var object3D : testObject?
     var positionBuffer : SCNVector3 = SCNVector3(0,0,0)
+    
+    
     //Display popup
     func alert(_ title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -85,10 +87,10 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
             {
                 print("Calculating coordinates")
                 self.positionBuffer=self.PositionFor2Dto3DProjection(coordinates: CGPoint(x: CGFloat(self.QRDataVector.x),y: CGFloat(self.QRDataVector.y)), side: self.QRDataVector.z)
-                self.infoLabel.text="Look around for 4 seconds"
+                self.infoLabel.text="Look around for 2 seconds"
                 
         })
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+4, execute:
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+2, execute:
             {
                 self.addObjectTest()
                 self.object3D?.position = self.positionBuffer
@@ -164,6 +166,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         tree.position = position
         sceneView.scene.rootNode.addChildNode(tree)
     }
+    
+    
     /*
     func PositionFor2Dto3DProjection(coordinates : CGPoint, side : Float)->SCNVector3
     {
@@ -242,12 +246,41 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
                 updatePositionDisplay()
             }
         }
+        else
+        {
+            turnObjectTest()
+            addObjectsTestOnFirstObject()
+        }
         
         
         
     }
-    
-    
+    func turnObjectTest()
+    {
+        let delay : Double = 1000
+        let action = SCNAction.rotateBy(x: 0, y: 2*CGFloat(delay), z: 0, duration: delay)
+        object3D?.runAction(action)
+    }
+    func addObjectsTestOnFirstObject() {
+        let obj : [testObject] = [testObject(),testObject(),testObject(),testObject()]
+        let delay : Float = 4
+        for newObj in obj
+        {
+            newObj.loadModal()
+            newObj.position = object3D!.position
+            sceneView.scene.rootNode.addChildNode(newObj)
+            let xPos = randomPosition(lowerBound: -0.2, upperBound: 0.2)
+            let yPos = randomPosition(lowerBound: 0, upperBound: 0.2)
+            let zPos = randomPosition(lowerBound: -0.2, upperBound: 0.2)
+            let newAction = SCNAction.move(by: SCNVector3(xPos*delay,yPos*delay,zPos*delay), duration: Double(delay))
+            newObj.runAction(newAction)
+        }
+        
+        
+    }
+    func randomPosition (lowerBound lower:Float, upperBound upper:Float) -> Float {
+        return Float(arc4random()) / Float(UInt32.max) * (lower - upper) + upper
+    }
     func hitTestOnRect(rect : CGRect) -> SCNVector3
     {
         var cpts : Float = 0

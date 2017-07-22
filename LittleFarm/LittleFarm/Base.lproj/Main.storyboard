@@ -136,18 +136,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNX-cI-A2x" customClass="actionButton" customModule="LittleFarm" customModuleProvider="target">
-                                <rect key="frame" x="166" y="276" width="94" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Hi"/>
-                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-lift" translatesAutoresizingMaskIntoConstraints="NO" id="07f-a8-r7e">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9mH-Na-8FN">
+                                <rect key="frame" x="55" y="88" width="304" height="561"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t4u-eO-wXp" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="304" height="112"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sdc-A0-QEF" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="120" width="304" height="112"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g5T-YG-zM8" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="240" width="304" height="112"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KLc-AA-NYk" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="360" width="304" height="112"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mp6-zf-2hT" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="480" width="304" height="81"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="07f-a8-r7e" firstAttribute="bottom" secondItem="h9a-eg-Rmn" secondAttribute="top" id="67M-9T-d3X"/>
+                            <constraint firstItem="9mH-Na-8FN" firstAttribute="centerX" secondItem="U63-My-ZnG" secondAttribute="centerX" id="Feb-I3-lg7"/>
+                            <constraint firstItem="07f-a8-r7e" firstAttribute="top" secondItem="U63-My-ZnG" secondAttribute="top" id="HzI-Fc-k2L"/>
+                            <constraint firstItem="9mH-Na-8FN" firstAttribute="centerY" secondItem="U63-My-ZnG" secondAttribute="centerY" id="LhG-o2-7AN"/>
+                            <constraint firstAttribute="trailing" secondItem="07f-a8-r7e" secondAttribute="trailing" id="WF2-dD-XFl"/>
+                            <constraint firstItem="9mH-Na-8FN" firstAttribute="top" secondItem="OzV-YN-zqS" secondAttribute="bottom" constant="68" id="aSg-jA-zfV"/>
+                            <constraint firstItem="07f-a8-r7e" firstAttribute="leading" secondItem="U63-My-ZnG" secondAttribute="leading" id="f8x-Sw-SQC"/>
+                            <constraint firstItem="9mH-Na-8FN" firstAttribute="centerX" secondItem="U63-My-ZnG" secondAttribute="centerX" id="jIE-KD-VF8"/>
+                            <constraint firstItem="9mH-Na-8FN" firstAttribute="centerY" secondItem="U63-My-ZnG" secondAttribute="centerY" id="lWg-QM-zaJ"/>
+                            <constraint firstItem="9mH-Na-8FN" firstAttribute="leading" secondItem="U63-My-ZnG" secondAttribute="leadingMargin" constant="35" id="yw7-Uc-NXd"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="badgeSection" destination="mp6-zf-2hT" id="wNt-1A-Acn"/>
+                        <outlet property="explorationSection" destination="sdc-A0-QEF" id="0O1-gL-Ivd"/>
+                        <outlet property="menuSectionView" destination="9mH-Na-8FN" id="neg-Lc-GB3"/>
+                        <outlet property="rubySection" destination="g5T-YG-zM8" id="dD0-r4-CgG"/>
+                        <outlet property="treeSection" destination="KLc-AA-NYk" id="UTw-jj-JUJ"/>
+                        <outlet property="wipSection" destination="t4u-eO-wXp" id="JAl-ih-cg1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBM-ls-BfS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1179.7101449275362" y="-39.130434782608695"/>
+            <point key="canvasLocation" x="1178.2608695652175" y="-40.760869565217398"/>
         </scene>
         <!--Landing Controller-->
         <scene sceneID="WON-vf-lW5">
@@ -169,7 +218,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1G-mO-bS7">
                                 <rect key="frame" x="174" y="178" width="67" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.074691816580000001" green="0.74124532320000003" blue="0.76758824479999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="QR CODE">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -180,7 +229,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bah-DG-Ls0" customClass="actionButton" customModule="LittleFarm" customModuleProvider="target">
                                 <rect key="frame" x="160" y="256" width="94" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Menu"/>
                                 <connections>
                                     <segue destination="HB8-Gt-HZl" kind="show" id="sCc-K7-RbC"/>
@@ -280,4 +329,7 @@
             <point key="canvasLocation" x="1181" y="-775"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background-lift" width="287" height="358"/>
+    </resources>
 </document>
