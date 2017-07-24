@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -127,7 +128,7 @@
         <!--Menu View Controller-->
         <scene sceneID="gN0-p7-iRi">
             <objects>
-                <viewController id="HB8-Gt-HZl" customClass="MenuViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="menu" id="HB8-Gt-HZl" customClass="MenuViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OzV-YN-zqS"/>
                         <viewControllerLayoutGuide type="bottom" id="h9a-eg-Rmn"/>
@@ -136,72 +137,179 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-lift" translatesAutoresizingMaskIntoConstraints="NO" id="07f-a8-r7e">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background-lift" translatesAutoresizingMaskIntoConstraints="NO" id="5IQ-k6-KFp">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9mH-Na-8FN">
                                 <rect key="frame" x="55" y="88" width="304" height="561"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t4u-eO-wXp" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="304" height="112"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jpE-NM-WQb" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="0.0" width="288" height="95"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sdc-A0-QEF" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="120" width="304" height="112"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G3o-xl-ul8" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="206" width="288" height="95"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g5T-YG-zM8" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="240" width="304" height="112"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xjz-6j-Fxs" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="309" width="288" height="95"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KLc-AA-NYk" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="360" width="304" height="112"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aHV-vR-XI3" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="412" width="288" height="95"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mp6-zf-2hT" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="480" width="304" height="81"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jny-aK-eVC" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="103" width="288" height="95"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cHV-Nc-TVj" customClass="actionButton" customModule="LittleFarm" customModuleProvider="target">
+                                        <rect key="frame" x="84" y="523" width="136" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Déconnexion"/>
+                                        <connections>
+                                            <action selector="disconnectUserWithSender:" destination="HB8-Gt-HZl" eventType="touchUpInside" id="r7z-4N-NyL"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CWH-RP-yKh">
+                                <rect key="frame" x="184" y="678" width="46" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="CWH-RP-yKh" secondAttribute="height" multiplier="23:25" id="oMn-ri-je6"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="egg-black"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="07f-a8-r7e" firstAttribute="bottom" secondItem="h9a-eg-Rmn" secondAttribute="top" id="67M-9T-d3X"/>
                             <constraint firstItem="9mH-Na-8FN" firstAttribute="centerX" secondItem="U63-My-ZnG" secondAttribute="centerX" id="Feb-I3-lg7"/>
-                            <constraint firstItem="07f-a8-r7e" firstAttribute="top" secondItem="U63-My-ZnG" secondAttribute="top" id="HzI-Fc-k2L"/>
                             <constraint firstItem="9mH-Na-8FN" firstAttribute="centerY" secondItem="U63-My-ZnG" secondAttribute="centerY" id="LhG-o2-7AN"/>
-                            <constraint firstAttribute="trailing" secondItem="07f-a8-r7e" secondAttribute="trailing" id="WF2-dD-XFl"/>
+                            <constraint firstItem="CWH-RP-yKh" firstAttribute="centerX" secondItem="U63-My-ZnG" secondAttribute="centerX" id="YOV-eb-3Yq"/>
                             <constraint firstItem="9mH-Na-8FN" firstAttribute="top" secondItem="OzV-YN-zqS" secondAttribute="bottom" constant="68" id="aSg-jA-zfV"/>
-                            <constraint firstItem="07f-a8-r7e" firstAttribute="leading" secondItem="U63-My-ZnG" secondAttribute="leading" id="f8x-Sw-SQC"/>
+                            <constraint firstItem="h9a-eg-Rmn" firstAttribute="top" secondItem="CWH-RP-yKh" secondAttribute="bottom" constant="8" id="apf-W6-JX0"/>
+                            <constraint firstItem="CWH-RP-yKh" firstAttribute="top" secondItem="9mH-Na-8FN" secondAttribute="bottom" constant="29" id="hza-RX-VkG"/>
                             <constraint firstItem="9mH-Na-8FN" firstAttribute="centerX" secondItem="U63-My-ZnG" secondAttribute="centerX" id="jIE-KD-VF8"/>
                             <constraint firstItem="9mH-Na-8FN" firstAttribute="centerY" secondItem="U63-My-ZnG" secondAttribute="centerY" id="lWg-QM-zaJ"/>
+                            <constraint firstItem="h9a-eg-Rmn" firstAttribute="top" secondItem="CWH-RP-yKh" secondAttribute="bottom" constant="8" id="yUH-8A-jTg"/>
                             <constraint firstItem="9mH-Na-8FN" firstAttribute="leading" secondItem="U63-My-ZnG" secondAttribute="leadingMargin" constant="35" id="yw7-Uc-NXd"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="badgeSection" destination="mp6-zf-2hT" id="wNt-1A-Acn"/>
-                        <outlet property="explorationSection" destination="sdc-A0-QEF" id="0O1-gL-Ivd"/>
+                        <outlet property="badgeSection" destination="aHV-vR-XI3" id="xpM-DI-gPV"/>
+                        <outlet property="disconnectButton" destination="cHV-Nc-TVj" id="WCU-GN-X8X"/>
+                        <outlet property="explorationSection" destination="G3o-xl-ul8" id="BTr-n3-mSs"/>
                         <outlet property="menuSectionView" destination="9mH-Na-8FN" id="neg-Lc-GB3"/>
-                        <outlet property="rubySection" destination="g5T-YG-zM8" id="dD0-r4-CgG"/>
-                        <outlet property="treeSection" destination="KLc-AA-NYk" id="UTw-jj-JUJ"/>
-                        <outlet property="wipSection" destination="t4u-eO-wXp" id="JAl-ih-cg1"/>
+                        <outlet property="rubySection" destination="jny-aK-eVC" id="4MD-qK-ILL"/>
+                        <outlet property="treeSection" destination="Xjz-6j-Fxs" id="1Na-cd-GHH"/>
+                        <outlet property="wipSection" destination="jpE-NM-WQb" id="Rfk-bo-XCH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBM-ls-BfS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1178.2608695652175" y="-40.760869565217398"/>
         </scene>
+        <!--Register View Controller-->
+        <scene sceneID="nWG-8g-ytm">
+            <objects>
+                <viewController storyboardIdentifier="registerView" id="JkS-i9-DVH" customClass="RegisterViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c54-Oj-cFu"/>
+                        <viewControllerLayoutGuide type="bottom" id="vmy-1r-Tj1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="L1D-Tb-302">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-lift" translatesAutoresizingMaskIntoConstraints="NO" id="gOd-yP-yWo">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="egg-1" translatesAutoresizingMaskIntoConstraints="NO" id="W5b-Mo-jun">
+                                <rect key="frame" x="87" y="149" width="240" height="240"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaF-0P-gqo">
+                                <rect key="frame" x="45" y="442" width="321" height="105"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="TaF-0P-gqo" secondAttribute="height" multiplier="107:35" id="eEo-XT-xNd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L63-SE-8GW">
+                                <rect key="frame" x="337" y="479" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="R45-nh-xPa"/>
+                                </constraints>
+                                <state key="normal" image="arrow"/>
+                                <connections>
+                                    <action selector="moveToNextSequenceWithSender:" destination="JkS-i9-DVH" eventType="touchUpInside" id="zRT-Pv-bPO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TaF-0P-gqo" firstAttribute="leading" secondItem="L1D-Tb-302" secondAttribute="leadingMargin" constant="25" id="5rH-IQ-Jjr"/>
+                            <constraint firstItem="gOd-yP-yWo" firstAttribute="top" secondItem="L1D-Tb-302" secondAttribute="top" id="H3f-P6-Nkm"/>
+                            <constraint firstItem="gOd-yP-yWo" firstAttribute="bottom" secondItem="vmy-1r-Tj1" secondAttribute="top" id="JbY-F3-FBT"/>
+                            <constraint firstItem="TaF-0P-gqo" firstAttribute="centerY" secondItem="L63-SE-8GW" secondAttribute="centerY" id="OWr-8u-D54"/>
+                            <constraint firstItem="W5b-Mo-jun" firstAttribute="leading" secondItem="L1D-Tb-302" secondAttribute="leadingMargin" constant="67" id="PWS-Eg-50d"/>
+                            <constraint firstItem="gOd-yP-yWo" firstAttribute="leading" secondItem="L1D-Tb-302" secondAttribute="leading" id="Q2C-kw-Z0B"/>
+                            <constraint firstItem="vmy-1r-Tj1" firstAttribute="top" secondItem="TaF-0P-gqo" secondAttribute="bottom" constant="189" id="XoS-jr-o5V"/>
+                            <constraint firstItem="W5b-Mo-jun" firstAttribute="top" secondItem="c54-Oj-cFu" secondAttribute="bottom" constant="129" id="ah5-Nb-LLW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="L63-SE-8GW" secondAttribute="trailing" constant="27" id="dfL-ta-CUq"/>
+                            <constraint firstItem="W5b-Mo-jun" firstAttribute="centerX" secondItem="L1D-Tb-302" secondAttribute="centerX" id="ifE-Tl-CVo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="TaF-0P-gqo" secondAttribute="trailing" constant="28" id="k57-wM-H9e"/>
+                            <constraint firstItem="W5b-Mo-jun" firstAttribute="centerX" secondItem="gOd-yP-yWo" secondAttribute="centerX" id="lpF-bz-4Sf"/>
+                            <constraint firstItem="vmy-1r-Tj1" firstAttribute="top" secondItem="L63-SE-8GW" secondAttribute="bottom" constant="227" id="qjJ-aF-21Z"/>
+                            <constraint firstItem="TaF-0P-gqo" firstAttribute="top" secondItem="W5b-Mo-jun" secondAttribute="bottom" constant="53" id="tsF-IK-yjd"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="image" destination="W5b-Mo-jun" id="vj7-9A-v8k"/>
+                        <outlet property="nextButton" destination="L63-SE-8GW" id="7bk-Vs-7y1"/>
+                        <outlet property="textLabel" destination="TaF-0P-gqo" id="cZi-a5-Tyv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OBg-hQ-eTo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="166.66666666666669" y="-1525.271739130435"/>
+        </scene>
+        <!--Connexion View Controller-->
+        <scene sceneID="ZNP-KO-uPm">
+            <objects>
+                <viewController id="gsD-oB-7mm" customClass="ConnexionViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9ab-VB-V5Y"/>
+                        <viewControllerLayoutGuide type="bottom" id="PXd-9y-tkO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QO2-a4-PIR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background-lift" translatesAutoresizingMaskIntoConstraints="NO" id="j0h-36-Unp">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QFk-Wv-MPY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1180" y="-1525"/>
+        </scene>
         <!--Landing Controller-->
         <scene sceneID="WON-vf-lW5">
             <objects>
-                <viewController id="9CD-dv-kTg" customClass="LandingController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="landing" id="9CD-dv-kTg" customClass="LandingController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="at7-YR-a2g"/>
                         <viewControllerLayoutGuide type="bottom" id="MT4-u0-pjm"/>
@@ -210,39 +318,75 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LittleFarm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLC-Gc-zTH">
-                                <rect key="frame" x="169" y="42" width="76.333333333333343" height="20.333333333333336"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-lift" translatesAutoresizingMaskIntoConstraints="NO" id="mii-aV-QHw">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S8o-sW-KdL" customClass="actionButton" customModule="LittleFarm" customModuleProvider="target">
+                                <rect key="frame" x="59" y="459" width="86" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="S8o-sW-KdL" secondAttribute="height" multiplier="43:26" id="IOh-1p-u99"/>
+                                    <constraint firstAttribute="width" constant="86" id="YD2-OP-O82"/>
+                                </constraints>
+                                <state key="normal" title="Connexion"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gOd-A4-mZg" customClass="actionButton" customModule="LittleFarm" customModuleProvider="target">
+                                <rect key="frame" x="262" y="459" width="86" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="86" id="Mgu-lr-Tll"/>
+                                    <constraint firstAttribute="width" secondItem="gOd-A4-mZg" secondAttribute="height" multiplier="43:26" id="RCk-bl-AHN"/>
+                                </constraints>
+                                <state key="normal" title="Démarrer"/>
+                                <connections>
+                                    <action selector="QRCodeQueryWithUIBut:" destination="9CD-dv-kTg" eventType="touchUpInside" id="qcj-dS-Q0b"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYH-wd-cTN" customClass="actionButton" customModule="LittleFarm" customModuleProvider="target">
+                                <rect key="frame" x="152" y="528" width="111" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="aYH-wd-cTN" secondAttribute="height" multiplier="111:59" id="YZe-qc-Y52"/>
+                                    <constraint firstAttribute="height" constant="59" id="udQ-hw-l2c"/>
+                                    <constraint firstAttribute="width" constant="111" id="xC7-hM-r9i"/>
+                                </constraints>
+                                <state key="normal" title="Lancer le jeu"/>
+                                <connections>
+                                    <action selector="goToARViewWithSender:" destination="9CD-dv-kTg" eventType="touchUpInside" id="2wP-rM-bzg"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6N-Vs-dll">
+                                <rect key="frame" x="81" y="151" width="252" height="267"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="G6N-Vs-dll" secondAttribute="height" multiplier="84:89" id="QG7-3z-H7m"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1G-mO-bS7">
-                                <rect key="frame" x="174" y="178" width="67" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.074691816580000001" green="0.74124532320000003" blue="0.76758824479999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="QR CODE">
-                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="RXr-G9-ptT" kind="show" id="f54-Jd-SVB"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bah-DG-Ls0" customClass="actionButton" customModule="LittleFarm" customModuleProvider="target">
-                                <rect key="frame" x="160" y="256" width="94" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Menu"/>
-                                <connections>
-                                    <segue destination="HB8-Gt-HZl" kind="show" id="sCc-K7-RbC"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="TLC-Gc-zTH" firstAttribute="centerX" secondItem="9Bk-rM-OCG" secondAttribute="centerX" id="cKn-CQ-0KF"/>
-                            <constraint firstItem="TLC-Gc-zTH" firstAttribute="top" secondItem="at7-YR-a2g" secondAttribute="bottom" constant="22" id="i76-HD-Kb1"/>
+                            <constraint firstItem="mii-aV-QHw" firstAttribute="bottom" secondItem="MT4-u0-pjm" secondAttribute="top" id="6z2-mt-yOI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gOd-A4-mZg" secondAttribute="trailing" constant="46" id="DkA-2e-GR5"/>
+                            <constraint firstItem="G6N-Vs-dll" firstAttribute="centerX" secondItem="aYH-wd-cTN" secondAttribute="centerX" id="PN5-vb-1eL"/>
+                            <constraint firstItem="MT4-u0-pjm" firstAttribute="top" secondItem="aYH-wd-cTN" secondAttribute="bottom" constant="149" id="f9l-Ce-O92"/>
+                            <constraint firstItem="G6N-Vs-dll" firstAttribute="centerX" secondItem="mii-aV-QHw" secondAttribute="centerX" id="gvp-Ga-cCR"/>
+                            <constraint firstItem="G6N-Vs-dll" firstAttribute="top" secondItem="at7-YR-a2g" secondAttribute="bottom" constant="131" id="hTq-u0-7jw"/>
+                            <constraint firstItem="G6N-Vs-dll" firstAttribute="leading" secondItem="9Bk-rM-OCG" secondAttribute="leadingMargin" constant="61" id="j8H-wR-5mZ"/>
+                            <constraint firstItem="S8o-sW-KdL" firstAttribute="top" secondItem="G6N-Vs-dll" secondAttribute="bottom" constant="41" id="lmf-MT-aRt"/>
+                            <constraint firstItem="S8o-sW-KdL" firstAttribute="leading" secondItem="9Bk-rM-OCG" secondAttribute="leadingMargin" constant="39" id="pwF-5I-71T"/>
+                            <constraint firstItem="G6N-Vs-dll" firstAttribute="centerX" secondItem="9Bk-rM-OCG" secondAttribute="centerX" id="tzj-BY-PI6"/>
+                            <constraint firstItem="mii-aV-QHw" firstAttribute="top" secondItem="9Bk-rM-OCG" secondAttribute="top" id="uMH-8P-N8H"/>
+                            <constraint firstItem="MT4-u0-pjm" firstAttribute="top" secondItem="S8o-sW-KdL" secondAttribute="bottom" constant="225" id="wKr-gZ-4KY"/>
+                            <constraint firstItem="S8o-sW-KdL" firstAttribute="baseline" secondItem="gOd-A4-mZg" secondAttribute="firstBaseline" id="wQW-xQ-FHw"/>
+                            <constraint firstItem="S8o-sW-KdL" firstAttribute="top" secondItem="gOd-A4-mZg" secondAttribute="top" id="yvZ-DF-Cjq"/>
+                            <constraint firstItem="mii-aV-QHw" firstAttribute="leading" secondItem="9Bk-rM-OCG" secondAttribute="leading" id="zOk-SN-U7P"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="xEP-Yi-jpy"/>
+                    <connections>
+                        <outlet property="connexionButton" destination="S8o-sW-KdL" id="gEC-I9-HVZ"/>
+                        <outlet property="registerButton" destination="gOd-A4-mZg" id="ySR-DD-Y4n"/>
+                        <outlet property="startButton" destination="aYH-wd-cTN" id="cWv-dF-Zph"/>
+                        <outlet property="textLabel" destination="G6N-Vs-dll" id="d7L-SH-HPL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYC-uZ-qmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -251,7 +395,7 @@
         <!--Code View Controller-->
         <scene sceneID="XBE-vF-0JE">
             <objects>
-                <viewController id="RXr-G9-ptT" customClass="QRCodeViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QRCodeView" id="RXr-G9-ptT" customClass="QRCodeViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Hcs-M6-GhD"/>
                         <viewControllerLayoutGuide type="bottom" id="DU8-A4-4Mj"/>
@@ -270,17 +414,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLl-E1-aMO">
-                                <rect key="frame" x="316" y="646" width="98" height="42"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <size key="titleShadowOffset" width="1" height="0.0"/>
-                                <state key="normal" title="Force AR">
-                                    <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <connections>
-                                    <segue destination="BV1-FR-VrT" kind="show" id="RNq-Cc-kU8"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wHI-Vf-wGf" customClass="KDCircularProgress" customModule="LittleFarm" customModuleProvider="target">
                                 <rect key="frame" x="133" y="525" width="148" height="148"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -310,17 +443,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="hSQ-a9-NdW" firstAttribute="top" secondItem="wHI-Vf-wGf" secondAttribute="bottom" constant="23" id="0jI-78-L3Y"/>
-                            <constraint firstItem="fLl-E1-aMO" firstAttribute="trailing" secondItem="hSQ-a9-NdW" secondAttribute="trailing" id="G6D-GY-fa6"/>
                             <constraint firstItem="wHI-Vf-wGf" firstAttribute="centerX" secondItem="LRu-8t-ptX" secondAttribute="centerX" id="URa-Bo-v3C"/>
                             <constraint firstAttribute="trailing" secondItem="hSQ-a9-NdW" secondAttribute="trailing" id="Xa1-sN-bbr"/>
                             <constraint firstItem="hSQ-a9-NdW" firstAttribute="leading" secondItem="LRu-8t-ptX" secondAttribute="leading" id="c8B-fE-miZ"/>
-                            <constraint firstItem="hSQ-a9-NdW" firstAttribute="top" secondItem="fLl-E1-aMO" secondAttribute="bottom" constant="8" symbolic="YES" id="cEI-KG-qeU"/>
                             <constraint firstItem="hSQ-a9-NdW" firstAttribute="bottom" secondItem="DU8-A4-4Mj" secondAttribute="top" id="gUx-2Q-WCk"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="circularProgressView" destination="wHI-Vf-wGf" id="rff-rX-dXy"/>
-                        <outlet property="goAR" destination="fLl-E1-aMO" id="fFA-rz-hWK"/>
                         <outlet property="messageLabel" destination="hSQ-a9-NdW" id="Phr-YD-0JG"/>
                     </connections>
                 </viewController>
@@ -330,6 +460,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow" width="170" height="170"/>
         <image name="background-lift" width="287" height="358"/>
+        <image name="egg-1" width="697" height="920"/>
+        <image name="egg-black" width="100" height="132"/>
     </resources>
 </document>

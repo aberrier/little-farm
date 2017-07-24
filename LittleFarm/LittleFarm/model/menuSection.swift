@@ -35,17 +35,18 @@ class menuSection : UIView
     func loadSection(imagePath : String,text : String)
     {
         
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColorSet.ligthOrange.cgColor
+        //contentView.layer.borderWidth = 1
+        //contentView.layer.borderColor = UIColorSet.ligthOrange.cgColor
         imageLeft.image = UIImage(named: imagePath)
         imageRight.image = UIImage(named: imagePath)
         textLabel.text = text
         textLabel.textColor=UIColorSet.ligthOrange
-        textLabel.font = UIFont(name : "Century Gothic", size : 40)
+        textLabel.font = UIFont(name : "Century Gothic", size : 20)
     }
     
     func loadViewFromNib() -> UIView!
     {
+        
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: String(describing : type(of: self)), bundle: bundle)
         let view = nib.instantiate(withOwner: self, options: nil).first as! UIView

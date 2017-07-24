@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		931D65521F2656E700BA049B /* ConnexionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D65511F2656E700BA049B /* ConnexionViewController.swift */; };
 		93281F581F20F6E7004C93E2 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F571F20F6E7004C93E2 /* MenuViewController.swift */; };
 		93281F5A1F20F94A004C93E2 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F591F20F94A004C93E2 /* RegisterViewController.swift */; };
 		93281F5C1F20F984004C93E2 /* BadgesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F5B1F20F984004C93E2 /* BadgesViewController.swift */; };
@@ -30,6 +31,8 @@
 		939C19E31F14EF7200C392CA /* LittleFarmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19E21F14EF7200C392CA /* LittleFarmTests.swift */; };
 		939C19EE1F14EF7200C392CA /* LittleFarmUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19ED1F14EF7200C392CA /* LittleFarmUITests.swift */; };
 		939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19FE1F14FDF800C392CA /* LandingController.swift */; };
+		93B18E731F2510C000146BD5 /* main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E711F2510C000146BD5 /* main.xcdatamodeld */; };
+		93B18E751F25292300146BD5 /* PersistentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E741F25292300146BD5 /* PersistentDataManager.swift */; };
 		93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C43AE41F15427B00159522 /* QRCodeViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		931D65511F2656E700BA049B /* ConnexionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnexionViewController.swift; sourceTree = "<group>"; };
 		93281F571F20F6E7004C93E2 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		93281F591F20F94A004C93E2 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		93281F5B1F20F984004C93E2 /* BadgesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +84,8 @@
 		939C19ED1F14EF7200C392CA /* LittleFarmUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleFarmUITests.swift; sourceTree = "<group>"; };
 		939C19EF1F14EF7200C392CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		939C19FE1F14FDF800C392CA /* LandingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingController.swift; sourceTree = "<group>"; };
+		93B18E721F2510C000146BD5 /* main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = main.xcdatamodel; sourceTree = "<group>"; };
+		93B18E741F25292300146BD5 /* PersistentDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentDataManager.swift; sourceTree = "<group>"; };
 		93C43AE41F15427B00159522 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,9 +131,11 @@
 				939C19CF1F14EF7200C392CA /* ARViewController.swift */,
 				93C43AE41F15427B00159522 /* QRCodeViewController.swift */,
 				93281F591F20F94A004C93E2 /* RegisterViewController.swift */,
+				931D65511F2656E700BA049B /* ConnexionViewController.swift */,
 				93281F5B1F20F984004C93E2 /* BadgesViewController.swift */,
 				93281F5D1F20FAA1004C93E2 /* ExplorationViewController.swift */,
 				93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */,
+				93B18E741F25292300146BD5 /* PersistentDataManager.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -182,6 +190,7 @@
 				93281F671F20FBA4004C93E2 /* parameters */,
 				937C33521F20A9E8008361BB /* model */,
 				937C33511F20A9DB008361BB /* controller */,
+				93B18E701F25108B00146BD5 /* data */,
 				937FE96B1F1E1E9D00C3B0D7 /* extern */,
 				939C19D91F14EF7200C392CA /* Info.plist */,
 				93510F5F1F22197C00296425 /* Assets.xcassets */,
@@ -206,6 +215,14 @@
 				939C19EF1F14EF7200C392CA /* Info.plist */,
 			);
 			path = LittleFarmUITests;
+			sourceTree = "<group>";
+		};
+		93B18E701F25108B00146BD5 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				93B18E711F2510C000146BD5 /* main.xcdatamodeld */,
+			);
+			path = data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,11 +372,14 @@
 				93281F601F20FAC4004C93E2 /* TreeInventoryViewController.swift in Sources */,
 				93281F691F20FC6C004C93E2 /* actionButton.swift in Sources */,
 				93281F581F20F6E7004C93E2 /* MenuViewController.swift in Sources */,
+				93B18E751F25292300146BD5 /* PersistentDataManager.swift in Sources */,
+				931D65521F2656E700BA049B /* ConnexionViewController.swift in Sources */,
 				93281F6B1F210E00004C93E2 /* Color.swift in Sources */,
 				939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */,
 				93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */,
 				93281F5E1F20FAA1004C93E2 /* ExplorationViewController.swift in Sources */,
 				937FE96F1F1E1ED600C3B0D7 /* KDCircularProgress.swift in Sources */,
+				93B18E731F2510C000146BD5 /* main.xcdatamodeld in Sources */,
 				937517681F23BA97007EF547 /* menuSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -648,6 +668,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		93B18E711F2510C000146BD5 /* main.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				93B18E721F2510C000146BD5 /* main.xcdatamodel */,
+			);
+			currentVersion = 93B18E721F2510C000146BD5 /* main.xcdatamodel */;
+			path = main.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 939C19C01F14EF7100C392CA /* Project object */;
 }

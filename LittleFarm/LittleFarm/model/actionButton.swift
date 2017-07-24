@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 class actionButton : UIButton
 {
     var controllerToCall : String = ""
