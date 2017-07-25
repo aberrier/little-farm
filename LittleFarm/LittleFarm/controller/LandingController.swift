@@ -76,12 +76,21 @@ class LandingController : UIViewController
         super.viewDidLoad()
         
     }
-    @IBAction func QRCodeQuery( UIBut : UIButton)
+    @IBAction func QRCodeQueryRegister(sender : UIButton)
     {
         let storyboard = UIStoryboard(name : "Main", bundle : nil)
         
         let QRCodeView = storyboard.instantiateViewController(withIdentifier: "QRCodeView") as! QRCodeViewController
         QRCodeView.nextController = .RegisterViewController
+        
+        self.present(QRCodeView, animated: true, completion: nil)
+    }
+    @IBAction func QRCodeQueryAR(sender : UIButton)
+    {
+        let storyboard = UIStoryboard(name : "Main", bundle : nil)
+        
+        let QRCodeView = storyboard.instantiateViewController(withIdentifier: "QRCodeView") as! QRCodeViewController
+        QRCodeView.nextController = .ARViewController
         
         self.present(QRCodeView, animated: true, completion: nil)
     }

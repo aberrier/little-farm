@@ -464,7 +464,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Démarrer"/>
                                 <connections>
-                                    <action selector="QRCodeQueryWithUIBut:" destination="9CD-dv-kTg" eventType="touchUpInside" id="qcj-dS-Q0b"/>
+                                    <action selector="QRCodeQueryRegisterWithSender:" destination="9CD-dv-kTg" eventType="touchUpInside" id="fNP-4B-qh6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYH-wd-cTN" customClass="actionButton" customModule="LittleFarm" customModuleProvider="target">
@@ -472,7 +472,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Lancer le jeu"/>
                                 <connections>
-                                    <action selector="goToARViewWithSender:" destination="9CD-dv-kTg" eventType="touchUpInside" id="2wP-rM-bzg"/>
+                                    <action selector="QRCodeQueryARWithSender:" destination="9CD-dv-kTg" eventType="touchUpInside" id="5z6-UB-dve"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is the title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6N-Vs-dll">
