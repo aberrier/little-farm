@@ -17,6 +17,7 @@ class RegisterViewController : UIViewController
     var sequence : Int = 0
     override func viewDidLoad() {
         textLabel.layer.cornerRadius = 30
+        textLabel.layer.borderWidth = 4
         textLabel.layer.borderColor = UIColorSet.ligthOrange.cgColor
         textLabel.textColor = UIColorSet.darkBlue
         textLabel.font = UIFont(name : "Century Gothic", size : 25)
@@ -27,18 +28,23 @@ class RegisterViewController : UIViewController
         switch(sequence)
         {
         case 0 :
+            textLabel.numberOfLines = 2
             textLabel.text = "Tiens tiens...\nOn dirait qu'il y a quelqu'un là dedans"
             image.image = UIImage(named: "egg-2")
         case 1 :
+            textLabel.numberOfLines = 2
             textLabel.text = "Bravo !\nVous venez d'adopter un petit wip !"
             image.image = UIImage(named:  "egg-3")
         case 2 :
+            textLabel.numberOfLines = 2
             textLabel.text = "Oh!\npetit wip vient de se cacher.."
             image.image = UIImage(named:  "egg-1")
         case 3 :
+            textLabel.numberOfLines = 1
             textLabel.text = "Nous vous inquiétez pas, les wips sont connus pour être craintifs face aux inconnus.."
             image.image = UIImage(named:  "egg-1")
         case 4 :
+            textLabel.numberOfLines = 2
             textLabel.text = "Il faut d'abord le rassurer.\nCommencez par vous présenter."
             image.image = UIImage(named:  "egg-1")
             //add button
@@ -46,6 +52,7 @@ class RegisterViewController : UIViewController
             //special sequence : register form
             print("5")
         case 6 :
+            textLabel.numberOfLines = 2
             textLabel.text = "Ah ! le voilà qu'il sort de sa cachette.\nPromettez-vous à petit wip de prendre soin de lui ?"
             image.image = UIImage(named:  "egg-3")
         default : break

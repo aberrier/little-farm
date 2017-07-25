@@ -40,7 +40,7 @@ class LandingController : UIViewController
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-        
+        textLabel.numberOfLines = 4
         if let isConnected = dataManager.generalInfos?.value(forKey: "isConnected") as? Bool
         {
             if isConnected

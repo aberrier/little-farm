@@ -35,6 +35,7 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
     var timeInterval = 0.1
     var progressPerSecond = 1.0
     var ARIsInstancied = false
+    var RegisterIsInstancied = false
     let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
                               AVMetadataObject.ObjectType.code39,
                               AVMetadataObject.ObjectType.code39Mod43,
@@ -227,12 +228,13 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
         case .RegisterViewController:
             let newKey = metadataObj.stringValue!
             //Check if the key is on the list
-            if dataManager.isProductKeyValid(key: newKey)
+            if dataManager.isProductKeyValid(key: newKey) && !RegisterIsInstancied
             {
                 let storyboard = UIStoryboard(name : "Main", bundle : nil)
                 let registerView = storyboard.instantiateViewController(withIdentifier: "registerView") as! RegisterViewController
                 registerView.productId = newKey
                 self.present(registerView, animated: true, completion: nil)
+                RegisterIsInstancied = true
             }
             else
             {
