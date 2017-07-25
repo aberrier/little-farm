@@ -161,7 +161,27 @@ class PersistentDataManager
         }
         return nil
     }
-    
+    func connectUser(email : String, password : String) -> Bool
+    {
+        for user in users
+        {
+            if let currentEmail = user.value(forKey: "email") as? String
+            {
+                if let currentPassword = user.value(forKey: "password") as? String
+                {
+                    if let currentId = user.value(forKey: "id") as? String
+                    {
+                        if currentEmail == email && currentPassword == password
+                        {
+                            setConnectedUser(userId: currentId)
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+        return false
+    }
     func setConnectedUser(userId : String)
     {
         generalInfos?.setValue(userId, forKey: "userConnectedId")
@@ -205,7 +225,7 @@ class PersistentDataManager
         }
         return false
     }
-    func addUser(name : String , surname : String , id : String , password : String , image : String , productId : String , gender : Int16 , email : String , birthDate : Date )
+    func addUser(newUser : UserData)
     {
         let managedContext = persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "User",
@@ -213,15 +233,15 @@ class PersistentDataManager
         let user = NSManagedObject(entity: entity,
                                      insertInto: managedContext)
         
-        user.setValue(name, forKeyPath: "name")
-        user.setValue(surname, forKeyPath: "surname")
-        user.setValue(id, forKeyPath: "id")
-        user.setValue(password, forKeyPath: "password")
-        user.setValue(image, forKeyPath: "image")
-        user.setValue(productId, forKeyPath: "productId")
-        user.setValue(gender, forKeyPath: "gender")
-        user.setValue(email, forKeyPath: "email")
-        user.setValue(birthDate, forKeyPath: "birthDate")
+        user.setValue(newUser.name, forKeyPath: "name")
+        user.setValue(newUser.surname, forKeyPath: "surname")
+        user.setValue(newUser.id, forKeyPath: "id")
+        user.setValue(newUser.password, forKeyPath: "password")
+        user.setValue(newUser.image, forKeyPath: "image")
+        user.setValue(newUser.productId, forKeyPath: "productId")
+        user.setValue(newUser.gender, forKeyPath: "gender")
+        user.setValue(newUser.email, forKeyPath: "email")
+        user.setValue(newUser.birthDate, forKeyPath: "birthDate")
         
         do {
             try managedContext.save()

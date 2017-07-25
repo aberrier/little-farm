@@ -15,7 +15,7 @@ class actionButton : UIButton
     required init?(coder aDecoder: NSCoder) {
         super.init(coder : aDecoder)
         
-        layer.cornerRadius = 30
+        layer.cornerRadius = 10
         layer.backgroundColor = UIColorSet.darkBlue.cgColor
         setTitleColor(UIColorSet.ligthOrange, for: .normal)
         setTitleColor(UIColorSet.darkOrange, for: .selected)

@@ -34,6 +34,9 @@
 		93B18E731F2510C000146BD5 /* main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E711F2510C000146BD5 /* main.xcdatamodeld */; };
 		93B18E751F25292300146BD5 /* PersistentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E741F25292300146BD5 /* PersistentDataManager.swift */; };
 		93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C43AE41F15427B00159522 /* QRCodeViewController.swift */; };
+		93ED0C811F2779A20015BCC8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED0C801F2779A20015BCC8 /* User.swift */; };
+		93ED0C831F278C150015BCC8 /* imagePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED0C821F278C150015BCC8 /* imagePickerCell.swift */; };
+		93ED0C851F2798E90015BCC8 /* niceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED0C841F2798E90015BCC8 /* niceLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +90,9 @@
 		93B18E721F2510C000146BD5 /* main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = main.xcdatamodel; sourceTree = "<group>"; };
 		93B18E741F25292300146BD5 /* PersistentDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentDataManager.swift; sourceTree = "<group>"; };
 		93C43AE41F15427B00159522 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
+		93ED0C801F2779A20015BCC8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		93ED0C821F278C150015BCC8 /* imagePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagePickerCell.swift; sourceTree = "<group>"; };
+		93ED0C841F2798E90015BCC8 /* niceLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = niceLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +155,9 @@
 				93510F5D1F2218B400296425 /* frameButton.swift */,
 				937517671F23BA97007EF547 /* menuSection.swift */,
 				937517691F23C85F007EF547 /* menuSection.xib */,
+				93ED0C801F2779A20015BCC8 /* User.swift */,
+				93ED0C821F278C150015BCC8 /* imagePickerCell.swift */,
+				93ED0C841F2798E90015BCC8 /* niceLabel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -366,6 +375,7 @@
 				93510F5E1F2218B400296425 /* frameButton.swift in Sources */,
 				93281F5C1F20F984004C93E2 /* BadgesViewController.swift in Sources */,
 				939C19D01F14EF7200C392CA /* ARViewController.swift in Sources */,
+				93ED0C831F278C150015BCC8 /* imagePickerCell.swift in Sources */,
 				936ACA251F163DF700156AD8 /* test3DObject.swift in Sources */,
 				937517661F2395B6007EF547 /* General.swift in Sources */,
 				93281F5A1F20F94A004C93E2 /* RegisterViewController.swift in Sources */,
@@ -380,7 +390,9 @@
 				93281F5E1F20FAA1004C93E2 /* ExplorationViewController.swift in Sources */,
 				937FE96F1F1E1ED600C3B0D7 /* KDCircularProgress.swift in Sources */,
 				93B18E731F2510C000146BD5 /* main.xcdatamodeld in Sources */,
+				93ED0C851F2798E90015BCC8 /* niceLabel.swift in Sources */,
 				937517681F23BA97007EF547 /* menuSection.swift in Sources */,
+				93ED0C811F2779A20015BCC8 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

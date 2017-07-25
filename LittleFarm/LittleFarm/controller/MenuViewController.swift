@@ -28,6 +28,8 @@ class MenuViewController : UIViewController
     @IBOutlet var treeSection : menuSection!
     @IBOutlet var badgeSection : menuSection!
     @IBOutlet var disconnectButton : UIButton!
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return generalInformations.numberOfSections
     }
