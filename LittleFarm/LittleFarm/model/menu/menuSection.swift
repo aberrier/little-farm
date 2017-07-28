@@ -7,7 +7,6 @@
 //
 
 import UIKit
-@IBDesignable
 class menuSection : UIView
 {
     @IBOutlet var contentView : UIView!
@@ -34,9 +33,6 @@ class menuSection : UIView
     }
     func loadSection(imagePath : String,text : String)
     {
-        
-        //contentView.layer.borderWidth = 1
-        //contentView.layer.borderColor = UIColorSet.ligthOrange.cgColor
         imageLeft.image = UIImage(named: imagePath)
         imageRight.image = UIImage(named: imagePath)
         textLabel.text = text
@@ -46,7 +42,6 @@ class menuSection : UIView
     
     func loadViewFromNib() -> UIView!
     {
-        
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: String(describing : type(of: self)), bundle: bundle)
         let view = nib.instantiate(withOwner: self, options: nil).first as! UIView

@@ -11,86 +11,86 @@ import SceneKit
 import ARKit
 import CoreMotion
 
-class ARViewController: UIViewController, ARSCNViewDelegate {
-
+class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
+    
+    
+    
+    var dataManager = PersistentDataManager.sharedInstance
+    
+    //AR variables
     @IBOutlet var sceneView: ARSCNView!
+    var positionBuffer : SCNVector3 = SCNVector3(0,0,0)
+    var object3D : testObject?
+    var qrZone : CGRect = CGRect.zero
+    var scene : SCNScene = SCNScene.init()
+    var isPositionGiven : Bool = false
+    var testObjectIsInstancied : Bool = false
     
-    @IBOutlet var stepperX : UIStepper!
-    @IBOutlet var stepperY : UIStepper!
-    @IBOutlet var stepperZ : UIStepper!
-    
+    //Debug outlets, should be gone soon 🙂
     @IBOutlet var labelX : UILabel!
     @IBOutlet var labelY : UILabel!
     @IBOutlet var labelZ : UILabel!
     @IBOutlet var infoLabel : UILabel!
     @IBOutlet var dragSwitch : UISwitch!
     @IBOutlet var swiftText : UILabel!
-    var qrZone : CGRect = CGRect.zero
-    var scene : SCNScene = SCNScene.init()
-    var isPositionGiven : Bool = false
-    var testObjectIsInstancied : Bool = false
-    var QRDataVector : SCNVector3 = SCNVector3(0,0,0)
-    var object3D : testObject?
-    var positionBuffer : SCNVector3 = SCNVector3(0,0,0)
+    @IBOutlet var stepperX : UIStepper!
+    @IBOutlet var stepperY : UIStepper!
+    @IBOutlet var stepperZ : UIStepper!
+    
+    //Story variables
+    let scenario = StoryScenario.instance
+    @IBOutlet var storyView : StoryView!
     
     
-    //Display popup
-    func alert(_ title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil)
-        alert.addAction(ok)
-        self.present(alert, animated: true, completion: nil)
-    }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         //Set the pan gesture recognizer
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touch)))
-    
         
-        // Set the view's delegate
+        // Delegate setup
         sceneView.delegate = self
+        storyView.delegate = self
         
+        //storyView setup
+        storyView.setup()
+        if let currentUser = dataManager.getCurrentUser()
+        {
+            storyView.isHidden = !currentUser.onStoryMode
+            storyView.loadScreen(screen: scenario.map[currentUser.storyId]!)
+        }
+        else
+        {
+            //Can't load the current user
+            print("ARView - viewDidLoad : Can't load the current user to get storyView informations.")
+            storyView.isHidden=true
+        }
     }
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
         
-        view.bringSubview(toFront: dragSwitch)
-        view.bringSubview(toFront: swiftText)
         // Create a session configuration
         let configuration = ARWorldTrackingSessionConfiguration()
         // Run the view's session
         sceneView.session.run(configuration)
         
-        let delay = 1.0
-        /*
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delay, execute:
-        {
-            print("Let's go !")
-            //print("\(self.hitTestOnRect(rect: self.qrZone))")
-            self.object3D = testObject()
-            self.object3D?.loadModal()
-            self.object3D?.position = SCNVector3(0,0,0)
-            self.object3D?.simdTransform = self.TransformMatrixFor2Dto3DProjection(coordinates: CGPoint(x: CGFloat(self.QRDataVector.x),y: CGFloat(self.QRDataVector.y)), side: self.QRDataVector.z)
-            self.object3D?.eulerAngles.z=90
-            self.sceneView.scene.rootNode.addChildNode(self.object3D!)
-            self.updatePositionDisplay()
-            
-        })
-        */
+        //3D Position of the object
+        let firstDelay = 1.0
+        let secondDelay = 2.0
         self.infoLabel.text="Initialization"
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delay, execute:
+        //Calculating coordinates
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + firstDelay, execute:
             {
                 print("Calculating coordinates")
-                self.positionBuffer=self.PositionFor2Dto3DProjection(coordinates: CGPoint(x: CGFloat(self.QRDataVector.x),y: CGFloat(self.QRDataVector.y)), side: self.QRDataVector.z)
-                self.infoLabel.text="Look around for 2 seconds"
+                self.positionBuffer=self.PositionFor2Dto3DProjection(area: self.qrZone)
+                self.infoLabel.text="Look around for \(secondDelay) seconds."
                 
         })
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+2, execute:
+        //Display object
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + secondDelay, execute:
             {
                 self.addObjectTest()
                 self.object3D?.position = self.positionBuffer
@@ -106,13 +106,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-    }
     
-    
-    
+    //Modify position with steppers
     @IBAction func modifyPosition(sender : UIStepper)
     {
         switch(sender)
@@ -125,17 +120,10 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
             object3D?.position.z=Float(stepperZ.value)/100
         default : break
         }
-        /*
-        let objectList = sceneView.scene.rootNode.childNodes
-        
-        for object : SCNNode in objectList
-        {
-            object.removeFromParentNode()
-        }
-        addObject(position : QRDataVector)
- */
         updatePositionDisplay()
     }
+    
+    //Update display of coordinates
     func updatePositionDisplay()
     {
         labelX.text="x: \(object3D?.position.x ?? 0)"
@@ -146,20 +134,24 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         stepperZ.value=Double(object3D!.position.z*100)
         
     }
+    
+    //Add primal object
     func addObjectTest() {
         
-        if(!testObjectIsInstancied)
+        guard !testObjectIsInstancied else
         {
-            object3D = testObject()
-            object3D?.loadModal()
-            sceneView.scene.rootNode.addChildNode(object3D!)
-            testObjectIsInstancied=true
-        }
-        else{
             print("Test object already instancied.")
+            return
         }
+        object3D = testObject()
+        object3D?.name = "primal"
+        object3D?.loadModal()
+        sceneView.scene.rootNode.addChildNode(object3D!)
+        testObjectIsInstancied=true
         
     }
+    
+    //Add new object without strong reference
     func addNewObject(position : SCNVector3) {
         let tree = testObject()
         tree.loadModal()
@@ -168,69 +160,31 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     }
     
     
-    /*
-    func PositionFor2Dto3DProjection(coordinates : CGPoint, side : Float)->SCNVector3
-    {
-        let physicalSize : Float = 0.07 //Replace 0.07 by the real size of QRCode
-        let focalLength : Float = 0.03
-        let coefAdjustment : Float = 13
-        let virtualSize = side/(2*1000*Float(UIScreen.main.nativeScale))
-        let alpha = physicalSize/virtualSize
-        //let alpha = physicalSize/Float(UIScreen.main.nativeScale)*(side/1000)
-        
-        let z =  focalLength*alpha*coefAdjustment
-        let x = (alpha*Float(coordinates.x))/(10*1000*Float(UIScreen.main.nativeScale))
-        let y = (alpha*Float(coordinates.y))/(30*1000*Float(UIScreen.main.nativeScale))
-        
-        print("Virtual length : \(virtualSize)")
-        print("ALPHA : \(alpha)")
-        print("x:\(x),y:\(y),z:\(-z)")
-        let originalVector4 = vector4(x, y, -z, 1)
-        let newVector4 = matrix_multiply(sceneView.session.currentFrame!.camera.transform, originalVector4)
-        return SCNVector3(newVector4.x/newVector4.w,newVector4.y/newVector4.w,newVector4.z/newVector4.w)
-    }
-    */
-    func PositionFor2Dto3DProjection(coordinates : CGPoint, side : Float)->SCNVector3
+    //Calculate the position on the 3D coordinate system
+    func PositionFor2Dto3DProjection(area : CGRect)->SCNVector3
     {
         let physicalSize : Float = 0.07 //Replace 0.07 by the real size of QRCode
         let focalLength : Float = 0.03
         let coefAdjustment : Float = 9
         
-        let alpha = physicalSize/Float(UIScreen.main.nativeScale)*(side/1000)
+        let averageSide = Float(area.height+area.width)/2
+        let centeredX = area.origin.x+(area.height/2)
+        let centeredY = area.origin.y+(area.width/2)
+        
+        let alpha = physicalSize/Float(UIScreen.main.nativeScale)*(averageSide/1000)
         
         let z =  focalLength/(coefAdjustment*alpha)
-        let x = Float(UIScreen.main.nativeScale*coordinates.x/1000)*alpha
-        let y = Float(UIScreen.main.nativeScale*coordinates.y/1000)*alpha
+        let x = Float(UIScreen.main.nativeScale*centeredX/1000)*alpha
+        let y = Float(UIScreen.main.nativeScale*centeredY/1000)*alpha
         
         let originalVector4 = vector4(x, y, -z, 1)
         let newVector4 = matrix_multiply(sceneView.session.currentFrame!.camera.transform, originalVector4)
         return SCNVector3(newVector4.x/newVector4.w,newVector4.y/newVector4.w,newVector4.z/newVector4.w)
-    }
-    func TransformMatrixFor2Dto3DProjection(coordinates : CGPoint, side : Float)->simd_float4x4
-    {
-        
-        
-        let physicalSize : Float = 0.07 //Replace 0.07 by the real size of QRCode
-        let focalLength : Float = 0.03
-        let coefAdjustment : Float = 9
-        
-        let alpha = physicalSize/Float(UIScreen.main.nativeScale)*(side/1000)
-        let z =  focalLength/(coefAdjustment*alpha)
-        let x = Float(UIScreen.main.nativeScale*coordinates.x/1000)*alpha
-        let y = Float(UIScreen.main.nativeScale*coordinates.y/1000)*alpha
-        
-        
-        //alert("infos", message: "x:\(x),y:\(y),z:\(z),\(alpha)")
-        var translation = matrix_identity_float4x4
-        translation.columns.3.z = -z
-        translation.columns.3.x = x
-        translation.columns.3.y  = y
-        
-        
-        let newTransformMatrix = matrix_multiply(sceneView.session.currentFrame!.camera.transform, translation)
-        return newTransformMatrix
     }
     
+    
+    
+    //Touch on screen
     @objc func touch(sender : UITapGestureRecognizer)
     {
         
@@ -248,19 +202,25 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         }
         else
         {
-            turnObjectTest()
-            addObjectsTestOnFirstObject()
+            for result in sceneView.hitTest(CGPoint(x: sender.location(in: view).x,y: sender.location(in: view).y), options: nil)
+            {
+                if result.node.name == "primal"
+                {
+                    turnObjectTest()
+                    addObjectsTestOnFirstObject()
+                }
+            }
         }
-        
-        
-        
     }
+    //Turn animation
     func turnObjectTest()
     {
         let delay : Double = 1000
         let action = SCNAction.rotateBy(x: 0, y: 2*CGFloat(delay), z: 0, duration: delay)
         object3D?.runAction(action)
     }
+    
+    //Objects explosion animation
     func addObjectsTestOnFirstObject() {
         let obj : [testObject] = [testObject(),testObject(),testObject(),testObject()]
         let delay : Float = 4
@@ -269,19 +229,60 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
             newObj.loadModal()
             newObj.position = object3D!.position
             sceneView.scene.rootNode.addChildNode(newObj)
-            let xPos = randomPosition(lowerBound: -0.2, upperBound: 0.2)
-            let yPos = randomPosition(lowerBound: 0, upperBound: 0.2)
-            let zPos = randomPosition(lowerBound: -0.2, upperBound: 0.2)
+            let xPos = GT.randomPosition(lowerBound: -0.2, upperBound: 0.2)
+            let yPos = GT.randomPosition(lowerBound: 0, upperBound: 0.2)
+            let zPos = GT.randomPosition(lowerBound: -0.2, upperBound: 0.2)
             let newAction = SCNAction.move(by: SCNVector3(xPos*delay,yPos*delay,zPos*delay), duration: Double(delay))
             newObj.runAction(newAction)
         }
-        
-        
     }
-    func randomPosition (lowerBound lower:Float, upperBound upper:Float) -> Float {
-        return Float(arc4random()) / Float(UInt32.max) * (lower - upper) + upper
+    
+    //Story
+    func storyPressButton(sender: StoryButton) {
+        switch(sender.action)
+        {
+        case let .CallController(id,type) :
+            print(id)
+            //call the controller
+            switch(type)
+            {
+                
+            case .ARViewController:
+                break
+            case .RegisterViewController:
+                break
+            case .nothing:
+                break
+            }
+        case let .CallStoryScreen(id) :
+            //Load the new screen
+            let newScreen = scenario.map[id]
+            
+            storyView.loadScreen(screen: newScreen!)
+        case let .CheckpointStory(storyId) :
+            if let currentUser = dataManager.getCurrentUser()
+            {
+                currentUser.storyId = storyId
+                if !dataManager.changeUser(user: currentUser)
+                {
+                    print("ARView - storyPressButton - Checkpoint :  Can't change the current user.")
+                }
+            }
+        //change the storyId on the current user
+        case .EndApplication :
+            //End application
+            UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
+        case .EndStory:
+            //End story
+            storyView.isHidden=true
+        case .DoNothing : break
+            
+            
+        }
     }
-    func hitTestOnRect(rect : CGRect) -> SCNVector3
+    
+    //Old functions that doesn't work 😥
+    func _hitTestOnRect(rect : CGRect) -> SCNVector3
     {
         var cpts : Float = 0
         var newPosition = SCNVector3(0,0,0)
@@ -309,16 +310,50 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         newPosition.z=newPosition.z/cpts
         return newPosition
     }
-    // MARK: - ARSCNViewDelegate
-    
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
+    func _PositionFor2Dto3DProjection(coordinates : CGPoint, side : Float)->SCNVector3
+    {
+        let physicalSize : Float = 0.07 //Replace 0.07 by the real size of QRCode
+        let focalLength : Float = 0.03
+        let coefAdjustment : Float = 13
+        let virtualSize = side/(2*1000*Float(UIScreen.main.nativeScale))
+        let alpha = physicalSize/virtualSize
+        //let alpha = physicalSize/Float(UIScreen.main.nativeScale)*(side/1000)
+        
+        let z =  focalLength*alpha*coefAdjustment
+        let x = (alpha*Float(coordinates.x))/(10*1000*Float(UIScreen.main.nativeScale))
+        let y = (alpha*Float(coordinates.y))/(30*1000*Float(UIScreen.main.nativeScale))
+        
+        print("Virtual length : \(virtualSize)")
+        print("ALPHA : \(alpha)")
+        print("x:\(x),y:\(y),z:\(-z)")
+        let originalVector4 = vector4(x, y, -z, 1)
+        let newVector4 = matrix_multiply(sceneView.session.currentFrame!.camera.transform, originalVector4)
+        return SCNVector3(newVector4.x/newVector4.w,newVector4.y/newVector4.w,newVector4.z/newVector4.w)
     }
-*/
+    func _TransformMatrixFor2Dto3DProjection(coordinates : CGPoint, side : Float)->simd_float4x4
+    {
+        
+        
+        let physicalSize : Float = 0.07 //Replace 0.07 by the real size of QRCode
+        let focalLength : Float = 0.03
+        let coefAdjustment : Float = 9
+        
+        let alpha = physicalSize/Float(UIScreen.main.nativeScale)*(side/1000)
+        let z =  focalLength/(coefAdjustment*alpha)
+        let x = Float(UIScreen.main.nativeScale*coordinates.x/1000)*alpha
+        let y = Float(UIScreen.main.nativeScale*coordinates.y/1000)*alpha
+        
+        
+        //alert("infos", message: "x:\(x),y:\(y),z:\(z),\(alpha)")
+        var translation = matrix_identity_float4x4
+        translation.columns.3.z = -z
+        translation.columns.3.x = x
+        translation.columns.3.y  = y
+        
+        
+        let newTransformMatrix = matrix_multiply(sceneView.session.currentFrame!.camera.transform, translation)
+        return newTransformMatrix
+    }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
@@ -335,3 +370,4 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         
     }
 }
+

@@ -16,83 +16,56 @@ class LandingController : UIViewController
 {
     
     let dataManager = PersistentDataManager.sharedInstance
-    @IBOutlet var textLabel : UILabel!
+    @IBOutlet var titleText : UILabel!
     @IBOutlet var connexionButton : UIButton!
     @IBOutlet var registerButton : UIButton!
     @IBOutlet var startButton : UIButton!
     
     
-    var isConnected : Bool = false
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let destinationView : UIViewController = segue.destination
-        if destinationView is QRCodeViewController
-        {
-            
-        }
-        if destinationView is ARViewController
-        {
-            
-        }
-        
-        
-    }
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-        textLabel.numberOfLines = 4
+        
+        //Title setup
+        titleText.numberOfLines = 4
+        
+        //Setup view with user informations
         if let isConnected = dataManager.generalInfos?.value(forKey: "isConnected") as? Bool
         {
+            var surname = ""
             if isConnected
             {
-                self.isConnected = true
                 if let currentUser = dataManager.getCurrentUser()
                 {
-                    let surname = currentUser.value(forKey: "surname") as? String
-                    textLabel.text = "Content de te revoir, \(surname!) !"
-                    connexionButton.isHidden = true
-                    registerButton.isHidden = true
-                    startButton.isHidden = false
+                    surname = currentUser.surname
                 }
                 else
                 {
-                    print("Can't get the current user.")
+                    print("Landing : Can't get the current user.")
                 }
             }
-            else
-            {
-                self.isConnected = false
-                textLabel.text = "Bienvenue dans le monde de LittleFarm !"
-                connexionButton.isHidden = false
-                registerButton.isHidden = false
-                startButton.isHidden = true
-            }
+            titleText.text = isConnected ? "Content de te revoir, \(surname) !" : "Bienvenue dans le monde de LittleFarm !"
+            connexionButton.isHidden = isConnected
+            registerButton.isHidden = isConnected
+            startButton.isHidden = !isConnected
+        }
+        else
+        {
+            print("Landing : Can't read general informations on database")
         }
         
         
-        
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    @IBAction func QRCodeQueryRegister(sender : UIButton)
+    
+    @IBAction func callQRCodeController(sender : UIButton)
     {
+        //Call QRCodeController with its mission
         let storyboard = UIStoryboard(name : "Main", bundle : nil)
-        
+        let nextController : controllerType  = sender==startButton ? .ARViewController : (sender==registerButton ? .RegisterViewController : .nothing)
         let QRCodeView = storyboard.instantiateViewController(withIdentifier: "QRCodeView") as! QRCodeViewController
-        QRCodeView.nextController = .RegisterViewController
-        
+        QRCodeView.nextController = nextController
         self.present(QRCodeView, animated: true, completion: nil)
     }
-    @IBAction func QRCodeQueryAR(sender : UIButton)
-    {
-        let storyboard = UIStoryboard(name : "Main", bundle : nil)
-        
-        let QRCodeView = storyboard.instantiateViewController(withIdentifier: "QRCodeView") as! QRCodeViewController
-        QRCodeView.nextController = .ARViewController
-        
-        self.present(QRCodeView, animated: true, completion: nil)
-    }
+    
 }
 

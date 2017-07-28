@@ -11,7 +11,7 @@ class ConnexionViewController : UIViewController
 {
     @IBOutlet var idField: UITextField!
     @IBOutlet var passwordField: UITextField!
-    @IBOutlet var validateButton: actionButton!
+    @IBOutlet var validateButton: LFButton!
     @IBOutlet var infoLabel: UILabel!
     
     let dataManager = PersistentDataManager.sharedInstance
@@ -30,7 +30,7 @@ class ConnexionViewController : UIViewController
         }
         else
         {
-            QRCodeQuery()
+           QRCodeQuery()
         }
     }
     func QRCodeQuery()

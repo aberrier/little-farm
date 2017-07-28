@@ -12,11 +12,11 @@ import ARKit
 import CoreMotion
 
 
-enum controllerType {
-    case ARViewController,RegisterViewController,nothing
-}
+
 
 class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+    
+    let dataManager = PersistentDataManager.sharedInstance
     
     @IBOutlet var messageLabel:UILabel!
     @IBOutlet weak var circularProgressView: KDCircularProgress!
@@ -30,7 +30,7 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
     var nextController : controllerType = .nothing
     
     var QRCodeIsDetected : Bool = false
-    var maxCountDownValue  = 3.0
+    var maxCountDownValue  = 1.0
     var currentCountDownValue  = 0.0
     var timeInterval = 0.1
     var progressPerSecond = 1.0
@@ -50,7 +50,7 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
     
     var motionManager = CMMotionManager()
     var timerDetection = Timer()
-    let dataManager = PersistentDataManager.sharedInstance
+    
     
     
     override func viewDidLoad() {
@@ -134,16 +134,10 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
         if let qrCode = codeRectangle
         {
             ARView.qrZone = qrCode
-            ARView.QRDataVector=SCNVector3(0,0,0)
-            ARView.QRDataVector.x = Float(qrCode.origin.x+qrCode.height/2)
-            ARView.QRDataVector.y = Float(qrCode.origin.y+qrCode.width/2)
-            ARView.QRDataVector.z = Float(qrCode.height+qrCode.width)/2
-            print("Coordinates sended : \(ARView.QRDataVector)")
         }
         else
         {
             print("No QR zone detected.")
-            ARView.QRDataVector=SCNVector3(0,0,-1)
             ARView.qrZone=CGRect.zero
         }
         self.present(ARView, animated: true, completion: nil)
@@ -240,7 +234,8 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
             {
                 messageLabel.text = "Le code n'est pas reconnu comme une boite LittleFarm :/"
             }
-        default : break
+        default : 
+            break
         }
     }
     func QRCodeNotDetected()
@@ -270,7 +265,6 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
             if let qrCode = codeRectangle
             {
                 ARView.qrZone = qrCode
-                ARView.QRDataVector=SCNVector3(0,0,-1)
             }
             else
             {

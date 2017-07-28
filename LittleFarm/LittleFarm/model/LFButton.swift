@@ -7,14 +7,21 @@
 //
 
 import UIKit
-class actionButton : UIButton
+class LFButton : UIButton
 {
-    var controllerToCall : String = ""
     var text : String = "Undefined"
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder : aDecoder)
+        setup()
+    }
+    override init(frame: CGRect) {
         
+        super.init(frame: frame)
+        setup()
+    }
+    func setup()
+    {
         layer.cornerRadius = 10
         layer.backgroundColor = UIColorSet.darkBlue.cgColor
         setTitleColor(UIColorSet.ligthOrange, for: .normal)

@@ -40,6 +40,7 @@ class MenuViewController : UIViewController
         menuSectionView.layer.borderColor = UIColorSet.darkBlue.cgColor
         menuSectionView.layer.cornerRadius = 4
         
+        //Sections setup
         wipSection.loadSection(imagePath: "heart", text: "Mon WIP")
         explorationSection.loadSection(imagePath: "wand", text: "Exploration")
         badgeSection.loadSection(imagePath: "badge", text: "Mes badges")
@@ -49,10 +50,12 @@ class MenuViewController : UIViewController
     @IBAction func disconnectUser(sender : UIButton)
     {
         
+        //Disconnect user
         dataManager.disconnectUser()
+        
+        //Launch Landing Controller
         let storyboard = UIStoryboard(name : "Main", bundle : nil)
         let landingView = storyboard.instantiateViewController(withIdentifier: "landing") as! LandingController
-        
         self.present(landingView, animated: true, completion: nil)
     }
   

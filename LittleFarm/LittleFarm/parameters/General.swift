@@ -12,4 +12,5 @@ struct generalInformations
 {
     static var numberOfSections = 5
     static var numberOfProfilImages = 6
+    static var firstStoryId = "start-01"
 }

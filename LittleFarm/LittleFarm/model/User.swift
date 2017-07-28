@@ -20,4 +20,7 @@ class UserData
     var password : String = "1234"
     var productId : String = "????"
     
+    var onStoryMode = false
+    var storyId = ""
+    
 }

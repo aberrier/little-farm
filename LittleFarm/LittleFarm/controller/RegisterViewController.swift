@@ -13,13 +13,16 @@ class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerVie
     
     
     
+    let dataManager = PersistentDataManager.sharedInstance
     
     var productId : String = ""
     
-    @IBOutlet var textLabel : niceLabel!
+    //Scenario variables
+    @IBOutlet var textLabel : LFLabel!
     @IBOutlet var image : UIImageView!
     @IBOutlet var nextButton : UIButton!
     
+    //Register variables
     @IBOutlet var registerForm : UIView!
     @IBOutlet var surnameField : UITextField!
     @IBOutlet var passwordField : UITextField!
@@ -30,14 +33,6 @@ class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerVie
     @IBOutlet var imagePicker : UICollectionView!
     @IBOutlet var validateButton : UIButton!
     
-    //Variables relative to imagePicker
-    let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
-    
-    
-    //Don't forget to add a new text field on checkForEmptyField
-    
-    let dataManager = PersistentDataManager.sharedInstance
-    
     var genderSelected : Int16 = 1
     var imageSelected : String = "default"
     var sequence : Int = 0
@@ -45,10 +40,19 @@ class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerVie
     var newUser : UserData = UserData()
     var genderPickerData = ["Je suis un garçon !","Je suis une fille !"]
     var imagePickerData = ["girl-1","girl-2","boy-1","boy-2","robot","alien"]
+    
+    let scenario = RegisterScenario.instance
+    //Variables relative to imagePicker
+    let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
+    
+    
+    //Don't forget to add a new text field on checkForEmptyField
+    
     override func viewDidLoad() {
         
         //Label settings
         view.layoutIfNeeded()
+        
         //Register initialization
         datePicker.maximumDate = Date.init(timeIntervalSinceNow: 0)
         genderPicker.delegate = self
@@ -122,7 +126,7 @@ class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerVie
     }
     
     
-    //***
+    //Check for empty fields
     func checkForEmptyField() -> Bool
     {
         let fieldList : [UITextField] = [nameField,surnameField,emailField,passwordField]
@@ -149,98 +153,79 @@ class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerVie
         }
         return thereIsAEmptyField
     }
+    
     func showRegisterForm(_ trigger : Bool)
     {
-        if(!trigger)
+            registerForm.isHidden = !trigger
+            nextButton.isHidden = trigger
+            textLabel.isHidden = trigger
+            nextButton.isHidden = trigger
+    }
+    //Update the sequence with the scenario
+    func updateSequence()
+    {
+        
+        guard sequence <= scenario.tab.count else
         {
-            registerForm.isHidden = true
-            nextButton.isHidden = false
-            textLabel.isHidden = false
-            nextButton.isHidden = false
+            print("Register - updateSequence : Sequence value higher than number of screens.")
+            return
+        }
+        
+        let currentScreen = scenario.tab[sequence]
+        
+        if currentScreen.end
+        {
+            callQRCodeController()
         }
         else
         {
-            registerForm.isHidden = false
-            nextButton.isHidden = true
-            textLabel.isHidden = true
-            nextButton.isHidden = true
-        }
-        
-    }
-    func updateSequence()
-    {
-        switch(sequence)
-        {
-            
-        case 0 :
-            showRegisterForm(false)
-            textLabel.numberOfLines = 2
-            textLabel.text = "Tiens tiens...\nOn dirait qu'il y a quelqu'un là dedans"
-            image.image = UIImage(named: "egg-2")
-        case 1 :
-            showRegisterForm(false)
-            textLabel.numberOfLines = 2
-            textLabel.text = "Bravo !\nVous venez d'adopter un petit wip !"
-            image.image = UIImage(named:  "egg-3")
-        case 2 :
-            showRegisterForm(false)
-            textLabel.numberOfLines = 2
-            textLabel.text = "Oh!\npetit wip vient de se cacher.."
-            image.image = UIImage(named:  "egg-1")
-        case 3 :
-            showRegisterForm(false)
-            textLabel.numberOfLines = 1
-            textLabel.text = "Nous vous inquiétez pas, les wips sont connus pour être craintifs face aux inconnus.."
-            image.image = UIImage(named:  "egg-1")
-        case 4 :
-            showRegisterForm(false)
-            textLabel.numberOfLines = 2
-            textLabel.text = "Il faut d'abord le rassurer.\nCommencez par vous présenter."
-            image.image = UIImage(named:  "egg-1")
-            //add button
-        case 5 :
-            showRegisterForm(true)
-            //special sequence : register form
-        case 6 :
-            showRegisterForm(false)
-            textLabel.numberOfLines = 2
-            textLabel.text = "Ah ! le voilà qu'il sort de sa cachette.\nPromettez-vous à petit wip de prendre soin de lui ?"
-            image.image = UIImage(named:  "egg-3")
-        case 7 :
-            QRCodeQuery()
-        default : break
+            showRegisterForm(currentScreen.registerForm)
+            textLabel.numberOfLines = currentScreen.numberOfLines
+            textLabel.text = currentScreen.text
+            image.image = UIImage(named: currentScreen.image)
         }
     }
     
     @IBAction func moveToNextSequence(sender : UIButton)
     {
-        switch(sequence)
+        guard sequence <= scenario.tab.count else
         {
-        case 0,1,2,3,4,6:
-            sequence+=1
-            updateSequence()
-        case 5:
-            print("ok")
+            print("Register - moveToNextSequence : Sequence value higher than number of screens.")
+            return
+        }
+        
+        let currentScreen = scenario.tab[sequence]
+        
+        if currentScreen.registerForm
+        {
             if sender == validateButton && !checkForEmptyField()
             {
-                print("oui")
-                newUser.name = nameField.text!
-                newUser.surname = surnameField.text!
-                newUser.birthDate = datePicker.date
-                newUser.email = emailField.text!
-                newUser.gender = genderSelected
-                newUser.id = dataManager.getNewId()
-                newUser.password = passwordField.text!
-                newUser.image = imageSelected
-                dataManager.addUser(newUser: newUser)
-                sequence+=1
-                updateSequence()
+                createNewUser()
             }
             
-        default: break
         }
+        sequence+=1
+        updateSequence()
     }
-   func QRCodeQuery()
+    func createNewUser()
+    {
+        //Creation of a new user
+        newUser.name = nameField.text!
+        newUser.surname = surnameField.text!
+        newUser.birthDate = datePicker.date
+        newUser.email = emailField.text!
+        newUser.gender = genderSelected
+        newUser.id = dataManager.getNewId()
+        newUser.password = passwordField.text!
+        newUser.image = imageSelected
+        newUser.onStoryMode = true
+        newUser.storyId = generalInformations.firstStoryId
+        
+        dataManager.addUser(newUser: newUser)
+        dataManager.setConnectedUser(userId: newUser.id)
+        
+    }
+    func callQRCodeController()
     {
         let storyboard = UIStoryboard(name : "Main", bundle : nil)
         
@@ -250,3 +235,4 @@ class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerVie
         self.present(QRCodeView, animated: true, completion: nil)
     }
 }
+

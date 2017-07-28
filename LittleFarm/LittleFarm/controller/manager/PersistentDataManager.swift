@@ -23,12 +23,7 @@ class PersistentDataManager
     var currentUser : NSManagedObject?
     
     lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-         */
+        
         let container = NSPersistentContainer(name: "main")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -51,10 +46,9 @@ class PersistentDataManager
     
     private init()
     {
-        initGeneralInfos()
-        initUsers()
-        initValidProductKeys()
+        updateData()
         createFirstData()
+        
         //addInitialKeys()
         //addUser(name: "Alain", surname: "Berrier", id: "id01", password: "wesh", image: "ruby", productId: "n1", gender: 0, email: "alain@berrier.fr", birthDate: Date(timeIntervalSince1970: 234500))
         //setConnectedUser(userId: "id01")
@@ -69,7 +63,7 @@ class PersistentDataManager
                                                     in: persistentContainer.viewContext)!
             
             let infos = NSManagedObject(entity: entity,
-                                         insertInto: persistentContainer.viewContext)
+                                        insertInto: persistentContainer.viewContext)
             
             infos.setValue(true, forKeyPath: "isInstancied")
             infos.setValue(false, forKeyPath: "isConnected")
@@ -94,6 +88,7 @@ class PersistentDataManager
             {
                 generalInfos = generalInfosList[0]
                 dataIsInstancied = true
+                print("STP : \(generalInfos?.value(forKeyPath: "isConnected") as! Bool)")
             }
             
         } catch let error as NSError {
@@ -120,7 +115,7 @@ class PersistentDataManager
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
-    func getCurrentUser() -> NSManagedObject?
+    func getCurrentUser() -> UserData?
     {
         
         if !currentUserInstancied
@@ -137,7 +132,7 @@ class PersistentDataManager
                         {
                             currentUser = user
                             currentUserInstancied = true
-                            return currentUser
+                            return getUser(userId: id!)
                         }
                     }
                     print("Can't find user !")
@@ -147,7 +142,7 @@ class PersistentDataManager
                 {
                     print("No user connected")
                     currentUser = nil
-                    return currentUser
+                    return nil
                 }
             }
             else
@@ -157,7 +152,8 @@ class PersistentDataManager
         }
         else
         {
-            return currentUser
+            print("awai")
+            return getUser(userId : currentUser?.value(forKeyPath : "id") as! String)
         }
         return nil
     }
@@ -182,29 +178,33 @@ class PersistentDataManager
         }
         return false
     }
+    
     func setConnectedUser(userId : String)
     {
         generalInfos?.setValue(userId, forKey: "userConnectedId")
         generalInfos?.setValue(true, forKey: "isConnected")
     }
+    
     func disconnectUser()
     {
         generalInfos?.setValue("", forKey: "userConnectedId")
         generalInfos?.setValue(false, forKey: "isConnected")
     }
+    
     func addInitialKeys()
     {
         addProductKey(key: "toto")
         addProductKey(key: "foret")
         addProductKey(key: "rose")
     }
+    
     func addProductKey(key : String)
     {
         let managedContext = persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "ValidProductKeys",
                                                 in: managedContext)!
         let productId = NSManagedObject(entity: entity,
-                                   insertInto: managedContext)
+                                        insertInto: managedContext)
         productId.setValue(key, forKeyPath: "value")
         do {
             try managedContext.save()
@@ -213,6 +213,7 @@ class PersistentDataManager
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
+    
     func isProductKeyValid(key : String) -> Bool
     {
         for currentKey in validProductKeys
@@ -225,13 +226,14 @@ class PersistentDataManager
         }
         return false
     }
+    
     func addUser(newUser : UserData)
     {
         let managedContext = persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "User",
                                                 in: managedContext)!
         let user = NSManagedObject(entity: entity,
-                                     insertInto: managedContext)
+                                   insertInto: managedContext)
         
         user.setValue(newUser.name, forKeyPath: "name")
         user.setValue(newUser.surname, forKeyPath: "surname")
@@ -242,6 +244,8 @@ class PersistentDataManager
         user.setValue(newUser.gender, forKeyPath: "gender")
         user.setValue(newUser.email, forKeyPath: "email")
         user.setValue(newUser.birthDate, forKeyPath: "birthDate")
+        user.setValue(newUser.onStoryMode, forKeyPath: "onStoryMode")
+        user.setValue(newUser.storyId, forKeyPath: "storyId")
         
         do {
             try managedContext.save()
@@ -249,6 +253,138 @@ class PersistentDataManager
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
+    }
+    func changeUser(user : UserData) -> Bool
+    {
+        for currentUser in users
+        {
+            if  user.id == currentUser.value(forKey: "id") as? String
+            {
+                currentUser.setValue(user.name, forKeyPath: "name")
+                currentUser.setValue(user.surname, forKeyPath: "surname")
+                currentUser.setValue(user.id, forKeyPath: "id")
+                currentUser.setValue(user.password, forKeyPath: "password")
+                currentUser.setValue(user.image, forKeyPath: "image")
+                currentUser.setValue(user.productId, forKeyPath: "productId")
+                currentUser.setValue(user.gender, forKeyPath: "gender")
+                currentUser.setValue(user.email, forKeyPath: "email")
+                currentUser.setValue(user.birthDate, forKeyPath: "birthDate")
+                currentUser.setValue(user.onStoryMode, forKeyPath: "onStoryMode")
+                currentUser.setValue(user.storyId, forKeyPath: "storyId")
+                return true
+            }
+        }
+        return false
+    }
+    
+    func deleteUser(userId : String)
+    {
+        
+        for user in users
+        {
+            let id = user.value(forKeyPath: "id") as? String
+            if id == userId
+            {
+                persistentContainer.viewContext.delete(user)
+            }
+        }
+        updateData()
+        
+        
+    }
+    
+    func deleteAllUsers()
+    {
+        let context = persistentContainer.viewContext
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        do
+        {
+            try context.execute(deleteRequest)
+            try context.save()
+            
+        } catch {
+            print("Error while trying to delete all users.")
+        }
+        updateData()
+    }
+    
+    func updateData()
+    {
+        initUsers()
+        initGeneralInfos()
+        initValidProductKeys()
+        checkValidConnection()
+    }
+    
+    func checkValidConnection()
+    {
+        //Check if the user connected still exists
+        if let isConnected = generalInfos?.value(forKey: "isConnected") as? Bool
+        {
+            if isConnected
+            {
+                let currentId = generalInfos?.value(forKeyPath: "userConnectedId") as? String
+                for user in users
+                {
+                    let id = user.value(forKeyPath: "id") as? String
+                    if id == currentId
+                    {
+                        return
+                    }
+                }
+                generalInfos?.setValue(false, forKeyPath: "isConnected")
+                generalInfos?.setValue("", forKeyPath: "userConnectedId")
+                
+            }
+        }
+    }
+    func getUser(userId : String) ->UserData?
+    {
+        let newUser = UserData()
+        for user in users
+        {
+            let id = user.value(forKeyPath: "id") as? String
+            if userId == id
+            {
+                
+                newUser.name = user.value(forKey: "name") as! String
+                newUser.surname = user.value(forKey: "surname") as! String
+                newUser.id = user.value(forKey: "id") as! String
+                newUser.password = user.value(forKey: "password") as! String
+                newUser.image = user.value(forKey: "image") as! String
+                newUser.productId = user.value(forKey: "productId") as! String
+                newUser.gender = user.value(forKey: "gender") as! Int16
+                newUser.email = user.value(forKey: "email") as! String
+                newUser.birthDate = user.value(forKey: "birthDate") as! Date
+                newUser.onStoryMode = user.value(forKey: "onStoryMode") as! Bool
+                newUser.storyId = user.value(forKeyPath: "storyId") as! String
+                return newUser
+            }
+        }
+        print("Can't find user : \(userId)!")
+        return nil
+    }
+    func getUser(indexInTab : Int) ->UserData?
+    {
+        let newUser = UserData()
+        if(indexInTab < users.count)
+        {
+            let user = users[indexInTab]
+            newUser.name = user.value(forKey: "name") as! String
+            newUser.surname = user.value(forKey: "surname") as! String
+            newUser.id = user.value(forKey: "id") as! String
+            newUser.password = user.value(forKey: "password") as! String
+            newUser.image = user.value(forKey: "image") as! String
+            newUser.productId = user.value(forKey: "productId") as! String
+            newUser.gender = user.value(forKey: "gender") as! Int16
+            newUser.email = user.value(forKey: "email") as! String
+            newUser.birthDate = user.value(forKey: "birthDate") as! Date
+            return newUser
+            
+        }
+        print("Index too big !")
+        return nil
     }
     func getNewId() -> String
     {
@@ -269,3 +405,4 @@ class PersistentDataManager
     }
     
 }
+
