@@ -22,22 +22,14 @@ class AdminPanelController: UIViewController, UITableViewDelegate, UITableViewDa
         userTableView.dataSource = self
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    //tableView
-    @objc func refresh(_ refreshControl : UIRefreshControl)
-    {
-        refreshControl.endRefreshing()
-    }
+    //***tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataManager.users.count
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    //Create of user cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let newCell = userTableView.dequeueReusableCell(withIdentifier: "userCell") as! userForAdminPanelCell
@@ -50,15 +42,6 @@ class AdminPanelController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-
-    
-    //Display popup
-    func alert(_ title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil)
-        alert.addAction(ok)
-        self.present(alert, animated: true, completion: nil)
-    }
     
     @IBAction func deleteUser(sender : UIButton)
     {
@@ -66,19 +49,21 @@ class AdminPanelController: UIViewController, UITableViewDelegate, UITableViewDa
         
         dataManager.deleteUser(userId: currentCell.user.id)
         userTableView.reloadData()
-        alert("", message: "User deleted")
+        
+        GT.alert("", message: "User deleted",sender: self)
     }
     @IBAction func seeUser(sender : UIButton)
     {
         let currentCell = sender.superview?.superview as! userForAdminPanelCell
         userTableView.reloadData()
-        alert(currentCell.user.surname + " " + currentCell.user.name, message: "\(currentCell.user)")
+        GT.alert(currentCell.user.surname + " " + currentCell.user.name, message: "\(currentCell.user)",sender: self)
     }
     @IBAction func deleteAllUsers(sender : UIButton)
     {
         dataManager.deleteAllUsers()
-        alert("", message: "All users deleted")
+        GT.alert("", message: "All users deleted",sender: self)
     }
     
-
+    
 }
+

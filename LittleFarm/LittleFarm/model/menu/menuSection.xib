@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="menuSection" customModule="LittleFarm" customModuleProvider="target">
             <connections>
-                <outlet property="contentView" destination="iN0-l3-epB" id="0sk-2W-Y21"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="6Vg-ma-aCQ"/>
                 <outlet property="imageLeft" destination="ivq-iD-rdG" id="qny-2Y-mOH"/>
                 <outlet property="imageRight" destination="Pr5-Wa-vbe" id="9Pa-mX-VWK"/>
                 <outlet property="textLabel" destination="HdE-Fa-o12" id="Zqz-Ve-O79"/>
@@ -37,6 +37,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                 </imageView>
             </subviews>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-300.5" y="-177.5"/>
         </view>

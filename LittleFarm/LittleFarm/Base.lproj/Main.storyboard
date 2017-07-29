@@ -162,10 +162,10 @@
             </objects>
             <point key="canvasLocation" x="2179.7101449275365" y="-775.27173913043487"/>
         </scene>
-        <!--Menu View Controller-->
+        <!--Menu-->
         <scene sceneID="gN0-p7-iRi">
             <objects>
-                <viewController storyboardIdentifier="menu" id="HB8-Gt-HZl" customClass="MenuViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="menu" title="Menu" id="HB8-Gt-HZl" customClass="MenuViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="U63-My-ZnG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -254,10 +254,10 @@
             </objects>
             <point key="canvasLocation" x="1178.2608695652175" y="-40.760869565217398"/>
         </scene>
-        <!--Admin Panel Controller-->
+        <!--Admin Panel-->
         <scene sceneID="Yby-Dp-c8L">
             <objects>
-                <viewController id="wSH-j3-E2h" customClass="AdminPanelController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Admin Panel" id="wSH-j3-E2h" customClass="AdminPanelController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="pl2-St-eoB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -296,7 +296,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjg-8a-cWG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="290" height="63"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="290" height="62"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                     <state key="normal" title="Surname Name"/>
@@ -305,7 +305,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cZ-lC-qoV">
-                                                    <rect key="frame" x="327" y="16" width="30" height="30"/>
+                                                    <rect key="frame" x="327" y="15" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="delete"/>
                                                     <connections>
@@ -341,10 +341,10 @@
             </objects>
             <point key="canvasLocation" x="162.31884057971016" y="-2228.804347826087"/>
         </scene>
-        <!--Register View Controller-->
+        <!--RegisterView-->
         <scene sceneID="nWG-8g-ytm">
             <objects>
-                <viewController storyboardIdentifier="registerView" id="JkS-i9-DVH" customClass="RegisterViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="registerView" title="RegisterView" id="JkS-i9-DVH" customClass="RegisterViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="L1D-Tb-302">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -379,14 +379,14 @@
                                 <rect key="frame" x="39" y="82" width="336" height="571"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Prénom" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N2X-E2-Wg3">
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prénom" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N2X-E2-Wg3">
                                         <rect key="frame" x="6" y="15" width="332" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Nom" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zdv-2C-r97">
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nom" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zdv-2C-r97">
                                         <rect key="frame" x="6" y="58" width="332" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
@@ -410,7 +410,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tJI-qx-KCE">
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tJI-qx-KCE">
                                         <rect key="frame" x="4" y="319" width="332" height="34"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
@@ -448,14 +448,14 @@
                                         </cells>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fmb-G5-W8S" customClass="LFButton" customModule="LittleFarm" customModuleProvider="target">
-                                        <rect key="frame" x="104" y="521" width="127" height="41"/>
+                                        <rect key="frame" x="12" y="520" width="127" height="41"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Valider"/>
                                         <connections>
                                             <action selector="moveToNextSequenceWithSender:" destination="JkS-i9-DVH" eventType="touchUpInside" id="80L-pc-kdh"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I9X-Xn-nRf">
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mot de passe" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I9X-Xn-nRf">
                                         <rect key="frame" x="8" y="96" width="332" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
@@ -466,6 +466,14 @@
                                         <rect key="frame" x="-2" y="361" width="340" height="64"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                     </pickerView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZNi-2Z-Tjv" customClass="LFButton" customModule="LittleFarm" customModuleProvider="target">
+                                        <rect key="frame" x="201" y="520" width="127" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Annuler"/>
+                                        <connections>
+                                            <segue destination="9CD-dv-kTg" kind="show" id="soF-cD-8YD"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -499,10 +507,10 @@
             </objects>
             <point key="canvasLocation" x="162" y="-1403"/>
         </scene>
-        <!--Connexion View Controller-->
+        <!--ConnexionView-->
         <scene sceneID="ZNP-KO-uPm">
             <objects>
-                <viewController storyboardIdentifier="connexionView" id="gsD-oB-7mm" customClass="ConnexionViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="connexionView" title="ConnexionView" id="gsD-oB-7mm" customClass="ConnexionViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="QO2-a4-PIR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -512,14 +520,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UD8-Cl-ZKY">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UD8-Cl-ZKY">
                                 <rect key="frame" x="119" y="222" width="176" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Mot de passe" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vsm-uZ-57Q">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mot de passe" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vsm-uZ-57Q">
                                 <rect key="frame" x="119" y="295" width="176" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
@@ -556,10 +564,10 @@
             </objects>
             <point key="canvasLocation" x="1179.7101449275362" y="-1525.271739130435"/>
         </scene>
-        <!--Landing Controller-->
+        <!--Landing-->
         <scene sceneID="WON-vf-lW5">
             <objects>
-                <viewController storyboardIdentifier="landing" id="9CD-dv-kTg" customClass="LandingController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="landing" title="Landing" id="9CD-dv-kTg" customClass="LandingController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="9Bk-rM-OCG" customClass="Landing">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -622,10 +630,10 @@
             </objects>
             <point key="canvasLocation" x="162" y="-661"/>
         </scene>
-        <!--Code View Controller-->
+        <!--QRCodeView-->
         <scene sceneID="XBE-vF-0JE">
             <objects>
-                <viewController storyboardIdentifier="QRCodeView" id="RXr-G9-ptT" customClass="QRCodeViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QRCodeView" title="QRCodeView" id="RXr-G9-ptT" customClass="QRCodeViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="LRu-8t-ptX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -696,6 +704,7 @@
         <image name="egg-black" width="100" height="132"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RUj-L5-Tx6"/>
+        <segue reference="P0d-KY-S2O"/>
+        <segue reference="soF-cD-8YD"/>
     </inferredMetricsTieBreakers>
 </document>

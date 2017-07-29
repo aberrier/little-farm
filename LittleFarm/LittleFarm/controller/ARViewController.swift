@@ -17,14 +17,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     
     var dataManager = PersistentDataManager.sharedInstance
     
-    //AR variables
-    @IBOutlet var sceneView: ARSCNView!
-    var positionBuffer : SCNVector3 = SCNVector3(0,0,0)
-    var object3D : testObject?
-    var qrZone : CGRect = CGRect.zero
-    var scene : SCNScene = SCNScene.init()
-    var isPositionGiven : Bool = false
-    var testObjectIsInstancied : Bool = false
+    
     
     //Debug outlets, should be gone soon 🙂
     @IBOutlet var labelX : UILabel!
@@ -37,6 +30,25 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     @IBOutlet var stepperY : UIStepper!
     @IBOutlet var stepperZ : UIStepper!
     
+    //AR variables
+    @IBOutlet var sceneView: ARSCNView!
+    var positionBuffer : SCNVector3 = SCNVector3(0,0,0)
+    var object3D : testObject?
+    {
+        didSet
+        {
+            labelX.text="x: \(object3D?.position.x ?? 0)"
+            labelY.text="y: \(object3D?.position.y ?? 0)"
+            labelZ.text="z: \(object3D?.position.z ?? 0)"
+            stepperX.value=Double(object3D!.position.x*100)
+            stepperY.value=Double(object3D!.position.y*100)
+            stepperZ.value=Double(object3D!.position.z*100)
+        }
+    }
+    var qrZone : CGRect = CGRect.zero
+    var scene : SCNScene = SCNScene.init()
+    var isPositionGiven : Bool = false
+    var testObjectIsInstancied : Bool = false
     //Story variables
     let scenario = StoryScenario.instance
     @IBOutlet var storyView : StoryView!
@@ -76,28 +88,36 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         let configuration = ARWorldTrackingSessionConfiguration()
         // Run the view's session
         sceneView.session.run(configuration)
-        
         //3D Position of the object
-        let firstDelay = 1.0
-        let secondDelay = 2.0
-        self.infoLabel.text="Initialization"
-        //Calculating coordinates
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + firstDelay, execute:
-            {
-                print("Calculating coordinates")
-                self.positionBuffer=self.PositionFor2Dto3DProjection(area: self.qrZone)
-                self.infoLabel.text="Look around for \(secondDelay) seconds."
-                
-        })
-        //Display object
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + secondDelay, execute:
-            {
-                self.addObjectTest()
-                self.object3D?.position = self.positionBuffer
-                self.updatePositionDisplay()
-                self.infoLabel.text="Object placed"
-                
-        })
+        if(object3D == nil)
+        {
+            let firstDelay = 1.0
+            let secondDelay = 2.0
+            self.infoLabel.text="Initialization"
+            //Calculating coordinates
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + firstDelay, execute:
+                {
+                    print("Calculating coordinates")
+                    self.positionBuffer=self.PositionFor2Dto3DProjection(area: self.qrZone)
+                    self.infoLabel.text="Look around for \(secondDelay) seconds."
+                    
+            })
+            //Display object
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + secondDelay, execute:
+                {
+                    self.addObjectTest()
+                    self.object3D?.position = self.positionBuffer
+                    self.updatePositionDisplay()
+                    self.infoLabel.text="Object placed"
+                    
+            })
+        }
+        else
+        {
+            print("The object is already been placed")
+        }
+        
+        
         
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -263,6 +283,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
             if let currentUser = dataManager.getCurrentUser()
             {
                 currentUser.storyId = storyId
+                currentUser.onStoryMode = false
                 if !dataManager.changeUser(user: currentUser)
                 {
                     print("ARView - storyPressButton - Checkpoint :  Can't change the current user.")
@@ -343,8 +364,6 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         let x = Float(UIScreen.main.nativeScale*coordinates.x/1000)*alpha
         let y = Float(UIScreen.main.nativeScale*coordinates.y/1000)*alpha
         
-        
-        //alert("infos", message: "x:\(x),y:\(y),z:\(z),\(alpha)")
         var translation = matrix_identity_float4x4
         translation.columns.3.z = -z
         translation.columns.3.x = x
@@ -355,9 +374,10 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         return newTransformMatrix
     }
     
+    
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
-        
+        print(error.localizedDescription)
     }
     
     func sessionWasInterrupted(_ session: ARSession) {
@@ -370,4 +390,5 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         
     }
 }
+
 

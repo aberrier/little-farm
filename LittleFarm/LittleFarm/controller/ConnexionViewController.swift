@@ -15,25 +15,20 @@ class ConnexionViewController : UIViewController
     @IBOutlet var infoLabel: UILabel!
     
     let dataManager = PersistentDataManager.sharedInstance
-    override func viewDidLoad() {
-        
-    }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
     @IBAction func validate(sender : UIButton)
     {
         if !dataManager.connectUser(email: idField.text!, password: passwordField.text!)
         {
             infoLabel.text = "Impossible de se connecter !"
+            view.layer.add(GT.giveShakeAnimation(), forKey: nil)
         }
         else
         {
-           QRCodeQuery()
+           callQRCodeController()
         }
     }
-    func QRCodeQuery()
+    func callQRCodeController()
     {
         let storyboard = UIStoryboard(name : "Main", bundle : nil)
         

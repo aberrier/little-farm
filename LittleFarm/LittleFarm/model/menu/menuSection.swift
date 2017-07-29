@@ -14,6 +14,28 @@ class menuSection : UIView
     @IBOutlet var imageRight : UIImageView!
     @IBOutlet var textLabel : UILabel!
     
+    /*
+    @IBInspectable var image : UIImage?
+        {
+        get {
+            return imageLeft.image
+        }
+        set(image)
+        {
+            imageLeft.image = image
+            imageRight.image = image
+        }
+    }
+    @IBInspectable var message : String?
+        {
+        get {
+            return textLabel.text
+        }
+        set(message) {
+            textLabel.text = message
+        }
+    }
+ */
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -26,6 +48,8 @@ class menuSection : UIView
     }
     func xibSetup()
     {
+        //contentView = loadViewFromNib()
+        
         Bundle.main.loadNibNamed("menuSection", owner: self, options: nil)
         addSubview(contentView)
         contentView.frame = bounds
@@ -40,7 +64,7 @@ class menuSection : UIView
         textLabel.font = UIFont(name : "Century Gothic", size : 20)
     }
     
-    func loadViewFromNib() -> UIView!
+    func loadViewFromNib() -> UIView
     {
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: String(describing : type(of: self)), bundle: bundle)
@@ -49,3 +73,4 @@ class menuSection : UIView
     }
     
 }
+

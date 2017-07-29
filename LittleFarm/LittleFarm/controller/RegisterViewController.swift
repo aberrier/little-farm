@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource
+class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate
 {
     
     
@@ -22,7 +22,7 @@ class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerVie
     @IBOutlet var image : UIImageView!
     @IBOutlet var nextButton : UIButton!
     
-    //Register variables
+    //Register outlets
     @IBOutlet var registerForm : UIView!
     @IBOutlet var surnameField : UITextField!
     @IBOutlet var passwordField : UITextField!
@@ -33,15 +33,15 @@ class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerVie
     @IBOutlet var imagePicker : UICollectionView!
     @IBOutlet var validateButton : UIButton!
     
+    //Register variables
     var genderSelected : Int16 = 1
-    var imageSelected : String = "default"
+    var imageSelected : String = generalInformations.defaultImage
     var sequence : Int = 0
-    
     var newUser : UserData = UserData()
-    var genderPickerData = ["Je suis un garçon !","Je suis une fille !"]
-    var imagePickerData = ["girl-1","girl-2","boy-1","boy-2","robot","alien"]
-    
+    var genderPickerData = generalInformations.registerGenderTab
+    var imagePickerData = generalInformations.registerImageTab
     let scenario = RegisterScenario.instance
+    
     //Variables relative to imagePicker
     let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
     
@@ -49,6 +49,7 @@ class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerVie
     //Don't forget to add a new text field on checkForEmptyField
     
     override func viewDidLoad() {
+        
         
         //Label settings
         view.layoutIfNeeded()
@@ -59,11 +60,14 @@ class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerVie
         genderPicker.dataSource = self
         imagePicker.delegate = self
         imagePicker.dataSource = self
-        
+        view.addGestureRecognizer(UITapGestureRecognizer(target : self,action : #selector(dismissKeyboard)))
         updateSequence()
         
     }
-    
+    @objc func dismissKeyboard()
+    {
+        view.endEditing(true)
+    }
     //genderPicker
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -136,7 +140,7 @@ class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerVie
             if field.text == nil
             {
                 field.layer.borderColor = UIColorSet.red.cgColor
-                field.layer.borderWidth = 1
+                field.layer.borderWidth = 2
                 thereIsAEmptyField = true
             }
             else if field.text == ""
@@ -156,10 +160,10 @@ class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerVie
     
     func showRegisterForm(_ trigger : Bool)
     {
-            registerForm.isHidden = !trigger
-            nextButton.isHidden = trigger
-            textLabel.isHidden = trigger
-            nextButton.isHidden = trigger
+        registerForm.isHidden = !trigger
+        nextButton.isHidden = trigger
+        textLabel.isHidden = trigger
+        nextButton.isHidden = trigger
     }
     //Update the sequence with the scenario
     func updateSequence()
@@ -201,11 +205,22 @@ class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerVie
             if sender == validateButton && !checkForEmptyField()
             {
                 createNewUser()
+                sequence+=1
+                updateSequence()
+            }
+            else
+            {
+                view.layer.add(GT.giveShakeAnimation(), forKey: nil)
             }
             
         }
-        sequence+=1
-        updateSequence()
+        else
+        {
+            sequence+=1
+            updateSequence()
+        }
+        
+        
     }
     func createNewUser()
     {
@@ -235,4 +250,5 @@ class RegisterViewController : UIViewController,UIPickerViewDelegate,UIPickerVie
         self.present(QRCodeView, animated: true, completion: nil)
     }
 }
+
 

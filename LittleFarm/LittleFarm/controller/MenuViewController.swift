@@ -52,11 +52,12 @@ class MenuViewController : UIViewController
         
         //Disconnect user
         dataManager.disconnectUser()
-        
+        dataManager.saveContext()
         //Launch Landing Controller
         let storyboard = UIStoryboard(name : "Main", bundle : nil)
         let landingView = storyboard.instantiateViewController(withIdentifier: "landing") as! LandingController
         self.present(landingView, animated: true, completion: nil)
     }
-  
+    
 }
+

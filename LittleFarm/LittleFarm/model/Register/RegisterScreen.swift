@@ -22,7 +22,7 @@ class RegisterScreen
         registerForm = false
         numberOfLines = 1
         text = ""
-        image = "default"
+        image = generalInformations.defaultImage
         end = false
         
     }

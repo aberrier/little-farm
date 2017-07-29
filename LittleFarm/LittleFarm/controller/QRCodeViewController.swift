@@ -21,21 +21,22 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
     @IBOutlet var messageLabel:UILabel!
     @IBOutlet weak var circularProgressView: KDCircularProgress!
     
+    var nextController : controllerType = .nothing
     
-    var codeRectangle:CGRect?
+    
+    
+    
+    //Video capture variables
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
     
-    var nextController : controllerType = .nothing
-    
+    //QRCode capture
+    var codeRectangle:CGRect?
     var QRCodeIsDetected : Bool = false
-    var maxCountDownValue  = 1.0
-    var currentCountDownValue  = 0.0
-    var timeInterval = 0.1
-    var progressPerSecond = 1.0
     var ARIsInstancied = false
     var RegisterIsInstancied = false
+    var timerDetection = Timer()
     let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
                               AVMetadataObject.ObjectType.code39,
                               AVMetadataObject.ObjectType.code39Mod43,
@@ -48,16 +49,34 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
                               AVMetadataObject.ObjectType.qr]
     
     
+    //Circular progress variables
+    var maxCountDownValue  = 1.0
+    var currentCountDownValue  = 0.0
+    var timeInterval = 0.1
+    var progressPerSecond = 1.0
+    
+    
+    
     var motionManager = CMMotionManager()
-    var timerDetection = Timer()
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Setup the video capture
+        setupVideoCapture()
+        // Move to the front all subviews
+        view.bringSubview(toFront: messageLabel)
+        view.bringSubview(toFront: circularProgressView)
         circularProgressView.isHidden = true
+        ARIsInstancied = false
         
+        
+    }
+    
+    func setupVideoCapture()
+    {
         //QR Code initializer
         
         // Get an instance of the AVCaptureDevice class to initialize a device object and provide the video as the media type parameter.
@@ -90,9 +109,7 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
             // Start video capture.
             captureSession?.startRunning()
             
-            // Move to the front
-            view.bringSubview(toFront: messageLabel)
-            view.bringSubview(toFront: circularProgressView)
+            
             // Initialize QR Code Frame to highlight the QR code
             qrCodeFrameView = UIView()
             
@@ -109,22 +126,6 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
             print(error)
             return
         }
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        //Create a timer for tilt tracking
-        super.viewWillAppear(animated)
-        ARIsInstancied = false
-        circularProgressView.isHidden=true
-        //timer=Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: (#selector(updateTilt)), userInfo: nil, repeats: true)
-        
-        
-    }
-    @objc func drag(sender : UIPanGestureRecognizer)
-    {
-        let step = sender.view!
-        let coord = sender.location(in: self.view)
-        step.center = coord
-        
     }
     
     func initiateARView()
@@ -143,10 +144,6 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
         self.present(ARView, animated: true, completion: nil)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-    }
     @objc func countDownForARView()
     {
         if(currentCountDownValue >= maxCountDownValue && !ARIsInstancied)
@@ -165,12 +162,6 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
     {
         timerDetection.invalidate()
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
     // MARK: - AVCaptureMetadataOutputObjectsDelegate Methods
     
     func metadataOutput(_ captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
@@ -234,7 +225,7 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
             {
                 messageLabel.text = "Le code n'est pas reconnu comme une boite LittleFarm :/"
             }
-        default : 
+        default :
             break
         }
     }
@@ -252,26 +243,7 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
         }
         messageLabel.text = "Pas de QRCode détecté."
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        let destinationView : UIViewController = segue.destination
-        
-        //Force AR
-        if destinationView is ARViewController
-        {
-            let ARView : ARViewController = destinationView as! ARViewController
-            ARView.isPositionGiven=true
-            
-            if let qrCode = codeRectangle
-            {
-                ARView.qrZone = qrCode
-            }
-            else
-            {
-                ARView.qrZone=CGRect.zero
-            }
-        }
-    }
+    
     
     //Countdown circle functions
     func increaseProgress(_ step : Double) {
@@ -292,4 +264,6 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
     
     
 }
+
+
 

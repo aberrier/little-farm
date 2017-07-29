@@ -39,7 +39,7 @@ class RegisterScenario
         tab += [RegisterScreen(register: true,
                                lines: 0,
                                text: "",
-                               image: "default")] //5
+                               image: generalInformations.defaultImage)] //5
         tab += [RegisterScreen(register: false,
                                lines: 2,
                                text: "Ah ! le voilà qu'il sort de sa cachette.\nPromettez-vous à petit wip de prendre soin de lui ?",

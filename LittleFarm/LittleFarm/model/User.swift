@@ -15,7 +15,7 @@ class UserData
     var birthDate : Date = Date(timeIntervalSince1970: 0)
     var email : String = "no@email.com"
     var gender : Int16 = 0
-    var image : String = "default"
+    var image : String = generalInformations.defaultImage
     var id : String = "id??"
     var password : String = "1234"
     var productId : String = "????"

@@ -176,10 +176,10 @@
 				939C19CF1F14EF7200C392CA /* ARViewController.swift */,
 				93281F591F20F94A004C93E2 /* RegisterViewController.swift */,
 				931D65511F2656E700BA049B /* ConnexionViewController.swift */,
+				9311D5691F292B3F003E1538 /* AdminPanelController.swift */,
 				93281F5B1F20F984004C93E2 /* BadgesViewController.swift */,
 				93281F5D1F20FAA1004C93E2 /* ExplorationViewController.swift */,
 				93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */,
-				9311D5691F292B3F003E1538 /* AdminPanelController.swift */,
 				93EE9A911F2A21D6003CB029 /* manager */,
 			);
 			path = controller;

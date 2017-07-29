@@ -22,7 +22,7 @@ class StoryScreen
         nextButton=false
         nextButtonAction = .DoNothing
         dataList = []
-        imageFace = "default"
+        imageFace = generalInformations.defaultImage
         text = "Undefined"
         
     }

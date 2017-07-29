@@ -22,19 +22,19 @@ class StoryScenario
                                arrowAction: .DoNothing,
                                dataButtons: [StoryDataButton(text : "Oui je suis un humain", action : .CallStoryScreen("start-02")),
                                              StoryDataButton(text : "Non, je suis un ouistiti", action : StoryAction.CallStoryScreen("start-01a"))],
-                               expression:  "default")
+                               expression:  generalInformations.defaultImage)
         
         map[generalInformations.firstStoryId] = 😀
         let 😇 = StoryScreen(message: "Hihihi ! Génial ! J'adore les humains ! Comment tu t'appelles ?",
                                arrowAction: .EndStory,
                                dataButtons: [],
-                               expression:  "default")
+                               expression:  generalInformations.defaultImage)
         
         map["start-02"] = 😇
         let 🤡 = StoryScreen(message: "Hihihi ! Tu es un petit farceur toi !",
                                arrowAction: .EndStory,
                                dataButtons: [],
-                               expression:  "default")
+                               expression:  generalInformations.defaultImage)
         
         map["start-01a"] = 🤡
         
