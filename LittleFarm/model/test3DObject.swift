@@ -9,11 +9,11 @@
 import ARKit
 class testObject : SCNNode {
     func loadModal() {
-        guard let virtualOjectScene = SCNScene(named: "art.scnassets/cupcake.scn") else {return}
+        guard let virtualObjectScene = SCNScene(named: "art.scnassets/cupcake.scn") else {return}
         
         let wrapperNode = SCNNode()
         
-        for child in virtualOjectScene.rootNode.childNodes {
+        for child in virtualObjectScene.rootNode.childNodes {
             wrapperNode.addChildNode(child)
         }
         

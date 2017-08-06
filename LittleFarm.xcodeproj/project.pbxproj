@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12E612AE2CA880BCD6B5298C /* Pods_LittleFarm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20C3E8FD636C5845EC5D7025 /* Pods_LittleFarm.framework */; };
 		9311D56A1F292B3F003E1538 /* AdminPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311D5691F292B3F003E1538 /* AdminPanelController.swift */; };
 		9315530E1F2BAD8A0018D26C /* StringPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9315530D1F2BAD8A0018D26C /* StringPair.swift */; };
 		931553151F2BE5650018D26C /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931553141F2BE5650018D26C /* Tools.swift */; };
@@ -20,11 +21,15 @@
 		93281F601F20FAC4004C93E2 /* TreeInventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */; };
 		93281F691F20FC6C004C93E2 /* LFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F681F20FC6C004C93E2 /* LFButton.swift */; };
 		93281F6B1F210E00004C93E2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F6A1F210E00004C93E2 /* Color.swift */; };
+		933643A01F2FCD3400A9C52E /* Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9336439F1F2FCD3400A9C52E /* Model.mm */; };
 		93510F601F22197C00296425 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93510F5F1F22197C00296425 /* Assets.xcassets */; };
 		936ACA251F163DF700156AD8 /* test3DObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936ACA241F163DF700156AD8 /* test3DObject.swift */; };
 		937517661F2395B6007EF547 /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937517651F2395B6007EF547 /* General.swift */; };
 		937517681F23BA97007EF547 /* menuSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937517671F23BA97007EF547 /* menuSection.swift */; };
 		9375176A1F23C85F007EF547 /* menuSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937517691F23C85F007EF547 /* menuSection.xib */; };
+		9376AB1E1F2F52D000D28C95 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9376AB1D1F2F52D000D28C95 /* OpenCVWrapper.mm */; };
+		9376AB201F2F580F00D28C95 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9376AB1F1F2F580600D28C95 /* libstdc++.tbd */; };
+		9376AB221F2F583C00D28C95 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9376AB211F2F583000D28C95 /* libc++.tbd */; };
 		937FE96F1F1E1ED600C3B0D7 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937FE96E1F1E1ED600C3B0D7 /* KDCircularProgress.swift */; };
 		939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19CB1F14EF7100C392CA /* AppDelegate.swift */; };
 		939C19CE1F14EF7200C392CA /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 939C19CD1F14EF7200C392CA /* art.scnassets */; };
@@ -68,6 +73,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		20C3E8FD636C5845EC5D7025 /* Pods_LittleFarm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LittleFarm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C5112F2AE149E7CAE1B4FDD /* Pods-LittleFarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LittleFarm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LittleFarm/Pods-LittleFarm.debug.xcconfig"; sourceTree = "<group>"; };
 		9311D5691F292B3F003E1538 /* AdminPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPanelController.swift; sourceTree = "<group>"; };
 		9315530D1F2BAD8A0018D26C /* StringPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringPair.swift; sourceTree = "<group>"; };
 		931553141F2BE5650018D26C /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
@@ -81,11 +88,18 @@
 		93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeInventoryViewController.swift; sourceTree = "<group>"; };
 		93281F681F20FC6C004C93E2 /* LFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFButton.swift; sourceTree = "<group>"; };
 		93281F6A1F210E00004C93E2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		9336439E1F2FCCF700A9C52E /* Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		9336439F1F2FCD3400A9C52E /* Model.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Model.mm; sourceTree = "<group>"; };
 		93510F5F1F22197C00296425 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		936ACA241F163DF700156AD8 /* test3DObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test3DObject.swift; sourceTree = "<group>"; };
 		937517651F2395B6007EF547 /* General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
 		937517671F23BA97007EF547 /* menuSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuSection.swift; sourceTree = "<group>"; };
 		937517691F23C85F007EF547 /* menuSection.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = menuSection.xib; sourceTree = "<group>"; };
+		9376AB1B1F2F52CF00D28C95 /* LittleFarm-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LittleFarm-Bridging-Header.h"; sourceTree = "<group>"; };
+		9376AB1C1F2F52D000D28C95 /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
+		9376AB1D1F2F52D000D28C95 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
+		9376AB1F1F2F580600D28C95 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		9376AB211F2F583000D28C95 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		937FE96E1F1E1ED600C3B0D7 /* KDCircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		939C19C81F14EF7100C392CA /* LittleFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		939C19CB1F14EF7100C392CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +129,7 @@
 		93FE0FB81F2A8F9100E08B42 /* StoryScenario.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryScenario.swift; sourceTree = "<group>"; };
 		93FE0FBA1F2A919300E08B42 /* StoryDataButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDataButton.swift; sourceTree = "<group>"; };
 		93FE0FBC1F2A9CF800E08B42 /* ControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerType.swift; sourceTree = "<group>"; };
+		CBAC5D1C65603CF0C336D75F /* Pods-LittleFarm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LittleFarm.release.xcconfig"; path = "Pods/Target Support Files/Pods-LittleFarm/Pods-LittleFarm.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +137,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9376AB221F2F583C00D28C95 /* libc++.tbd in Frameworks */,
+				9376AB201F2F580F00D28C95 /* libstdc++.tbd in Frameworks */,
+				12E612AE2CA880BCD6B5298C /* Pods_LittleFarm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +160,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73187368C3EABA2B8FB4CCE0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9376AB211F2F583000D28C95 /* libc++.tbd */,
+				9376AB1F1F2F580600D28C95 /* libstdc++.tbd */,
+				20C3E8FD636C5845EC5D7025 /* Pods_LittleFarm.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		931553111F2BCE160018D26C /* AR */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +193,26 @@
 				937517651F2395B6007EF547 /* General.swift */,
 			);
 			path = parameters;
+			sourceTree = "<group>";
+		};
+		9336439D1F2FCCCE00A9C52E /* model */ = {
+			isa = PBXGroup;
+			children = (
+				9336439E1F2FCCF700A9C52E /* Model.h */,
+				9336439F1F2FCD3400A9C52E /* Model.mm */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		9376AB1A1F2F527700D28C95 /* OpenCV */ = {
+			isa = PBXGroup;
+			children = (
+				9336439D1F2FCCCE00A9C52E /* model */,
+				9376AB1C1F2F52D000D28C95 /* OpenCVWrapper.h */,
+				9376AB1D1F2F52D000D28C95 /* OpenCVWrapper.mm */,
+				9376AB1B1F2F52CF00D28C95 /* LittleFarm-Bridging-Header.h */,
+			);
+			path = OpenCV;
 			sourceTree = "<group>";
 		};
 		937C33511F20A9DB008361BB /* controller */ = {
@@ -218,6 +266,8 @@
 				939C19E11F14EF7200C392CA /* LittleFarmTests */,
 				939C19EC1F14EF7200C392CA /* LittleFarmUITests */,
 				939C19C91F14EF7100C392CA /* Products */,
+				F0B4CEE0F607C84A72C83712 /* Pods */,
+				73187368C3EABA2B8FB4CCE0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -234,6 +284,7 @@
 		939C19CA1F14EF7100C392CA /* LittleFarm */ = {
 			isa = PBXGroup;
 			children = (
+				9376AB1A1F2F527700D28C95 /* OpenCV */,
 				939C19CB1F14EF7100C392CA /* AppDelegate.swift */,
 				931553141F2BE5650018D26C /* Tools.swift */,
 				939C19D11F14EF7200C392CA /* Main.storyboard */,
@@ -315,6 +366,15 @@
 			path = story;
 			sourceTree = "<group>";
 		};
+		F0B4CEE0F607C84A72C83712 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8C5112F2AE149E7CAE1B4FDD /* Pods-LittleFarm.debug.xcconfig */,
+				CBAC5D1C65603CF0C336D75F /* Pods-LittleFarm.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -322,9 +382,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 939C19F21F14EF7200C392CA /* Build configuration list for PBXNativeTarget "LittleFarm" */;
 			buildPhases = (
+				F169F4CA31C3A85C5F73A64B /* [CP] Check Pods Manifest.lock */,
 				939C19C41F14EF7100C392CA /* Sources */,
 				939C19C51F14EF7100C392CA /* Frameworks */,
 				939C19C61F14EF7100C392CA /* Resources */,
+				2F170E38F6E3558D3599D343 /* [CP] Embed Pods Frameworks */,
+				62C4EF819E2F430E9B019213 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -386,6 +449,8 @@
 				TargetAttributes = {
 					939C19C71F14EF7100C392CA = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
 					};
 					939C19DD1F14EF7200C392CA = {
 						CreatedOnToolsVersion = 9.0;
@@ -446,6 +511,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2F170E38F6E3558D3599D343 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LittleFarm/Pods-LittleFarm-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		62C4EF819E2F430E9B019213 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LittleFarm/Pods-LittleFarm-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F169F4CA31C3A85C5F73A64B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		939C19C41F14EF7100C392CA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -454,6 +567,7 @@
 				93FE0FB01F2A8C4300E08B42 /* StoryScreen.swift in Sources */,
 				939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */,
 				93281F5C1F20F984004C93E2 /* BadgesViewController.swift in Sources */,
+				933643A01F2FCD3400A9C52E /* Model.mm in Sources */,
 				939C19D01F14EF7200C392CA /* ARViewController.swift in Sources */,
 				9315531A1F2BF0250018D26C /* RegisterScreen.swift in Sources */,
 				93ED0C831F278C150015BCC8 /* imagePickerCell.swift in Sources */,
@@ -467,6 +581,7 @@
 				93281F581F20F6E7004C93E2 /* MenuViewController.swift in Sources */,
 				93FE0FB31F2A8CF600E08B42 /* StoryButton.swift in Sources */,
 				93FE0FBB1F2A919300E08B42 /* StoryDataButton.swift in Sources */,
+				9376AB1E1F2F52D000D28C95 /* OpenCVWrapper.mm in Sources */,
 				93B18E751F25292300146BD5 /* PersistentDataManager.swift in Sources */,
 				931D65521F2656E700BA049B /* ConnexionViewController.swift in Sources */,
 				93FE0FB51F2A8D6600E08B42 /* StoryAction.swift in Sources */,
@@ -644,13 +759,22 @@
 		};
 		939C19F31F14EF7200C392CA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C5112F2AE149E7CAE1B4FDD /* Pods-LittleFarm.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6QMNP7KU5F;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LittleFarm/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = alain.LittleFarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "LittleFarm/OpenCV/LittleFarm-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -658,13 +782,21 @@
 		};
 		939C19F41F14EF7200C392CA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CBAC5D1C65603CF0C336D75F /* Pods-LittleFarm.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6QMNP7KU5F;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LittleFarm/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = alain.LittleFarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "LittleFarm/OpenCV/LittleFarm-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

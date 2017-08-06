@@ -14,6 +14,8 @@ protocol StoryViewDelegate {
 
 class StoryView: UIView {
     
+    var dataManager = PersistentDataManager.sharedInstance
+    var scenario = StoryScenario.instance
     var delegate : StoryViewDelegate!
     
     @IBOutlet var storyText : LFLabel!
@@ -39,6 +41,17 @@ class StoryView: UIView {
         rectLabel = storyText.frame
         rectArrow = arrowButton.frame
         isSetted = true
+        if let currentUser = dataManager.getCurrentUser()
+        {
+            isHidden = !currentUser.onStoryMode
+            loadScreen(screen: scenario.map[currentUser.storyId]!)
+        }
+        else
+        {
+            //Can't load the current user
+            print("StoryView : Can't load the current user to get storyView informations.")
+            isHidden=true
+        }
     }
     func loadScreen(screen : StoryScreen)
     {

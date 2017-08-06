@@ -12,6 +12,7 @@ import ARKit
 import CoreSpotlight
 import CoreData
 
+
 class LandingController : UIViewController
 {
     
@@ -25,9 +26,9 @@ class LandingController : UIViewController
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-        
         //Title setup
         titleText.numberOfLines = 4
+        
         
         //Setup view with user informations
         if let isConnected = dataManager.generalInfos?.value(forKey: "isConnected") as? Bool
@@ -53,6 +54,9 @@ class LandingController : UIViewController
         {
             print("Landing : Can't read general informations on database")
         }
+        let openCV = OpenCVWrapper()
+        openCV.isItWorking()
+        titleText.text = "\nVersion de OpenCV :" + openCV.currentVersion()
         
         
     }
