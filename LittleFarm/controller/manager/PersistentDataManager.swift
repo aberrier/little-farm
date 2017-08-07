@@ -81,7 +81,7 @@ class PersistentDataManager
         infos.setValue(true, forKeyPath: "isInstancied")
         infos.setValue(false, forKeyPath: "isConnected")
         infos.setValue("", forKeyPath: "userConnectedId")
-        
+        addInitialKeys()
         do {
             try managerContext.save()
             generalInfosList.append(infos)
