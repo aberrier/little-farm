@@ -53,7 +53,7 @@ class PersistentDataManager
         {
             setupFirstPersistentData()
         }
-        //addInitialKeys()
+        addInitialKeys()
         //addUser(name: "Alain", surname: "Berrier", id: "id01", password: "wesh", image: "ruby", productId: "n1", gender: 0, email: "alain@berrier.fr", birthDate: Date(timeIntervalSince1970: 234500))
         //setConnectedUser(userId: "id01")
     }
