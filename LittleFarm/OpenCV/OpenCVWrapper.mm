@@ -7,9 +7,9 @@
 //
 
 #import "OpenCVWrapper.h"
-#import "Model.h"
-#import <opencv2/opencv.hpp>
-#import <opencv2/imgcodecs/ios.h>
+#import "Model.hpp"
+#import "opencv-headers.h"
+
 #import <iostream>
 
 @implementation OpenCVWrapper
@@ -17,12 +17,13 @@
 using namespace std;
 - (void) isItWorking {
     Model * newModel = [[Model alloc] init];
-    [newModel load];
+    [newModel test];
 }
 - (NSString*) currentVersion
 {
     return [NSString stringWithFormat:@"Opencv Version %s",CV_VERSION];
 }
+
 - (UIImage*) makeGreyFromImage:(UIImage *)image
 {
     //Transform UIImage to cv::Mat
@@ -38,4 +39,5 @@ using namespace std;
     return MatToUIImage(grayMat);
     
 }
+
 @end

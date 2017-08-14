@@ -30,4 +30,14 @@ struct GT {
         anim.duration = 7/100
         return anim
     }
+    static func convertObjectiveCArray(_ array : NSMutableArray) -> [Any]
+    {
+        var newArray : [Any] = []
+        for object in array
+        {
+            newArray += [object]
+        }
+        return newArray
+    }
+    
 }

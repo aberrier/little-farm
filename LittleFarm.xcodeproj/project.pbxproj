@@ -30,6 +30,11 @@
 		9376AB1E1F2F52D000D28C95 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9376AB1D1F2F52D000D28C95 /* OpenCVWrapper.mm */; };
 		9376AB201F2F580F00D28C95 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9376AB1F1F2F580600D28C95 /* libstdc++.tbd */; };
 		9376AB221F2F583C00D28C95 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9376AB211F2F583000D28C95 /* libc++.tbd */; };
+		9379DA5F1F40BF2500981EB8 /* RobustMatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9379DA5E1F40BF2500981EB8 /* RobustMatcher.mm */; };
+		9379DA621F40C09900981EB8 /* CVSWriter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9379DA611F40C09900981EB8 /* CVSWriter.mm */; };
+		9379DA641F40C0A700981EB8 /* CVSReader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9379DA631F40C0A700981EB8 /* CVSReader.mm */; };
+		9379DA671F40C0D700981EB8 /* Mesh.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9379DA661F40C0D700981EB8 /* Mesh.mm */; };
+		9379DA6A1F40C0FC00981EB8 /* PnPProblem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9379DA691F40C0FC00981EB8 /* PnPProblem.mm */; };
 		937FE96F1F1E1ED600C3B0D7 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937FE96E1F1E1ED600C3B0D7 /* KDCircularProgress.swift */; };
 		939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19CB1F14EF7100C392CA /* AppDelegate.swift */; };
 		939C19CE1F14EF7200C392CA /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 939C19CD1F14EF7200C392CA /* art.scnassets */; };
@@ -42,6 +47,8 @@
 		93B18E731F2510C000146BD5 /* main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E711F2510C000146BD5 /* main.xcdatamodeld */; };
 		93B18E751F25292300146BD5 /* PersistentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E741F25292300146BD5 /* PersistentDataManager.swift */; };
 		93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C43AE41F15427B00159522 /* QRCodeViewController.swift */; };
+		93C901641F4245C3005F6CF4 /* CVPoint3F.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93C901631F4245C3005F6CF4 /* CVPoint3F.mm */; };
+		93C901681F42491D005F6CF4 /* CVPoint2F.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93C901671F42491D005F6CF4 /* CVPoint2F.mm */; };
 		93ED0C811F2779A20015BCC8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED0C801F2779A20015BCC8 /* User.swift */; };
 		93ED0C831F278C150015BCC8 /* imagePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED0C821F278C150015BCC8 /* imagePickerCell.swift */; };
 		93ED0C851F2798E90015BCC8 /* LFLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED0C841F2798E90015BCC8 /* LFLabel.swift */; };
@@ -88,7 +95,7 @@
 		93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeInventoryViewController.swift; sourceTree = "<group>"; };
 		93281F681F20FC6C004C93E2 /* LFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFButton.swift; sourceTree = "<group>"; };
 		93281F6A1F210E00004C93E2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		9336439E1F2FCCF700A9C52E /* Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		9336439E1F2FCCF700A9C52E /* Model.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Model.hpp; sourceTree = "<group>"; };
 		9336439F1F2FCD3400A9C52E /* Model.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Model.mm; sourceTree = "<group>"; };
 		93510F5F1F22197C00296425 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		936ACA241F163DF700156AD8 /* test3DObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test3DObject.swift; sourceTree = "<group>"; };
@@ -100,6 +107,16 @@
 		9376AB1D1F2F52D000D28C95 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
 		9376AB1F1F2F580600D28C95 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		9376AB211F2F583000D28C95 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		9379DA5D1F40BECE00981EB8 /* RobustMatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RobustMatcher.h; sourceTree = "<group>"; };
+		9379DA5E1F40BF2500981EB8 /* RobustMatcher.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RobustMatcher.mm; sourceTree = "<group>"; };
+		9379DA601F40C08700981EB8 /* CVSWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CVSWriter.h; sourceTree = "<group>"; };
+		9379DA611F40C09900981EB8 /* CVSWriter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CVSWriter.mm; sourceTree = "<group>"; };
+		9379DA631F40C0A700981EB8 /* CVSReader.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CVSReader.mm; sourceTree = "<group>"; };
+		9379DA651F40C0C100981EB8 /* CVSReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CVSReader.h; sourceTree = "<group>"; };
+		9379DA661F40C0D700981EB8 /* Mesh.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Mesh.mm; sourceTree = "<group>"; };
+		9379DA681F40C0E700981EB8 /* Mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
+		9379DA691F40C0FC00981EB8 /* PnPProblem.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PnPProblem.mm; sourceTree = "<group>"; };
+		9379DA6B1F40C10F00981EB8 /* PnPProblem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PnPProblem.h; sourceTree = "<group>"; };
 		937FE96E1F1E1ED600C3B0D7 /* KDCircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		939C19C81F14EF7100C392CA /* LittleFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		939C19CB1F14EF7100C392CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -117,7 +134,12 @@
 		939C19FE1F14FDF800C392CA /* LandingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingController.swift; sourceTree = "<group>"; };
 		93B18E721F2510C000146BD5 /* main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = main.xcdatamodel; sourceTree = "<group>"; };
 		93B18E741F25292300146BD5 /* PersistentDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentDataManager.swift; sourceTree = "<group>"; };
+		93C208B01F41D62000FA8216 /* opencv-headers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "opencv-headers.h"; sourceTree = "<group>"; };
 		93C43AE41F15427B00159522 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
+		93C901631F4245C3005F6CF4 /* CVPoint3F.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CVPoint3F.mm; sourceTree = "<group>"; };
+		93C901651F4245CF005F6CF4 /* CVPoint3F.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CVPoint3F.hpp; sourceTree = "<group>"; };
+		93C901661F42490B005F6CF4 /* CVPoint2F.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CVPoint2F.hpp; sourceTree = "<group>"; };
+		93C901671F42491D005F6CF4 /* CVPoint2F.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CVPoint2F.mm; sourceTree = "<group>"; };
 		93ED0C801F2779A20015BCC8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		93ED0C821F278C150015BCC8 /* imagePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagePickerCell.swift; sourceTree = "<group>"; };
 		93ED0C841F2798E90015BCC8 /* LFLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFLabel.swift; sourceTree = "<group>"; };
@@ -198,8 +220,19 @@
 		9336439D1F2FCCCE00A9C52E /* model */ = {
 			isa = PBXGroup;
 			children = (
-				9336439E1F2FCCF700A9C52E /* Model.h */,
+				93C901621F424579005F6CF4 /* type */,
+				9336439E1F2FCCF700A9C52E /* Model.hpp */,
 				9336439F1F2FCD3400A9C52E /* Model.mm */,
+				9379DA5D1F40BECE00981EB8 /* RobustMatcher.h */,
+				9379DA681F40C0E700981EB8 /* Mesh.h */,
+				9379DA6B1F40C10F00981EB8 /* PnPProblem.h */,
+				9379DA601F40C08700981EB8 /* CVSWriter.h */,
+				9379DA651F40C0C100981EB8 /* CVSReader.h */,
+				9379DA5E1F40BF2500981EB8 /* RobustMatcher.mm */,
+				9379DA661F40C0D700981EB8 /* Mesh.mm */,
+				9379DA691F40C0FC00981EB8 /* PnPProblem.mm */,
+				9379DA611F40C09900981EB8 /* CVSWriter.mm */,
+				9379DA631F40C0A700981EB8 /* CVSReader.mm */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -211,6 +244,7 @@
 				9376AB1C1F2F52D000D28C95 /* OpenCVWrapper.h */,
 				9376AB1D1F2F52D000D28C95 /* OpenCVWrapper.mm */,
 				9376AB1B1F2F52CF00D28C95 /* LittleFarm-Bridging-Header.h */,
+				93C208B01F41D62000FA8216 /* opencv-headers.h */,
 			);
 			path = OpenCV;
 			sourceTree = "<group>";
@@ -325,6 +359,17 @@
 				93B18E711F2510C000146BD5 /* main.xcdatamodeld */,
 			);
 			path = data;
+			sourceTree = "<group>";
+		};
+		93C901621F424579005F6CF4 /* type */ = {
+			isa = PBXGroup;
+			children = (
+				93C901651F4245CF005F6CF4 /* CVPoint3F.hpp */,
+				93C901631F4245C3005F6CF4 /* CVPoint3F.mm */,
+				93C901661F42490B005F6CF4 /* CVPoint2F.hpp */,
+				93C901671F42491D005F6CF4 /* CVPoint2F.mm */,
+			);
+			path = type;
 			sourceTree = "<group>";
 		};
 		93EE9A901F2A2173003CB029 /* menu */ = {
@@ -565,6 +610,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93FE0FB01F2A8C4300E08B42 /* StoryScreen.swift in Sources */,
+				9379DA6A1F40C0FC00981EB8 /* PnPProblem.mm in Sources */,
 				939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */,
 				93281F5C1F20F984004C93E2 /* BadgesViewController.swift in Sources */,
 				933643A01F2FCD3400A9C52E /* Model.mm in Sources */,
@@ -575,6 +621,7 @@
 				937517661F2395B6007EF547 /* General.swift in Sources */,
 				93281F5A1F20F94A004C93E2 /* RegisterViewController.swift in Sources */,
 				93281F601F20FAC4004C93E2 /* TreeInventoryViewController.swift in Sources */,
+				9379DA621F40C09900981EB8 /* CVSWriter.mm in Sources */,
 				93FE0FB71F2A8F7800E08B42 /* StoryView.swift in Sources */,
 				93EE9A941F2A2408003CB029 /* userForAdminPanelCell.swift in Sources */,
 				93281F691F20FC6C004C93E2 /* LFButton.swift in Sources */,
@@ -582,9 +629,11 @@
 				93FE0FB31F2A8CF600E08B42 /* StoryButton.swift in Sources */,
 				93FE0FBB1F2A919300E08B42 /* StoryDataButton.swift in Sources */,
 				9376AB1E1F2F52D000D28C95 /* OpenCVWrapper.mm in Sources */,
+				93C901641F4245C3005F6CF4 /* CVPoint3F.mm in Sources */,
 				93B18E751F25292300146BD5 /* PersistentDataManager.swift in Sources */,
 				931D65521F2656E700BA049B /* ConnexionViewController.swift in Sources */,
 				93FE0FB51F2A8D6600E08B42 /* StoryAction.swift in Sources */,
+				93C901681F42491D005F6CF4 /* CVPoint2F.mm in Sources */,
 				9315530E1F2BAD8A0018D26C /* StringPair.swift in Sources */,
 				93281F6B1F210E00004C93E2 /* Color.swift in Sources */,
 				939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */,
@@ -593,11 +642,14 @@
 				931553151F2BE5650018D26C /* Tools.swift in Sources */,
 				9311D56A1F292B3F003E1538 /* AdminPanelController.swift in Sources */,
 				937FE96F1F1E1ED600C3B0D7 /* KDCircularProgress.swift in Sources */,
+				9379DA671F40C0D700981EB8 /* Mesh.mm in Sources */,
 				93B18E731F2510C000146BD5 /* main.xcdatamodeld in Sources */,
 				931553181F2BEFEB0018D26C /* RegisterScenario.swift in Sources */,
 				93ED0C851F2798E90015BCC8 /* LFLabel.swift in Sources */,
 				937517681F23BA97007EF547 /* menuSection.swift in Sources */,
+				9379DA641F40C0A700981EB8 /* CVSReader.mm in Sources */,
 				93FE0FBD1F2A9CF800E08B42 /* ControllerType.swift in Sources */,
+				9379DA5F1F40BF2500981EB8 /* RobustMatcher.mm in Sources */,
 				93ED0C811F2779A20015BCC8 /* User.swift in Sources */,
 				93FE0FB91F2A8F9100E08B42 /* StoryScenario.swift in Sources */,
 			);

@@ -56,7 +56,7 @@ class LandingController : UIViewController
         }
         let openCV = OpenCVWrapper()
         openCV.isItWorking()
-        titleText.text = "\nVersion de OpenCV :" + openCV.currentVersion()
+        titleText.text = "test"
         
         
     }

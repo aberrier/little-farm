@@ -3,4 +3,3 @@
 //
 
 #import "OpenCVWrapper.h"
-#import "Model.h"
