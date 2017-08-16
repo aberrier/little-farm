@@ -9,5 +9,10 @@
 #ifndef CVSReader_h
 #define CVSReader_h
 
+#import <UIKit/UIKit.h>
+
+@interface CVSReader : NSObject
+
+@end
 
 #endif /* CVSReader_h */

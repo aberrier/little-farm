@@ -7,17 +7,24 @@
 //
 
 #import "OpenCVWrapper.h"
-#import "Model.hpp"
 #import "opencv-headers.h"
 
+//Headers of Objective C class
+#import "Model.hpp"
+#import "RobustMatcher.hpp"
+#import "PnPProblem.hpp"
+#import "CVSWriter.hpp"
+#import "CVSReader.hpp"
+
+//C++ headers
 #import <iostream>
+
 
 @implementation OpenCVWrapper
 
 using namespace std;
 - (void) isItWorking {
     Model * newModel = [[Model alloc] init];
-    [newModel test];
 }
 - (NSString*) currentVersion
 {
@@ -41,3 +48,10 @@ using namespace std;
 }
 
 @end
+
+
+/*************** MODEL ****************************
+ 
+ //MODEL
+ 
+

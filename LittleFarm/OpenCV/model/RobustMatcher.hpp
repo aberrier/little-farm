@@ -9,5 +9,16 @@
 #ifndef RobustMatcher_h
 #define RobustMatcher_h
 
+#import <UIKit/UIKit.h>
+namespace cv
+{
+    class Mat;
+    class KeyPoint;
+    class DMatch;
+}
+@interface RobustMatcher : NSObject
 
+- (id) init;
+
+@end
 #endif /* RobustMatcher_h */

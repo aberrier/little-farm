@@ -9,5 +9,11 @@
 #ifndef PnPProblem_h
 #define PnPProblem_h
 
+#import <UIKit/UIKit.h>
+
+@interface PnPProblem : NSObject
+
+
+@end
 
 #endif /* PnPProblem_h */

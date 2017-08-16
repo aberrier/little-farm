@@ -9,5 +9,12 @@
 #ifndef Mesh_h
 #define Mesh_h
 
+#import <UIKit/UIKit.h>
+#import "Triangle.hpp"
+#import "Ray.hpp"
+@interface Mesh : NSObject
+-(id) init;
+
+@end
 
 #endif /* Mesh_h */

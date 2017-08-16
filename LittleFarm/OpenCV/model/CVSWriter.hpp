@@ -9,5 +9,11 @@
 #ifndef CVSWriter_h
 #define CVSWriter_h
 
+#import <UIKit/UIKit.h>
+
+@interface CVSWriter : NSObject
+
+
+@end
 
 #endif /* CVSWriter_h */

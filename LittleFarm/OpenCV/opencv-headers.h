@@ -15,6 +15,8 @@
 #ifdef __cplusplus
     #import <opencv2/opencv.hpp>
     #import <opencv2/imgcodecs/ios.h>
+    #import <opencv2/features2d/features2d.hpp>
+
 #endif
 
 #endif /* opencv_headers_h */
