@@ -34,6 +34,7 @@ using namespace std;
  - (std::vector<cv::Point2f>) getPoints2DOut;
  - (std::vector<cv::Point3f>) getPoints3D;
  - (std::vector<cv::KeyPoint>) getKeypoints;
+ - (cv::Mat) getDescriptors;
  - (int) getNumberOfDescriptors;
  - (void) addCorrespondence : (cv::Point2f) point2D : (cv::Point3f) point3D;
  - (void) addOutlier : (cv::Point2f) point2D;
@@ -71,6 +72,10 @@ cv::Mat listDescriptors;
     }
     
     return self;
+}
+- (cv::Mat) getDescriptors
+{
+    return self->listDescriptors;
 }
 - (std::vector<cv::Point2f>) getPoints2DIn
 {
@@ -1039,11 +1044,190 @@ cv::Mat listDescriptors;
 
 //************** OPENCVWRAPPER **********/
 
+@interface OpenCVWrapper()
+- (void) initKalmanFilter :(cv::KalmanFilter&) KF : (int) nStates : (int) nMeasurements : (int) nInputs : (double) dt;
+
+@end
 
 @implementation OpenCVWrapper
-
+{
+    
+    //Model object
+    Model * model;
+    //Mesh object
+    Mesh * mesh;
+    
+    RobustMatcher * rmatcher;
+    
+    cv::Ptr<cv::FeatureDetector> orb;
+    cv::Ptr<cv::flann::IndexParams> indexParams;
+    cv::Ptr<cv::flann::SearchParams> searchParams;
+    cv::Ptr<cv::DescriptorMatcher> matcher;
+    cv::KalmanFilter KF;
+    cv::Mat measurements;
+    BOOL good_measurement;
+    
+    vector<cv::Point3f> list_points3d_model;
+    cv::Mat descriptors_model;
+    cv::VideoCapture cap;
+    
+    PnPProblem * pnp_detection;
+    PnPProblem * pnp_detection_est;
+    
+    
+    
+}
+- (void) initKalmanFilter :(cv::KalmanFilter&) KF : (int) nStates : (int) nMeasurements : (int) nInputs : (double) dt
+{
+    KF.init(nStates, nMeasurements, nInputs, CV_64F);                 // init Kalman Filter
+    
+    cv::setIdentity(KF.processNoiseCov, cv::Scalar::all(1e-5));       // set process noise
+    cv::setIdentity(KF.measurementNoiseCov, cv::Scalar::all(1e-2));   // set measurement noise
+    cv::setIdentity(KF.errorCovPost, cv::Scalar::all(1));             // error covariance
+    
+    
+    /** DYNAMIC MODEL **/
+    
+    //  [1 0 0 dt  0  0 dt2   0   0 0 0 0  0  0  0   0   0   0]
+    //  [0 1 0  0 dt  0   0 dt2   0 0 0 0  0  0  0   0   0   0]
+    //  [0 0 1  0  0 dt   0   0 dt2 0 0 0  0  0  0   0   0   0]
+    //  [0 0 0  1  0  0  dt   0   0 0 0 0  0  0  0   0   0   0]
+    //  [0 0 0  0  1  0   0  dt   0 0 0 0  0  0  0   0   0   0]
+    //  [0 0 0  0  0  1   0   0  dt 0 0 0  0  0  0   0   0   0]
+    //  [0 0 0  0  0  0   1   0   0 0 0 0  0  0  0   0   0   0]
+    //  [0 0 0  0  0  0   0   1   0 0 0 0  0  0  0   0   0   0]
+    //  [0 0 0  0  0  0   0   0   1 0 0 0  0  0  0   0   0   0]
+    //  [0 0 0  0  0  0   0   0   0 1 0 0 dt  0  0 dt2   0   0]
+    //  [0 0 0  0  0  0   0   0   0 0 1 0  0 dt  0   0 dt2   0]
+    //  [0 0 0  0  0  0   0   0   0 0 0 1  0  0 dt   0   0 dt2]
+    //  [0 0 0  0  0  0   0   0   0 0 0 0  1  0  0  dt   0   0]
+    //  [0 0 0  0  0  0   0   0   0 0 0 0  0  1  0   0  dt   0]
+    //  [0 0 0  0  0  0   0   0   0 0 0 0  0  0  1   0   0  dt]
+    //  [0 0 0  0  0  0   0   0   0 0 0 0  0  0  0   1   0   0]
+    //  [0 0 0  0  0  0   0   0   0 0 0 0  0  0  0   0   1   0]
+    //  [0 0 0  0  0  0   0   0   0 0 0 0  0  0  0   0   0   1]
+    
+    // position
+    KF.transitionMatrix.at<double>(0,3) = dt;
+    KF.transitionMatrix.at<double>(1,4) = dt;
+    KF.transitionMatrix.at<double>(2,5) = dt;
+    KF.transitionMatrix.at<double>(3,6) = dt;
+    KF.transitionMatrix.at<double>(4,7) = dt;
+    KF.transitionMatrix.at<double>(5,8) = dt;
+    KF.transitionMatrix.at<double>(0,6) = 0.5*pow(dt,2);
+    KF.transitionMatrix.at<double>(1,7) = 0.5*pow(dt,2);
+    KF.transitionMatrix.at<double>(2,8) = 0.5*pow(dt,2);
+    
+    // orientation
+    KF.transitionMatrix.at<double>(9,12) = dt;
+    KF.transitionMatrix.at<double>(10,13) = dt;
+    KF.transitionMatrix.at<double>(11,14) = dt;
+    KF.transitionMatrix.at<double>(12,15) = dt;
+    KF.transitionMatrix.at<double>(13,16) = dt;
+    KF.transitionMatrix.at<double>(14,17) = dt;
+    KF.transitionMatrix.at<double>(9,15) = 0.5*pow(dt,2);
+    KF.transitionMatrix.at<double>(10,16) = 0.5*pow(dt,2);
+    KF.transitionMatrix.at<double>(11,17) = 0.5*pow(dt,2);
+    
+    
+    /** MEASUREMENT MODEL **/
+    
+    //  [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+    //  [0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+    //  [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+    //  [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0]
+    //  [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0]
+    //  [0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0]
+    
+    KF.measurementMatrix.at<double>(0,0) = 1;  // x
+    KF.measurementMatrix.at<double>(1,1) = 1;  // y
+    KF.measurementMatrix.at<double>(2,2) = 1;  // z
+    KF.measurementMatrix.at<double>(3,9) = 1;  // roll
+    KF.measurementMatrix.at<double>(4,10) = 1; // pitch
+    KF.measurementMatrix.at<double>(5,11) = 1; // yaw
+}
+- (void) setupDetection
+{
+    ///*******************PARAMETERS******************///
+    float ratioTest = 0.70f;
+    
+    int nStates = 18;            // the number of states
+    int nMeasurements = 6;       // the number of measured states
+    int nInputs = 0;             // the number of control actions
+    double dt = 0.125;           // time between measurements (1/FPS)
+    
+    ///OnePlus 3T Camera
+    double f = 29;                           // focal length in mm
+    double sx = 54.4, sy = 17.0;             // sensor size
+    double width = 3280, height = 2464;        // image size (in px ?)
+    NSMutableArray< NSNumber* > * params_WEBCAM = [NSMutableArray arrayWithObjects:
+                                                   [NSNumber numberWithFloat : width*f/sx],
+                                                   [NSNumber numberWithFloat : height*f/sy],
+                                                   [NSNumber numberWithFloat : width/2],
+                                                   [NSNumber numberWithFloat : height/2],
+                                                   nil];
+    ///**************************///
+    
+    std::string ymlReadPath =  [[[NSBundle mainBundle] pathForResource: @"ORB" ofType: @"yml"] UTF8String];
+    std::string plyReadPath =  [[[NSBundle mainBundle] pathForResource: @"mesh" ofType: @"ply"] UTF8String];
+    
+    self->pnp_detection = [[PnPProblem alloc] init:params_WEBCAM];
+    self->pnp_detection_est = [[PnPProblem alloc] init:params_WEBCAM];
+    
+    self->model = [[Model alloc] init];
+    [self->model load:ymlReadPath]; // load a 3D textured object model
+    
+    self->mesh = [[Mesh alloc] init];                 // instantiate Mesh object
+    [self->mesh load:plyReadPath];
+    
+    self->rmatcher = [[RobustMatcher alloc] init];                                                     // instantiate RobustMatcher
+    
+    self->orb = cv::ORB::create();
+    
+    [self->rmatcher setFeatureDetector : orb];                                      // set feature detector
+    [self->rmatcher setDescriptorExtractor : orb];                                 // set descriptor extractor
+    
+    indexParams = cv::makePtr<cv::flann::LshIndexParams>(6, 12, 1); // instantiate LSH index parameters
+    searchParams = cv::makePtr<cv::flann::SearchParams>(50);       // instantiate flann search parameters
+    
+    // instantiate FlannBased matcher
+    cv::Ptr<cv::DescriptorMatcher> matcher = cv::makePtr<cv::FlannBasedMatcher>(indexParams, searchParams);
+    [rmatcher setDescriptorMatcher : matcher];                                                         // set matcher
+    [rmatcher setRatio : ratioTest]; // set ratio test parameter
+    
+    
+    
+    [self initKalmanFilter : self->KF : nStates : nMeasurements : nInputs : dt];    // init function
+    self->measurements = cv::Mat(nMeasurements, 1, CV_64F);
+    measurements.setTo(cv::Scalar(0));
+    good_measurement = false;
+    
+    
+    // Get the MODEL INFO
+    self->list_points3d_model = [model getPoints3D];  // list with model 3D coordinates
+    self->descriptors_model = [model getDescriptors];                  // list with descriptors of each 3D coordinate
+    
+    
+}
+- (UIImage*) detectFrame : (CVPixelBufferRef) pixelBuffer
+{
+    CIImage *ciImage = [CIImage imageWithCVPixelBuffer:pixelBuffer];
+    
+    CIContext *temporaryContext = [CIContext contextWithOptions:nil];
+    CGImageRef videoImage = [temporaryContext createCGImage:ciImage fromRect:CGRectMake(0, 0, CVPixelBufferGetWidth(pixelBuffer),CVPixelBufferGetHeight(pixelBuffer))];
+    UIImage *uiImage = [UIImage imageWithCGImage: videoImage];
+    CGImageRelease(videoImage);
+    cv::Mat imageMat;
+    UIImageToMat(uiImage, imageMat);
+    
+    
+    //Transform the cv::Mat color image to gray
+    cv::Mat grayMat;
+    cv::cvtColor(imageMat, grayMat, CV_BGR2GRAY);
+    return MatToUIImage(grayMat);
+}
 - (void) isItWorking {
-    Model * newModel = [[Model alloc] init];
+    //Model * newModel = [[Model alloc] init];
 }
 - (NSString*) currentVersion
 {

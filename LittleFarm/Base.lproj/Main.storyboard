@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9CD-dv-kTg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9CD-dv-kTg">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -119,6 +119,10 @@
                                     <outlet property="storyText" destination="UkI-QC-mwQ" id="dEE-VD-5pJ"/>
                                 </connections>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lrp-a1-zMa">
+                                <rect key="frame" x="0.0" y="64" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -146,6 +150,7 @@
                     </view>
                     <connections>
                         <outlet property="dragSwitch" destination="Ooe-KY-WON" id="ZBp-zB-Ali"/>
+                        <outlet property="imageTest" destination="lrp-a1-zMa" id="bRg-B5-HPn"/>
                         <outlet property="infoLabel" destination="PWw-jP-9Ff" id="fS5-U6-D1i"/>
                         <outlet property="labelX" destination="ycd-p1-l3U" id="7HM-3r-Kpc"/>
                         <outlet property="labelY" destination="lTK-Dv-F0b" id="sGt-wx-Fsy"/>

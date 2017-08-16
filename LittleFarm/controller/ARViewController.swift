@@ -57,6 +57,10 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     var actionActivated : Bool = false
     var timer = Timer()
     
+    //OpenCV
+    @IBOutlet var imageTest : UIImageView!
+    let openCV = OpenCVWrapper()
+    var openCVTimer = Timer();
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -80,6 +84,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         // Run the view's session
         sceneView.session.run(configuration)
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: (#selector(setPositionOfObject)), userInfo: nil, repeats: true)
+        openCVTimer = Timer.scheduledTimer(timeInterval: 0.016, target: self, selector: (#selector(openCVDetection)), userInfo: nil, repeats: true)
         
     }
     
@@ -156,6 +161,17 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     func stopTimer()
     {
         timer.invalidate()
+    }
+    @objc func openCVDetection()
+    {
+        let sampleBuffer = sceneView.session.currentFrame?.capturedImage
+        imageTest.image = openCV.detectFrame(sampleBuffer)
+        imageTest.transform = CGAffineTransform(rotationAngle: .pi/2)
+        imageTest.frame = CGRect(x: 0, y: 0, width:imageTest.frame.width , height: imageTest.frame.height)
+    }
+    func stopOpenCVTimer()
+    {
+        openCVTimer.invalidate()
     }
     //Add primal object
     func addObjectTest() {

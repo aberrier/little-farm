@@ -22,6 +22,7 @@
 		93281F691F20FC6C004C93E2 /* LFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F681F20FC6C004C93E2 /* LFButton.swift */; };
 		93281F6B1F210E00004C93E2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F6A1F210E00004C93E2 /* Color.swift */; };
 		93510F601F22197C00296425 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93510F5F1F22197C00296425 /* Assets.xcassets */; };
+		936084FC1F44C9220046C41B /* mesh.ply in Resources */ = {isa = PBXBuildFile; fileRef = 936084FB1F44C9210046C41B /* mesh.ply */; };
 		93667C791F445B9D00E0C023 /* Util.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93667C781F445B9D00E0C023 /* Util.mm */; };
 		936ACA251F163DF700156AD8 /* test3DObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936ACA241F163DF700156AD8 /* test3DObject.swift */; };
 		937517661F2395B6007EF547 /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937517651F2395B6007EF547 /* General.swift */; };
@@ -91,6 +92,7 @@
 		93281F6A1F210E00004C93E2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		9336439E1F2FCCF700A9C52E /* Model.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Model.hpp; sourceTree = "<group>"; };
 		93510F5F1F22197C00296425 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		936084FB1F44C9210046C41B /* mesh.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = mesh.ply; path = ../mesh.ply; sourceTree = "<group>"; };
 		93667C711F44525700E0C023 /* Triangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Triangle.hpp; sourceTree = "<group>"; };
 		93667C741F44527400E0C023 /* Ray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ray.hpp; sourceTree = "<group>"; };
 		93667C781F445B9D00E0C023 /* Util.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Util.mm; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				93BBF85E1F42FFCA00E8933B /* ORB.yml */,
+				936084FB1F44C9210046C41B /* mesh.ply */,
 				939C19CA1F14EF7100C392CA /* LittleFarm */,
 				939C19E11F14EF7200C392CA /* LittleFarmTests */,
 				939C19EC1F14EF7200C392CA /* LittleFarmUITests */,
@@ -509,6 +512,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93BBF85F1F42FFCA00E8933B /* ORB.yml in Resources */,
+				936084FC1F44C9220046C41B /* mesh.ply in Resources */,
 				939C19CE1F14EF7200C392CA /* art.scnassets in Resources */,
 				939C19D81F14EF7200C392CA /* LaunchScreen.storyboard in Resources */,
 				93510F601F22197C00296425 /* Assets.xcassets in Resources */,

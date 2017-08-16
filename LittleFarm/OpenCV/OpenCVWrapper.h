@@ -10,6 +10,8 @@
 
 @interface OpenCVWrapper : NSObject
 - (void) isItWorking;
+- (void) setupDetection;
+- (UIImage*) detectFrame : (CVPixelBufferRef) pixelBuffer;
 - (NSString *) currentVersion;
 - (UIImage *) makeGrayFromImage : (UIImage *)image;
 
