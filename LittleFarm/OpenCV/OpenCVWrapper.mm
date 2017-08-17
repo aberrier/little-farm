@@ -20,6 +20,7 @@
 //C++ headers
 #import <iostream>
 #import <fstream>
+#import <sstream>
 
 using namespace std;
 
@@ -36,15 +37,15 @@ using namespace std;
  - (std::vector<cv::KeyPoint>) getKeypoints;
  - (cv::Mat) getDescriptors;
  - (int) getNumberOfDescriptors;
- - (void) addCorrespondence : (cv::Point2f) point2D : (cv::Point3f) point3D;
- - (void) addOutlier : (cv::Point2f) point2D;
- - (void) addDescriptor : (cv::Mat) descriptor;
- - (void) addKeypoint : (cv::KeyPoint) kp;
+ - (void) addCorrespondence : (cv::Point2f&) point2D : (cv::Point3f&) point3D;
+ - (void) addOutlier : (cv::Point2f&) point2D;
+ - (void) addDescriptor : (cv::Mat&) descriptor;
+ - (void) addKeypoint : (cv::KeyPoint&) kp;
  - (void) save : (std::string) path;
  - (void) load : (std::string) path;
  @end
  
- @implementation Model : NSObject
+ @implementation Model
  {
  int numCorrespondences;
  /** The list of 2D points on the model surface */
@@ -97,22 +98,22 @@ cv::Mat listDescriptors;
 {
     return self->listDescriptors.rows;
 }
-- (void) addCorrespondence : (cv::Point2f) point2D : (cv::Point3f) point3D
+- (void) addCorrespondence : (cv::Point2f&) point2D : (cv::Point3f&) point3D
 {
     self->list2DInside.push_back(point2D);
     self->list3DInside.push_back(point3D);
     self->numCorrespondences++;
 }
 
-- (void) addOutlier : (cv::Point2f) point2D;
+- (void) addOutlier : (cv::Point2f&) point2D;
 {
     self->list2DOutside.push_back(point2D);
 }
-- (void) addDescriptor : (cv::Mat) descriptor
+- (void) addDescriptor : (cv::Mat&) descriptor
 {
     self->listDescriptors.push_back(descriptor);
 }
-- (void) addKeypoint : (cv::KeyPoint) keypoint
+- (void) addKeypoint : (cv::KeyPoint&) keypoint
 {
     self->listKeypoints.push_back(keypoint);
 }
@@ -189,19 +190,19 @@ cv::Mat listDescriptors;
 //ROBUSTMATCHER
 @interface RobustMatcher()
 
-- (void) setFeatureDetector : (cv::Ptr<cv::FeatureDetector>) detect;
+- (void) setFeatureDetector : (cv::Ptr<cv::FeatureDetector>&) detect;
 
 // Set the descriptor extractor
-- (void) setDescriptorExtractor : (cv::Ptr<cv::DescriptorExtractor>) desc;
+- (void) setDescriptorExtractor : (cv::Ptr<cv::DescriptorExtractor>&) desc;
 
 // Set the matcher
-- (void) setDescriptorMatcher : (cv::Ptr<cv::DescriptorMatcher>) match;
+- (void) setDescriptorMatcher : (cv::Ptr<cv::DescriptorMatcher>&) match;
 
 // Compute the keypoints of an image
-- (void) computeKeyPoints : (cv::Mat) image :  (std::vector<cv::KeyPoint>) keypoints;
+- (void) computeKeyPoints : (cv::Mat&) image :  (std::vector<cv::KeyPoint>&) keypoints;
 
 // Compute the descriptors of an image given its keypoints
-- (void) computeDescriptors: (cv::Mat) image : (std::vector<cv::KeyPoint>) keypoints : (cv::Mat) descriptors;
+- (void) computeDescriptors: (cv::Mat&) image : (std::vector<cv::KeyPoint>&) keypoints : (cv::Mat&) descriptors;
 
 // Set ratio parameter for the ratio test
 - (void) setRatio : (float) rat;
@@ -210,25 +211,25 @@ cv::Mat listDescriptors;
 // return the number of removed points
 // (corresponding entries being cleared,
 // i.e. size will be 0)
-- (int) ratioTest : (std::vector<std::vector<cv::DMatch> >) matches;
+- (int) ratioTest : (std::vector<std::vector<cv::DMatch> >&) matches;
 
 // Insert symmetrical matches in symMatches vector
-- (void) symmetryTest: (std::vector<std::vector<cv::DMatch> >) matches1
-                     :(std::vector<std::vector<cv::DMatch> >) matches2
-                     :(std::vector<cv::DMatch>) symMatches;
+- (void) symmetryTest: (std::vector<std::vector<cv::DMatch> >&) matches1
+                     :(std::vector<std::vector<cv::DMatch> >&) matches2
+                     :(std::vector<cv::DMatch>&) symMatches;
 
 // Match feature points using ratio and symmetry test
-- (void) robustMatch: (cv::Mat) frame :  (std::vector<cv::DMatch>) good_matches
-                    :(std::vector<cv::KeyPoint>) keypoints_frame
-                    :(cv::Mat) descriptors_model;
+- (void) robustMatch: (cv::Mat&) frame :  (std::vector<cv::DMatch>&) good_matches
+                    :(std::vector<cv::KeyPoint>&) keypoints_frame
+                    :(cv::Mat&) descriptors_model;
 
 // Match feature points using ratio test
-- (void) fastRobustMatch : (cv::Mat) frame :  (std::vector<cv::DMatch>) good_matches
-                         : (std::vector<cv::KeyPoint>) keypoints_frame
-                         : (cv::Mat) descriptors_model;
+- (void) fastRobustMatch : (cv::Mat&) frame :  (std::vector<cv::DMatch>&) good_matches
+                         : (std::vector<cv::KeyPoint>&) keypoints_frame
+                         : (cv::Mat&) descriptors_model;
 @end
 
-@implementation RobustMatcher : NSObject
+@implementation RobustMatcher
 {
     // pointer to the feature point detector object
     cv::Ptr<cv::FeatureDetector> detector;
@@ -252,31 +253,31 @@ cv::Mat listDescriptors;
     self->matcher = cv::makePtr<cv::BFMatcher>((int)cv::NORM_HAMMING, false);
     return self;
 }
-- (void) setFeatureDetector : (cv::Ptr<cv::FeatureDetector>) detect
+- (void) setFeatureDetector : (cv::Ptr<cv::FeatureDetector>&) detect
 {
     self->detector=detect;
 }
 
 // Set the descriptor extractor
-- (void) setDescriptorExtractor : (cv::Ptr<cv::DescriptorExtractor>) desc
+- (void) setDescriptorExtractor : (cv::Ptr<cv::DescriptorExtractor>&) desc
 {
     self->extractor = desc;
 }
 
 // Set the matcher
-- (void) setDescriptorMatcher : (cv::Ptr<cv::DescriptorMatcher>) match
+- (void) setDescriptorMatcher : (cv::Ptr<cv::DescriptorMatcher>&) match
 {
     self->matcher = match;
 }
 
 // Compute the keypoints of an image
-- (void) computeKeyPoints : (cv::Mat) image :  (std::vector<cv::KeyPoint>) keypoints
+- (void) computeKeyPoints : (cv::Mat&) image :  (std::vector<cv::KeyPoint>&) keypoints
 {
     self->detector->detect(image, keypoints);
 }
 
 // Compute the descriptors of an image given its keypoints
-- (void) computeDescriptors: (cv::Mat) image : (std::vector<cv::KeyPoint>) keypoints : (cv::Mat) descriptors
+- (void) computeDescriptors: (cv::Mat&) image : (std::vector<cv::KeyPoint>&) keypoints : (cv::Mat&) descriptors
 {
     self->extractor->compute(image, keypoints, descriptors);
 }
@@ -291,7 +292,7 @@ cv::Mat listDescriptors;
 // return the number of removed points
 // (corresponding entries being cleared,
 // i.e. size will be 0)
-- (int) ratioTest : (std::vector<std::vector<cv::DMatch> >) matches
+- (int) ratioTest : (std::vector<std::vector<cv::DMatch> >&) matches
 {
     int removed = 0;
     // for all matches
@@ -318,9 +319,9 @@ cv::Mat listDescriptors;
 }
 
 // Insert symmetrical matches in symMatches vector
-- (void) symmetryTest: (std::vector<std::vector<cv::DMatch> >) matches1
-                     :(std::vector<std::vector<cv::DMatch> >) matches2
-                     :(std::vector<cv::DMatch>) symMatches
+- (void) symmetryTest: (std::vector<std::vector<cv::DMatch> >&) matches1
+                     :(std::vector<std::vector<cv::DMatch> >&) matches2
+                     :(std::vector<cv::DMatch>&) symMatches
 {
     // for all matches image 1 -> image 2
     for (std::vector<std::vector<cv::DMatch> >::const_iterator
@@ -357,15 +358,22 @@ cv::Mat listDescriptors;
 }
 
 // Match feature points using ratio and symmetry test
-- (void) robustMatch: (cv::Mat) frame :  (std::vector<cv::DMatch>) good_matches
-                    :(std::vector<cv::KeyPoint>) keypoints_frame
-                    :(cv::Mat) descriptors_model
+- (void) robustMatch: (cv::Mat&) frame :  (std::vector<cv::DMatch>&) good_matches
+                    :(std::vector<cv::KeyPoint>&) keypoints_frame
+                    :(cv::Mat&) descriptors_model
 {
     // 1a. Detection of the ORB features
     [self computeKeyPoints : frame : keypoints_frame];
     
     // 1b. Extraction of the ORB descriptors
     cv::Mat descriptors_frame;
+    //If the camera views is completly dark, the descriptor frame can be empty and lead to a crash
+    if(!descriptors_frame.isContinuous())
+    {
+        std::cout << "Can't find any descriptors on camera. It can be obstructed." << std::endl;
+        good_matches.clear();
+        return;
+    }
     [self computeDescriptors : frame : keypoints_frame : descriptors_frame];
     
     // 2. Match the two image descriptors
@@ -388,9 +396,9 @@ cv::Mat listDescriptors;
 }
 
 // Match feature points using ratio test
-- (void) fastRobustMatch : (cv::Mat) frame :  (std::vector<cv::DMatch>) good_matches
-                         : (std::vector<cv::KeyPoint>) keypoints_frame
-                         : (cv::Mat) descriptors_model
+- (void) fastRobustMatch : (cv::Mat&) frame :  (std::vector<cv::DMatch>&) good_matches
+                         : (std::vector<cv::KeyPoint>&) keypoints_frame
+                         : (cv::Mat&) descriptors_model
 {
     good_matches.clear();
     // 1a. Detection of the ORB features
@@ -425,10 +433,10 @@ cv::Mat listDescriptors;
  * @param list_triangle - The container of the triangles list of the mesh
  * @return
  */
-- (void) readPLY : (vector<cv::Point3f>) listVertex : (vector<vector<int> >) listTriangles;
+- (void) readPLY : (vector<cv::Point3f>&) listVertex : (vector<vector<int> >&) listTriangles;
 @end
 
-@implementation CVSReader : NSObject
+@implementation CVSReader
 {
     /** The current stream file for the reader */
     ifstream file;
@@ -446,7 +454,7 @@ cv::Mat listDescriptors;
     return self;
 }
 
-- (void) readPLY : (vector<cv::Point3f>) listVertex : (vector<vector<int> >) listTriangles
+- (void) readPLY : (vector<cv::Point3f>&) listVertex : (vector<vector<int> >&) listTriangles
 {
     std::string line, tmp_str, n;
     int num_vertex = 0, num_triangles = 0;
@@ -469,6 +477,8 @@ cv::Mat listDescriptors;
                 if(tmp_str == "vertex") num_vertex = [Util StringToInt:[NSString stringWithCString:n.c_str() encoding:[NSString defaultCStringEncoding]]];
                 if(tmp_str == "face") num_triangles = [Util StringToInt:[NSString stringWithCString:n.c_str() encoding:[NSString defaultCStringEncoding]]];
             }
+            stringstream corrector(tmp_str);
+            getline(corrector, tmp_str, '\n');
             if(tmp_str == "end_header") end_header = true;
         }
         
@@ -523,12 +533,12 @@ cv::Mat listDescriptors;
 @interface CVSWriter()
 
 - (id) init : (string) path : (string) separator;
-- (void) writeXYZ : (vector<cv::Point3f>) list_points3d;
-- (void) writeUVXYZ : (vector<cv::Point3f>) list_points3d : (vector<cv::Point2f>) list_points2d : (cv::Mat) descriptors;
+- (void) writeXYZ : (vector<cv::Point3f>&) list_points3d;
+- (void) writeUVXYZ : (vector<cv::Point3f>&) list_points3d : (vector<cv::Point2f>&) list_points2d : (cv::Mat&) descriptors;
 
 @end
 
-@implementation CVSWriter : NSObject
+@implementation CVSWriter
 {
     ofstream file;
     string separator;
@@ -546,7 +556,7 @@ cv::Mat listDescriptors;
     }
     return self;
 }
-- (void) writeXYZ : (vector<cv::Point3f>) list_points3d
+- (void) writeXYZ : (vector<cv::Point3f>&) list_points3d
 {
     string x, y, z;
     for(unsigned int i = 0; i < list_points3d.size(); ++i)
@@ -558,7 +568,7 @@ cv::Mat listDescriptors;
         file << x << separator << y << separator << z << std::endl;
     }
 }
-- (void) writeUVXYZ : (vector<cv::Point3f>) list_points3d : (vector<cv::Point2f>) list_points2d : (cv::Mat) descriptors
+- (void) writeUVXYZ : (vector<cv::Point3f>&) list_points3d : (vector<cv::Point2f>&) list_points2d : (cv::Mat&) descriptors
 {
     string u, v, x, y, z, descriptor_str;
     for(unsigned int i = 0; i < list_points3d.size(); ++i)
@@ -588,7 +598,7 @@ cv::Mat listDescriptors;
 - (void) load : (std::string) path_file;
 @end
 
-@implementation Mesh : NSObject
+@implementation Mesh
 {
     /** The identification number of the mesh */
     int id_;
@@ -658,7 +668,7 @@ cv::Mat listDescriptors;
 
 @end
 
-@implementation Triangle : NSObject
+@implementation Triangle
 {
     /** The identifier number of the triangle */
     int id_;
@@ -698,7 +708,7 @@ cv::Mat listDescriptors;
 - (cv::Point3f) getP1;
 @end
 
-@implementation Ray : NSObject
+@implementation Ray
 {
     cv::Point3f p0;
     cv::Point3f p1;
@@ -729,14 +739,14 @@ cv::Mat listDescriptors;
 
 - (id) init : (NSMutableArray*) param;
 
-- (BOOL) backproject2DPoint : (Mesh*) mesh : (cv::Point2f) point2d : (cv::Point3f) point3d;
+- (BOOL) backproject2DPoint : (Mesh*) mesh : (cv::Point2f&) point2d : (cv::Point3f&) point3d;
 - (BOOL) intersectMollerTrumbore : (Ray*) R : (Triangle*) T : (double*) out_;
 - (std::vector<cv::Point2f>) verifyPoints : (Mesh *) mesh;
-- (cv::Point2f) backproject3DPoint : (cv::Point3f) point3d;
-- (BOOL) estimatePose : (std::vector<cv::Point3f>) listPoints3d : (std::vector<cv::Point2f>) listPoints2d :  (int) flags;
-- (void) estimatePoseRANSAC : (std::vector<cv::Point3f>) listPoints3d : (std::vector<cv::Point2f>) listPoints2d
+- (cv::Point2f) backproject3DPoint : (cv::Point3f&) point3d;
+- (BOOL) estimatePose : (std::vector<cv::Point3f>&) listPoints3d : (std::vector<cv::Point2f>&) listPoints2d :  (int) flags;
+- (void) estimatePoseRANSAC : (std::vector<cv::Point3f>&) listPoints3d : (std::vector<cv::Point2f>&) listPoints2d
                             : (int) flags
-                            : (cv::Mat) inliers
+                            : (cv::Mat&) inliers
                             : (int) iterationsCount : (float) reprojectionError : (double) confidence;
 
 - (cv::Mat) getAMatrix;
@@ -744,7 +754,7 @@ cv::Mat listDescriptors;
 - (cv::Mat) getTMatrix;
 - (cv::Mat) getPMatrix;
 
-- (void) setPMatrix : (cv::Mat) R_matrix : (cv::Mat) t_matrix;
+- (void) setPMatrix : (cv::Mat&) R_matrix : (cv::Mat&) t_matrix;
 
 // Functions for Möller–Trumbore intersection algorithm
 - (cv::Point3f) CROSS : (cv::Point3f) v1 :  (cv::Point3f) v2;
@@ -753,7 +763,7 @@ cv::Mat listDescriptors;
 - (cv::Point3f) getNearest3DPoint : (std::vector<cv::Point3f>) pointsList : (cv::Point3f) origin;
 @end
 
-@implementation PnPProblem : NSObject
+@implementation PnPProblem
 {
     /** The calibration matrix */
     cv::Mat AMatrix;
@@ -782,7 +792,7 @@ cv::Mat listDescriptors;
     return self;
 }
 
-- (BOOL) backproject2DPoint : (Mesh*) mesh : (cv::Point2f) point2d : (cv::Point3f) point3d
+- (BOOL) backproject2DPoint : (Mesh*) mesh : (cv::Point2f&) point2d : (cv::Point3f&) point3d
 {
     // Triangles list of the object mesh
     std::vector<std::vector<int> > triangles_list = [mesh getTrianglesList];
@@ -915,7 +925,7 @@ cv::Mat listDescriptors;
     
     return verified_points_2d;
 }
-- (cv::Point2f) backproject3DPoint : (cv::Point3f) point3d
+- (cv::Point2f) backproject3DPoint : (cv::Point3f&) point3d
 {
     // 3D point vector [x y z 1]'
     cv::Mat point3d_vec = cv::Mat(4, 1, CV_64FC1);
@@ -935,7 +945,7 @@ cv::Mat listDescriptors;
     
     return point2d;
 }
-- (BOOL) estimatePose : (std::vector<cv::Point3f>) listPoints3d : (std::vector<cv::Point2f>) listPoints2d :  (int) flags
+- (BOOL) estimatePose : (std::vector<cv::Point3f>&) listPoints3d : (std::vector<cv::Point2f>&) listPoints2d :  (int) flags
 {
     cv::Mat distCoeffs = cv::Mat::zeros(4, 1, CV_64FC1);
     cv::Mat rvec = cv::Mat::zeros(3, 1, CV_64FC1);
@@ -956,9 +966,9 @@ cv::Mat listDescriptors;
      
      return correspondence;
      }
-     - (void) estimatePoseRANSAC : (std::vector<cv::Point3f>) listPoints3d : (std::vector<cv::Point2f>) listPoints2d
+     - (void) estimatePoseRANSAC : (std::vector<cv::Point3f>&) listPoints3d : (std::vector<cv::Point2f>&) listPoints2d
      : (int) flags
-     : (cv::Mat) inliers
+     : (cv::Mat&) inliers
      : (int) iterationsCount : (float) reprojectionError : (double) confidence
      {
          cv::Mat distCoeffs = cv::Mat::zeros(4, 1, CV_64FC1);  // vector of distortion coefficients
@@ -997,7 +1007,7 @@ cv::Mat listDescriptors;
      {
          return self->PMatrix;
      }
-     - (void) setPMatrix : (cv::Mat) R_matrix : (cv::Mat) t_matrix
+     - (void) setPMatrix : (cv::Mat&) R_matrix : (cv::Mat&) t_matrix
      {
          
      }
@@ -1034,7 +1044,86 @@ cv::Mat listDescriptors;
      }
  @end
      
-     
+///UTIL.H
+@interface Util()
+
+// Draw a text with the frame ratio
++ (void) drawConfidence : (cv::Mat) image : (double) confidence : (cv::Scalar) color;
+// Draw a text with the question point
++ (void) drawQuestion: (cv::Mat) image : (cv::Point3f) point : (cv::Scalar) color;
+//Draw the position
++ (void) drawPosition : (cv::Mat) image : (cv::Mat) transformMatrix : (cv::Scalar) color;
+@end
+
+@implementation Util
++ (int) StringToInt : (NSString*) Text
+{
+    std::string cppText = [Text UTF8String];
+    std::istringstream ss(cppText);
+    int result;
+    return ss >> result ? result : 0;
+}
+
++ (NSString*) FloatToString : (float) Number
+{
+    std::ostringstream ss;
+    ss << Number;
+    return [NSString stringWithCString:ss.str().c_str() encoding:[NSString defaultCStringEncoding]];
+}
++ (NSString*) IntToString : (int) Number
+{
+    std::ostringstream ss;
+    ss << Number;
+    return [NSString stringWithCString:ss.str().c_str() encoding:[NSString defaultCStringEncoding]];
+}
+// Draw a text with the frame ratio
++ (void) drawConfidence : (cv::Mat) image : (double) confidence : (cv::Scalar) color
+{
+    // For text
+    int fontFace = cv::FONT_ITALIC;
+    double fontScale = 0.75;
+    int thickness_font = 2;
+    
+    std::string conf_str = [[self IntToString : (int)confidence] UTF8String];
+    std::string text = conf_str + " %";
+    cv::putText(image, text, cv::Point(500,75), fontFace, fontScale, color, thickness_font, 8);
+}
+// Draw a text with the question point
++ (void) drawQuestion: (cv::Mat) image : (cv::Point3f) point : (cv::Scalar) color
+{
+    // For text
+    int fontFace = cv::FONT_ITALIC;
+    double fontScale = 0.75;
+    int thickness_font = 2;
+    
+    std::string x = [[self IntToString : (int)point.x ] UTF8String];
+    std::string y = [[self IntToString : (int)point.y ] UTF8String];
+    std::string z = [[self IntToString : (int)point.z ] UTF8String];
+    
+    std::string text = " Where is point (" + x + ","  + y + "," + z + ") ?";
+    cv::putText(image, text, cv::Point(25,50), fontFace, fontScale, color, thickness_font, 8);
+}
++ (void) drawPosition : (cv::Mat) image : (cv::Mat) transformMatrix : (cv::Scalar) color
+{
+    int fontFace = cv::FONT_ITALIC;
+    double fontScale = 0.75;
+    int thickness_font = 2;
+    
+    cv::Mat originVector = cv::Mat::zeros(4, 1, CV_64FC1);
+    cv::Mat newVector = transformMatrix * originVector;
+    std::ostringstream strs;
+    strs << " Position at ("
+    << newVector.at<double>(0, 0)
+    << ","
+    << newVector.at<double>(1, 0)
+    << ","
+    << newVector.at<double>(2, 0)
+    << ")";
+    std::string text = strs.str();
+    cv::putText(image, text, cv::Point(25,100), fontFace, fontScale, color, thickness_font, 8);
+}
+@end
+
 
 
 
@@ -1211,6 +1300,7 @@ cv::Mat listDescriptors;
 }
 - (UIImage*) detectFrame : (CVPixelBufferRef) pixelBuffer
 {
+    //Convert pixelBuffer to cv::Mat
     CIImage *ciImage = [CIImage imageWithCVPixelBuffer:pixelBuffer];
     
     CIContext *temporaryContext = [CIContext contextWithOptions:nil];
@@ -1219,7 +1309,8 @@ cv::Mat listDescriptors;
     CGImageRelease(videoImage);
     cv::Mat imageMat;
     UIImageToMat(uiImage, imageMat);
-    
+    transpose(imageMat,imageMat);
+    cv::flip(imageMat, imageMat, 1);
     
     //Transform the cv::Mat color image to gray
     cv::Mat grayMat;

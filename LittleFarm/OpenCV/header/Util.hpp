@@ -14,5 +14,6 @@
 @interface Util : NSObject
 + (int) StringToInt : (NSString*) Text;
 + (NSString*) FloatToString : (float) Number;
++ (NSString*) IntToString : (int) Number ;
 @end
 #endif /* Util_h */
