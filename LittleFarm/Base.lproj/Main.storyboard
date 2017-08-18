@@ -257,12 +257,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBM-ls-BfS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1178.2608695652175" y="-40.760869565217398"/>
+            <point key="canvasLocation" x="2180" y="116"/>
         </scene>
-        <!--Bluetooth View Controller-->
+        <!--BLE Chat-->
         <scene sceneID="nrH-Xf-fdg">
             <objects>
-                <viewController id="ozG-xd-8gA" customClass="BluetoothViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BluetoothChat" title="BLE Chat" id="ozG-xd-8gA" customClass="BluetoothChatViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="tRx-jT-dwe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -272,38 +272,53 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="egg-3" translatesAutoresizingMaskIntoConstraints="NO" id="JxK-YM-NGD">
-                                <rect key="frame" x="20" y="312" width="209" height="244"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mSS-Zu-CLp" customClass="LFButton" customModule="LittleFarm" customModuleProvider="target">
-                                <rect key="frame" x="263" y="443" width="107" height="63"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Se connecter"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUb-D5-pez" customClass="LFButton" customModule="LittleFarm" customModuleProvider="target">
-                                <rect key="frame" x="263" y="514" width="107" height="63"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="143" y="648" width="107" height="63"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Retour"/>
                                 <connections>
-                                    <segue destination="RXr-G9-ptT" kind="show" id="lK8-ca-69Y"/>
+                                    <action selector="goBackToConnexion:" destination="ozG-xd-8gA" eventType="touchUpInside" id="Mcg-jh-AFe"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6w-Il-kw8" customClass="LFLabel" customModule="LittleFarm" customModuleProvider="target">
-                                <rect key="frame" x="33" y="37" width="348" height="219"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Data." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="T2a-sm-aZU">
+                                <rect key="frame" x="20" y="28" width="374" height="225"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0fy-ZG-vh2">
+                                <rect key="frame" x="20" y="581" width="290" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="egg-3" translatesAutoresizingMaskIntoConstraints="NO" id="JxK-YM-NGD">
+                                <rect key="frame" x="103" y="299" width="209" height="244"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJs-uU-BnG">
+                                <rect key="frame" x="343" y="581" width="36" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Send"/>
+                                <connections>
+                                    <action selector="clickSendAction:" destination="ozG-xd-8gA" eventType="touchUpInside" id="a57-aa-mos"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="nkf-kj-WVi"/>
                     </view>
+                    <connections>
+                        <outlet property="baseTextView" destination="T2a-sm-aZU" id="ngP-JH-rjE"/>
+                        <outlet property="inputTextField" destination="0fy-ZG-vh2" id="y0z-IO-ifC"/>
+                        <outlet property="sendButton" destination="HJs-uU-BnG" id="3Xq-fH-baT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfs-7k-eNt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2137.68115942029" y="-72.554347826086968"/>
+            <point key="canvasLocation" x="195.6521739130435" y="800.54347826086962"/>
         </scene>
         <!--Admin Panel-->
         <scene sceneID="Yby-Dp-c8L">
@@ -347,7 +362,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjg-8a-cWG">
-                                                    <rect key="frame" x="-1" y="0.0" width="290" height="62"/>
+                                                    <rect key="frame" x="-1" y="0.0" width="290" height="61"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                     <state key="normal" title="Surname Name"/>
@@ -356,7 +371,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cZ-lC-qoV">
-                                                    <rect key="frame" x="327" y="14" width="30" height="31"/>
+                                                    <rect key="frame" x="327" y="13" width="30" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="delete"/>
                                                     <connections>
@@ -624,6 +639,85 @@
             </objects>
             <point key="canvasLocation" x="1179.7101449275362" y="-1525.271739130435"/>
         </scene>
+        <!--BLE Connexion-->
+        <scene sceneID="FGF-ps-5t7">
+            <objects>
+                <viewController title="BLE Connexion" id="rCP-e4-kn9" customClass="BluetoothConnexionViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides/>
+                    <view key="view" contentMode="scaleToFill" id="7LR-WZ-Nmg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background-lift" translatesAutoresizingMaskIntoConstraints="NO" id="yWF-bb-VfF">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IaD-Ey-crB" customClass="LFButton" customModule="LittleFarm" customModuleProvider="target">
+                                <rect key="frame" x="163" y="690" width="88" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Annuler"/>
+                                <connections>
+                                    <action selector="callQRCodeControllerWithSender:" destination="9CD-dv-kTg" eventType="touchUpInside" id="zNK-Qi-NiL"/>
+                                    <segue destination="9CD-dv-kTg" kind="show" id="sVP-7W-6oT"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="98" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WbC-yO-A6M">
+                                <rect key="frame" x="15" y="53" width="384" height="629"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BlueCell" rowHeight="98" id="YGI-6N-vzp" customClass="PeripheralTableViewCell" customModule="Basic_Chat" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="384" height="98"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YGI-6N-vzp" id="HL6-Pj-H2m">
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="97.666666666666671"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="RSSI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pjq-z9-JiA">
+                                                    <rect key="frame" x="14" y="52" width="120" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Peripheral Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZ7-H6-Vkf">
+                                                    <rect key="frame" x="14" y="23" width="291" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="peripheralLabel" destination="BZ7-H6-Vkf" id="ZNZ-Bi-l1z"/>
+                                            <outlet property="rssiLabel" destination="Pjq-z9-JiA" id="Vzd-x7-gi6"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AXy-5n-v1V" customClass="LFButton" customModule="LittleFarm" customModuleProvider="target">
+                                <rect key="frame" x="295" y="15" width="119" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Actualiser"/>
+                                <connections>
+                                    <action selector="callQRCodeControllerWithSender:" destination="9CD-dv-kTg" eventType="touchUpInside" id="ck9-bP-Qau"/>
+                                    <action selector="refreshAction:" destination="rCP-e4-kn9" eventType="touchUpInside" id="zRf-44-dRI"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="3JJ-Ap-egJ"/>
+                    </view>
+                    <connections>
+                        <outlet property="baseTableView" destination="WbC-yO-A6M" id="xX7-62-8Ob"/>
+                        <outlet property="refreshButton" destination="AXy-5n-v1V" id="LnN-C8-DyH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NI2-4a-Z2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="195.6521739130435" y="68.478260869565219"/>
+        </scene>
         <!--Landing-->
         <scene sceneID="WON-vf-lW5">
             <objects>
@@ -681,6 +775,14 @@
                                     <segue destination="wSH-j3-E2h" kind="show" id="nTN-5m-QSz"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sfQ-Gq-gT7" customClass="LFButton" customModule="LittleFarm" customModuleProvider="target">
+                                <rect key="frame" x="96" y="608" width="223" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Communiquer avec une plante"/>
+                                <connections>
+                                    <segue destination="rCP-e4-kn9" kind="show" id="zWA-EX-f1z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="S8k-Ly-8ah"/>
@@ -694,7 +796,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYC-uZ-qmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="196" y="-635"/>
+            <point key="canvasLocation" x="195.6521739130435" y="-635.054347826087"/>
         </scene>
         <!--QRCodeView-->
         <scene sceneID="XBE-vF-0JE">
@@ -771,7 +873,7 @@
         <image name="egg-black" width="100" height="132"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Xey-pJ-cbw"/>
         <segue reference="P0d-KY-S2O"/>
+        <segue reference="sVP-7W-6oT"/>
     </inferredMetricsTieBreakers>
 </document>

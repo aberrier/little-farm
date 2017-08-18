@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		12E612AE2CA880BCD6B5298C /* Pods_LittleFarm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20C3E8FD636C5845EC5D7025 /* Pods_LittleFarm.framework */; };
-		930456B91F46587C00DA45AC /* BluetoothViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930456B81F46587C00DA45AC /* BluetoothViewController.swift */; };
+		930456B91F46587C00DA45AC /* BluetoothChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930456B81F46587C00DA45AC /* BluetoothChatViewController.swift */; };
 		9311D56A1F292B3F003E1538 /* AdminPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311D5691F292B3F003E1538 /* AdminPanelController.swift */; };
 		9315530E1F2BAD8A0018D26C /* StringPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9315530D1F2BAD8A0018D26C /* StringPair.swift */; };
 		931553151F2BE5650018D26C /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931553141F2BE5650018D26C /* Tools.swift */; };
@@ -48,6 +48,9 @@
 		93ED0C831F278C150015BCC8 /* imagePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED0C821F278C150015BCC8 /* imagePickerCell.swift */; };
 		93ED0C851F2798E90015BCC8 /* LFLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED0C841F2798E90015BCC8 /* LFLabel.swift */; };
 		93EE9A941F2A2408003CB029 /* userForAdminPanelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE9A931F2A2408003CB029 /* userForAdminPanelCell.swift */; };
+		93FB81911F473B2000EE055B /* BluetoothConnexionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB81901F473B2000EE055B /* BluetoothConnexionViewController.swift */; };
+		93FB81941F474AF700EE055B /* PeripheralTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB81931F474AF700EE055B /* PeripheralTableViewCell.swift */; };
+		93FB81961F475AEB00EE055B /* UUIDKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB81951F475AEB00EE055B /* UUIDKey.swift */; };
 		93FE0FB01F2A8C4300E08B42 /* StoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FE0FAF1F2A8C4300E08B42 /* StoryScreen.swift */; };
 		93FE0FB31F2A8CF600E08B42 /* StoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FE0FB21F2A8CF600E08B42 /* StoryButton.swift */; };
 		93FE0FB51F2A8D6600E08B42 /* StoryAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FE0FB41F2A8D6600E08B42 /* StoryAction.swift */; };
@@ -77,7 +80,7 @@
 /* Begin PBXFileReference section */
 		20C3E8FD636C5845EC5D7025 /* Pods_LittleFarm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LittleFarm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C5112F2AE149E7CAE1B4FDD /* Pods-LittleFarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LittleFarm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LittleFarm/Pods-LittleFarm.debug.xcconfig"; sourceTree = "<group>"; };
-		930456B81F46587C00DA45AC /* BluetoothViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothViewController.swift; sourceTree = "<group>"; };
+		930456B81F46587C00DA45AC /* BluetoothChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothChatViewController.swift; sourceTree = "<group>"; };
 		9311D5691F292B3F003E1538 /* AdminPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPanelController.swift; sourceTree = "<group>"; };
 		9315530D1F2BAD8A0018D26C /* StringPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringPair.swift; sourceTree = "<group>"; };
 		931553141F2BE5650018D26C /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
@@ -135,6 +138,9 @@
 		93ED0C821F278C150015BCC8 /* imagePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagePickerCell.swift; sourceTree = "<group>"; };
 		93ED0C841F2798E90015BCC8 /* LFLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFLabel.swift; sourceTree = "<group>"; };
 		93EE9A931F2A2408003CB029 /* userForAdminPanelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userForAdminPanelCell.swift; sourceTree = "<group>"; };
+		93FB81901F473B2000EE055B /* BluetoothConnexionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothConnexionViewController.swift; sourceTree = "<group>"; };
+		93FB81931F474AF700EE055B /* PeripheralTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralTableViewCell.swift; sourceTree = "<group>"; };
+		93FB81951F475AEB00EE055B /* UUIDKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDKey.swift; sourceTree = "<group>"; };
 		93FE0FAF1F2A8C4300E08B42 /* StoryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryScreen.swift; sourceTree = "<group>"; };
 		93FE0FB21F2A8CF600E08B42 /* StoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryButton.swift; sourceTree = "<group>"; };
 		93FE0FB41F2A8D6600E08B42 /* StoryAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryAction.swift; sourceTree = "<group>"; };
@@ -249,7 +255,8 @@
 				93281F5B1F20F984004C93E2 /* BadgesViewController.swift */,
 				93281F5D1F20FAA1004C93E2 /* ExplorationViewController.swift */,
 				93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */,
-				930456B81F46587C00DA45AC /* BluetoothViewController.swift */,
+				930456B81F46587C00DA45AC /* BluetoothChatViewController.swift */,
+				93FB81901F473B2000EE055B /* BluetoothConnexionViewController.swift */,
 				93EE9A911F2A21D6003CB029 /* manager */,
 			);
 			path = controller;
@@ -258,6 +265,7 @@
 		937C33521F20A9E8008361BB /* model */ = {
 			isa = PBXGroup;
 			children = (
+				93FB81921F474AD500EE055B /* BLE */,
 				931553161F2BEFD50018D26C /* Register */,
 				931553111F2BCE160018D26C /* AR */,
 				93FE0FB11F2A8CD800E08B42 /* story */,
@@ -375,6 +383,15 @@
 				93EE9A931F2A2408003CB029 /* userForAdminPanelCell.swift */,
 			);
 			path = cells;
+			sourceTree = "<group>";
+		};
+		93FB81921F474AD500EE055B /* BLE */ = {
+			isa = PBXGroup;
+			children = (
+				93FB81931F474AF700EE055B /* PeripheralTableViewCell.swift */,
+				93FB81951F475AEB00EE055B /* UUIDKey.swift */,
+			);
+			path = BLE;
 			sourceTree = "<group>";
 		};
 		93FE0FB11F2A8CD800E08B42 /* story */ = {
@@ -593,6 +610,7 @@
 				93FE0FB01F2A8C4300E08B42 /* StoryScreen.swift in Sources */,
 				939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */,
 				93281F5C1F20F984004C93E2 /* BadgesViewController.swift in Sources */,
+				93FB81961F475AEB00EE055B /* UUIDKey.swift in Sources */,
 				939C19D01F14EF7200C392CA /* ARViewController.swift in Sources */,
 				9315531A1F2BF0250018D26C /* RegisterScreen.swift in Sources */,
 				93ED0C831F278C150015BCC8 /* imagePickerCell.swift in Sources */,
@@ -605,6 +623,7 @@
 				93281F691F20FC6C004C93E2 /* LFButton.swift in Sources */,
 				93281F581F20F6E7004C93E2 /* MenuViewController.swift in Sources */,
 				93FE0FB31F2A8CF600E08B42 /* StoryButton.swift in Sources */,
+				93FB81941F474AF700EE055B /* PeripheralTableViewCell.swift in Sources */,
 				93FE0FBB1F2A919300E08B42 /* StoryDataButton.swift in Sources */,
 				9376AB1E1F2F52D000D28C95 /* OpenCVWrapper.mm in Sources */,
 				93B18E751F25292300146BD5 /* PersistentDataManager.swift in Sources */,
@@ -612,6 +631,7 @@
 				93FE0FB51F2A8D6600E08B42 /* StoryAction.swift in Sources */,
 				9315530E1F2BAD8A0018D26C /* StringPair.swift in Sources */,
 				93281F6B1F210E00004C93E2 /* Color.swift in Sources */,
+				93FB81911F473B2000EE055B /* BluetoothConnexionViewController.swift in Sources */,
 				939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */,
 				93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */,
 				93281F5E1F20FAA1004C93E2 /* ExplorationViewController.swift in Sources */,
@@ -623,7 +643,7 @@
 				93ED0C851F2798E90015BCC8 /* LFLabel.swift in Sources */,
 				937517681F23BA97007EF547 /* menuSection.swift in Sources */,
 				93FE0FBD1F2A9CF800E08B42 /* ControllerType.swift in Sources */,
-				930456B91F46587C00DA45AC /* BluetoothViewController.swift in Sources */,
+				930456B91F46587C00DA45AC /* BluetoothChatViewController.swift in Sources */,
 				93ED0C811F2779A20015BCC8 /* User.swift in Sources */,
 				93FE0FB91F2A8F9100E08B42 /* StoryScenario.swift in Sources */,
 			);
