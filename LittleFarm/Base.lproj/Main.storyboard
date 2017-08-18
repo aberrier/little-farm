@@ -178,7 +178,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background-lift" translatesAutoresizingMaskIntoConstraints="NO" id="5IQ-k6-KFp">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9mH-Na-8FN">
                                 <rect key="frame" x="55" y="88" width="304" height="560"/>
@@ -258,6 +258,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBM-ls-BfS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1178.2608695652175" y="-40.760869565217398"/>
+        </scene>
+        <!--Bluetooth View Controller-->
+        <scene sceneID="nrH-Xf-fdg">
+            <objects>
+                <viewController id="ozG-xd-8gA" customClass="BluetoothViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides/>
+                    <view key="view" contentMode="scaleToFill" id="tRx-jT-dwe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background-lift" translatesAutoresizingMaskIntoConstraints="NO" id="1Gg-pm-nfr">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="egg-3" translatesAutoresizingMaskIntoConstraints="NO" id="JxK-YM-NGD">
+                                <rect key="frame" x="20" y="312" width="209" height="244"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mSS-Zu-CLp" customClass="LFButton" customModule="LittleFarm" customModuleProvider="target">
+                                <rect key="frame" x="263" y="443" width="107" height="63"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Se connecter"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUb-D5-pez" customClass="LFButton" customModule="LittleFarm" customModuleProvider="target">
+                                <rect key="frame" x="263" y="514" width="107" height="63"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Retour"/>
+                                <connections>
+                                    <segue destination="RXr-G9-ptT" kind="show" id="lK8-ca-69Y"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6w-Il-kw8" customClass="LFLabel" customModule="LittleFarm" customModuleProvider="target">
+                                <rect key="frame" x="33" y="37" width="348" height="219"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="nkf-kj-WVi"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mfs-7k-eNt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2137.68115942029" y="-72.554347826086968"/>
         </scene>
         <!--Admin Panel-->
         <scene sceneID="Yby-Dp-c8L">
@@ -721,6 +767,7 @@
         <image name="default" width="512" height="512"/>
         <image name="delete" width="170" height="170"/>
         <image name="egg-1" width="697" height="920"/>
+        <image name="egg-3" width="67" height="111"/>
         <image name="egg-black" width="100" height="132"/>
     </resources>
     <inferredMetricsTieBreakers>
