@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		12E612AE2CA880BCD6B5298C /* Pods_LittleFarm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20C3E8FD636C5845EC5D7025 /* Pods_LittleFarm.framework */; };
+		930456B91F46587C00DA45AC /* BluetoothViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930456B81F46587C00DA45AC /* BluetoothViewController.swift */; };
 		9311D56A1F292B3F003E1538 /* AdminPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311D5691F292B3F003E1538 /* AdminPanelController.swift */; };
 		9315530E1F2BAD8A0018D26C /* StringPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9315530D1F2BAD8A0018D26C /* StringPair.swift */; };
 		931553151F2BE5650018D26C /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931553141F2BE5650018D26C /* Tools.swift */; };
@@ -76,6 +77,7 @@
 /* Begin PBXFileReference section */
 		20C3E8FD636C5845EC5D7025 /* Pods_LittleFarm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LittleFarm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C5112F2AE149E7CAE1B4FDD /* Pods-LittleFarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LittleFarm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LittleFarm/Pods-LittleFarm.debug.xcconfig"; sourceTree = "<group>"; };
+		930456B81F46587C00DA45AC /* BluetoothViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothViewController.swift; sourceTree = "<group>"; };
 		9311D5691F292B3F003E1538 /* AdminPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPanelController.swift; sourceTree = "<group>"; };
 		9315530D1F2BAD8A0018D26C /* StringPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringPair.swift; sourceTree = "<group>"; };
 		931553141F2BE5650018D26C /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				93281F5B1F20F984004C93E2 /* BadgesViewController.swift */,
 				93281F5D1F20FAA1004C93E2 /* ExplorationViewController.swift */,
 				93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */,
+				930456B81F46587C00DA45AC /* BluetoothViewController.swift */,
 				93EE9A911F2A21D6003CB029 /* manager */,
 			);
 			path = controller;
@@ -571,13 +574,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LittleFarm-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -620,6 +626,7 @@
 				93ED0C851F2798E90015BCC8 /* LFLabel.swift in Sources */,
 				937517681F23BA97007EF547 /* menuSection.swift in Sources */,
 				93FE0FBD1F2A9CF800E08B42 /* ControllerType.swift in Sources */,
+				930456B91F46587C00DA45AC /* BluetoothViewController.swift in Sources */,
 				93ED0C811F2779A20015BCC8 /* User.swift in Sources */,
 				93FE0FB91F2A8F9100E08B42 /* StoryScenario.swift in Sources */,
 			);
@@ -788,7 +795,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6QMNP7KU5F;
+				DEVELOPMENT_TEAM = S6YLKG79F2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LittleFarm/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -819,7 +826,7 @@
 					"-framework",
 					"\"opencv2\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = alain.LittleFarm;
+				PRODUCT_BUNDLE_IDENTIFIER = saad.LittleFarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LittleFarm/OpenCV/LittleFarm-Bridging-Header.h";
@@ -838,11 +845,11 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6QMNP7KU5F;
+				DEVELOPMENT_TEAM = S6YLKG79F2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LittleFarm/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = alain.LittleFarm;
+				PRODUCT_BUNDLE_IDENTIFIER = saad.LittleFarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LittleFarm/OpenCV/LittleFarm-Bridging-Header.h";
