@@ -13,6 +13,6 @@
 - (void) setupDetection;
 - (UIImage*) detectFrame : (CVPixelBufferRef) pixelBuffer;
 - (NSString *) currentVersion;
-- (UIImage *) makeGrayFromImage : (UIImage *)image;
+- (UIImage*) makeGreyFromImage:(UIImage *)image;
 
 @end
