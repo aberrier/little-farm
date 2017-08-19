@@ -987,7 +987,12 @@ using namespace std;
                        useExtrinsicGuess, iterationsCount, reprojectionError, confidence,
                        inliers, flags );
     Rodrigues(rvec,RMatrix);      // converts Rotation Vector to Matrix
+    //std::cout << "tvec" << tvec;
     TMatrix = tvec;       // set translation matrix
+    //std::cout << "TMatrix" << TMatrix;
+    //std::cout << "RMatrix" << std::endl << RMatrix;
+    //std::cout << "TMatrix" << std::endl << TMatrix;
+    
     [self setPMatrix : RMatrix : TMatrix]; // set rotation-translation matrix
 }
 
@@ -1009,7 +1014,19 @@ using namespace std;
 }
 - (void) setPMatrix : (cv::Mat&) R_matrix : (cv::Mat&) t_matrix
 {
-    
+    PMatrix.at<double>(0,0) = RMatrix.at<double>(0,0);
+    PMatrix.at<double>(0,1) = RMatrix.at<double>(0,1);
+    PMatrix.at<double>(0,2) = RMatrix.at<double>(0,2);
+    PMatrix.at<double>(1,0) = RMatrix.at<double>(1,0);
+    PMatrix.at<double>(1,1) = RMatrix.at<double>(1,1);
+    PMatrix.at<double>(1,2) = RMatrix.at<double>(1,2);
+    PMatrix.at<double>(2,0) = RMatrix.at<double>(2,0);
+    PMatrix.at<double>(2,1) = RMatrix.at<double>(2,1);
+    PMatrix.at<double>(2,2) = RMatrix.at<double>(2,2);
+    PMatrix.at<double>(0,3) = TMatrix.at<double>(0,0);
+    PMatrix.at<double>(1,3) = TMatrix.at<double>(1,0);
+    PMatrix.at<double>(2,3) = TMatrix.at<double>(2,0);
+    std::cout << std::endl << "PMatrix" << std::endl << PMatrix;
 }
 // Functions for Möller–Trumbore intersection algorithm
 - (cv::Point3f) CROSS : (cv::Point3f) v1 :  (cv::Point3f) v2
@@ -1118,17 +1135,22 @@ using namespace std;
     int thickness_font = 2;
     
     cv::Mat originVector = cv::Mat::zeros(4, 1, CV_64FC1);
+    originVector.at<double>(3,0) = 1;
     cv::Mat newVector = transformMatrix * originVector;
-    std::ostringstream strs;
-    strs << " Position at ("
-    << newVector.at<double>(0, 0)
-    << ","
-    << newVector.at<double>(1, 0)
-    << ","
-    << newVector.at<double>(2, 0)
-    << ")";
-    std::string text = strs.str();
-    cv::putText(image, text, cv::Point(25,100), fontFace, fontScale, color, thickness_font, 8);
+    std::cout << "transformATrix" << transformMatrix;
+    if(newVector.at<double>(0, 0) != 0 && newVector.at<double>(1, 0) != 0 && newVector.at<double>(2, 0) != 0)
+    {
+        std::ostringstream strs;
+        strs << " Position at ("
+        << int(100*newVector.at<double>(0, 0))
+        << ","
+        << int(100*newVector.at<double>(1, 0))
+        << ","
+        << int(100*newVector.at<double>(2, 0))
+        << ")";
+        std::string text = strs.str();
+        cv::putText(image, text, cv::Point(25,100), fontFace, fontScale, color, thickness_font, 8);
+    }
 }
 // Draw only the 2D points
 + (void) draw2DPoints : (cv::Mat) image : (std::vector<cv::Point2f>&) list_points : (cv::Scalar) color
@@ -1339,9 +1361,9 @@ using namespace std;
     double dt = 0.125;           // time between measurements (1/FPS)
     
     ///OnePlus 3T Camera
-    double f = 29;                           // focal length in mm
-    double sx = 54.4, sy = 17.0;             // sensor size
-    double width = 3280, height = 2464;        // image size (in px ?)
+    double f = 28;                           // focal length in mm
+    double sx = 4.8, sy = 3.6;             // sensor size
+    double width = 4032, height = 3024;        // image size (in px ?)
     NSMutableArray< NSNumber* > * params_WEBCAM = [NSMutableArray arrayWithObjects:
                                                    [NSNumber numberWithFloat : width*f/sx],
                                                    [NSNumber numberWithFloat : height*f/sy],
@@ -1355,8 +1377,8 @@ using namespace std;
     
     // RANSAC parameters
     iterationsCount = 500;      // number of Ransac iterations.
-    reprojectionError = 2.0;  // maximum allowed distance to consider it an inlier.
-    confidence = 0.95;        // ransac successful confidence.
+    reprojectionError = 4.0;  // maximum allowed distance to consider it an inlier.
+    confidence = 0.05;        // ransac successful confidence.
     
     // Kalman Filter parameters
     minInliersKalman = 30;    // Kalman threshold updating
@@ -1371,6 +1393,8 @@ using namespace std;
     green = cv::Scalar(0,255,0);
     blue = cv::Scalar(255,0,0);
     yellow = cv::Scalar(0,255,255);
+    std::cout << "test ::" << [[NSBundle mainBundle] pathForResource: @"ORB" ofType: @"yml"] << std::endl;;
+    
     
     std::string ymlReadPath =  [[[NSBundle mainBundle] pathForResource: @"ORB" ofType: @"yml"] UTF8String];
     std::string plyReadPath =  [[[NSBundle mainBundle] pathForResource: @"mesh" ofType: @"ply"] UTF8String];
@@ -1471,6 +1495,9 @@ using namespace std;
         [pnp_detection estimatePoseRANSAC : list_points3d_model_match : list_points2d_scene_match
                                           : pnpMethod : inliers_idx
                                           : iterationsCount : reprojectionError : confidence];
+        ///POSITION
+        std::cout << std::endl << "PBisMatrix" << [pnp_detection getPMatrix];
+        [Util drawPosition : frame_vis : [pnp_detection getPMatrix] : red];
         // -- Step 4: Catch the inliers keypoints to draw
         for(int inliers_index = 0; inliers_index < inliers_idx.rows; ++inliers_index)
         {
@@ -1485,8 +1512,8 @@ using namespace std;
         
         good_measurement = false;
         // GOOD MEASUREMENT
-        if( inliers_idx.rows >= minInliersKalman )
-        {
+        //if( inliers_idx.rows >= minInliersKalman )
+        //{
             
             // Get the measured translation
             cv::Mat translation_measured(3, 1, CV_64F);
@@ -1501,7 +1528,7 @@ using namespace std;
             
             good_measurement = true;
             
-        }
+        //}
         // Instantiate estimated translation and rotation
         cv::Mat translation_estimated(3, 1, CV_64F);
         cv::Mat rotation_estimated(3, 3, CV_64F);
@@ -1514,6 +1541,7 @@ using namespace std;
         [pnp_detection_est setPMatrix : rotation_estimated : translation_estimated];
         
     }
+    
     // -- Step X: Draw pose
     
     if(good_measurement)
@@ -1532,8 +1560,7 @@ using namespace std;
     pose_points2d.push_back([pnp_detection_est backproject3DPoint : cv::Point3f(0,1,0)]);  // axis y
     pose_points2d.push_back([pnp_detection_est backproject3DPoint : cv::Point3f(0,0,1)]);  // axis z
     [Util draw3DCoordinateAxes : frame_vis : pose_points2d];           // draw axes
-    ///POSITION
-    //[Util drawPosition : frame_vis : [pnp_detection_est getPMatrix] : red];
+    
     // FRAME RATE
     
     double detection_ratio = ((double)inliers_idx.rows/(double)good_matches.size())*100;
