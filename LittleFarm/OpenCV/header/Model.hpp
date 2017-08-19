@@ -14,7 +14,6 @@
 @interface Model : NSObject
 
 - (id) init;
-- (void) test;
 @end
 
 #endif /* Model_h */

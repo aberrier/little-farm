@@ -120,22 +120,8 @@ using namespace std;
 
 - (void) load : (std::string) path;
 {
-    //Conversion of the path
-    //NSArray* stringArray = [[NSArray alloc] init];
-    //stringArray = [path componentsSeparatedByString:@"."];
-    /*
-     if(stringArray.count != 2)
-     {
-     std::cerr << "Error : load - Incorrect path" << std::endl;
-     return;
-     }
-     NSString *newPath = [[NSBundle mainBundle] pathForResource:stringArray[0] ofType:stringArray[1]];
-     const char  * _Nullable pathCString = [newPath cStringUsingEncoding:NSUTF8StringEncoding];
-     */
-    //Get file
-    
     cv::Mat points3DMat;
-    cv::FileStorage storage (path/*[newPath UTF8String]*/, cv::FileStorage::READ);
+    cv::FileStorage storage (path, cv::FileStorage::READ);
     storage["points_3d"] >> points3DMat;
     storage["descriptors"] >> self->listDescriptors;
     points3DMat.copyTo(self->list3DInside);
@@ -147,47 +133,19 @@ using namespace std;
     cv::Mat points3dmatrix = cv::Mat(self->list3DInside);
     cv::Mat points2dmatrix = cv::Mat(self->list2DInside);
     //cv::Mat keyPointmatrix = cv::Mat(list_keypoints_);
-    
-    //Conversion of the path
-    /*
-     NSArray* stringArray = [[NSArray alloc] init];
-     stringArray = [path componentsSeparatedByString:@"."];
-     if(stringArray.count != 2)
-     {
-     std::cerr << "Error : save - Incorrect path" << std::endl;
-     return;
-     }
-     NSString *newPath = [[NSBundle mainBundle] pathForResource:stringArray[0] ofType:stringArray[1]];
-     
-     NSString * documents = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES) objectAtIndex:0];
-     std::cout << [documents UTF8String] << std::endl;
-     NSString * filePath = [documents stringByAppendingPathComponent:path];
-     */
     //Save file
-    cv::FileStorage storage(path/*[filePath UTF8String]*/, cv::FileStorage::WRITE);
+    cv::FileStorage storage(path, cv::FileStorage::WRITE);
     storage << "points_3d" << points3dmatrix;
     storage << "points_2d" << points2dmatrix;
     storage << "keypoints" << self->listKeypoints;
     storage << "descriptors" << self->listDescriptors;
-    std::cout << "Saved" << std::endl;
     storage.release();
-    
-}
-- (void) test
-{
-    cv::Point2f newPointa(4,7);
-    cv::Point3f newPointb(4,2,8);
-    /*
-     NSMutableArray * tab = [NSMutableArray array];
-     [tab addObject:@"Wesh"];
-     [tab addObject:@"Allo"];
-     return tab;
-     */
     
 }
 @end
 
 //ROBUSTMATCHER
+
 @interface RobustMatcher()
 
 - (void) setFeatureDetector : (cv::Ptr<cv::FeatureDetector>&) detect;
@@ -1009,7 +967,18 @@ using namespace std;
 }
 - (void) setPMatrix : (cv::Mat&) R_matrix : (cv::Mat&) t_matrix
 {
-    
+    PMatrix.at<double>(0,0) = RMatrix.at<double>(0,0);
+    PMatrix.at<double>(0,1) = RMatrix.at<double>(0,1);
+    PMatrix.at<double>(0,2) = RMatrix.at<double>(0,2);
+    PMatrix.at<double>(1,0) = RMatrix.at<double>(1,0);
+    PMatrix.at<double>(1,1) = RMatrix.at<double>(1,1);
+    PMatrix.at<double>(1,2) = RMatrix.at<double>(1,2);
+    PMatrix.at<double>(2,0) = RMatrix.at<double>(2,0);
+    PMatrix.at<double>(2,1) = RMatrix.at<double>(2,1);
+    PMatrix.at<double>(2,2) = RMatrix.at<double>(2,2);
+    PMatrix.at<double>(0,3) = TMatrix.at<double>(0);
+    PMatrix.at<double>(1,3) = TMatrix.at<double>(1);
+    PMatrix.at<double>(2,3) = TMatrix.at<double>(2);
 }
 // Functions for Möller–Trumbore intersection algorithm
 - (cv::Point3f) CROSS : (cv::Point3f) v1 :  (cv::Point3f) v2
@@ -1119,16 +1088,19 @@ using namespace std;
     
     cv::Mat originVector = cv::Mat::zeros(4, 1, CV_64FC1);
     cv::Mat newVector = transformMatrix * originVector;
-    std::ostringstream strs;
-    strs << " Position at ("
-    << newVector.at<double>(0, 0)
-    << ","
-    << newVector.at<double>(1, 0)
-    << ","
-    << newVector.at<double>(2, 0)
-    << ")";
-    std::string text = strs.str();
-    cv::putText(image, text, cv::Point(25,100), fontFace, fontScale, color, thickness_font, 8);
+    if(newVector.at<double>(0, 0) != 0 && newVector.at<double>(1, 0) != 0 && newVector.at<double>(2, 0) != 0)
+    {
+        std::ostringstream strs;
+        strs << " Position at ("
+        << newVector.at<double>(0, 0)
+        << ","
+        << newVector.at<double>(1, 0)
+        << ","
+        << newVector.at<double>(2, 0)
+        << ")";
+        std::string text = strs.str();
+        cv::putText(image, text, cv::Point(25,100), fontFace, fontScale, color, thickness_font, 8);
+    }
 }
 // Draw only the 2D points
 + (void) draw2DPoints : (cv::Mat) image : (std::vector<cv::Point2f>&) list_points : (cv::Scalar) color
@@ -1338,10 +1310,10 @@ using namespace std;
     int nInputs = 0;             // the number of control actions
     double dt = 0.125;           // time between measurements (1/FPS)
     
-    ///OnePlus 3T Camera
-    double f = 29;                           // focal length in mm
-    double sx = 54.4, sy = 17.0;             // sensor size
-    double width = 3280, height = 2464;        // image size (in px ?)
+    ///Ipad 2017 Camera
+    double f = 42;                           // focal length in mm
+    double sx = 5, sy = 4;             // sensor size
+    double width = 4032, height = 3024;        // image size (in px ?)
     NSMutableArray< NSNumber* > * params_WEBCAM = [NSMutableArray arrayWithObjects:
                                                    [NSNumber numberWithFloat : width*f/sx],
                                                    [NSNumber numberWithFloat : height*f/sy],
@@ -1355,11 +1327,11 @@ using namespace std;
     
     // RANSAC parameters
     iterationsCount = 500;      // number of Ransac iterations.
-    reprojectionError = 2.0;  // maximum allowed distance to consider it an inlier.
-    confidence = 0.95;        // ransac successful confidence.
+    reprojectionError = 4.0;  // maximum allowed distance to consider it an inlier.
+    confidence = 0.05;        // ransac successful confidence.
     
     // Kalman Filter parameters
-    minInliersKalman = 30;    // Kalman threshold updating
+    minInliersKalman = 10;    // Kalman threshold updating
     
     // PnP parameters
     pnpMethod = cv::SOLVEPNP_ITERATIVE;
@@ -1372,8 +1344,8 @@ using namespace std;
     blue = cv::Scalar(255,0,0);
     yellow = cv::Scalar(0,255,255);
     
-    std::string ymlReadPath =  [[[NSBundle mainBundle] pathForResource: @"ORB" ofType: @"yml"] UTF8String];
-    std::string plyReadPath =  [[[NSBundle mainBundle] pathForResource: @"mesh" ofType: @"ply"] UTF8String];
+    std::string ymlReadPath =  [[[NSBundle mainBundle] pathForResource: @"ORBL" ofType: @"yml"] UTF8String];
+    std::string plyReadPath =  [[[NSBundle mainBundle] pathForResource: @"meshL" ofType: @"ply"] UTF8String];
     
     self->pnp_detection = [[PnPProblem alloc] init:params_WEBCAM];
     self->pnp_detection_est = [[PnPProblem alloc] init:params_WEBCAM];
@@ -1471,6 +1443,7 @@ using namespace std;
         [pnp_detection estimatePoseRANSAC : list_points3d_model_match : list_points2d_scene_match
                                           : pnpMethod : inliers_idx
                                           : iterationsCount : reprojectionError : confidence];
+        
         // -- Step 4: Catch the inliers keypoints to draw
         for(int inliers_index = 0; inliers_index < inliers_idx.rows; ++inliers_index)
         {
@@ -1485,8 +1458,8 @@ using namespace std;
         
         good_measurement = false;
         // GOOD MEASUREMENT
-        if( inliers_idx.rows >= minInliersKalman )
-        {
+        //if( inliers_idx.rows >= minInliersKalman )
+        //{
             
             // Get the measured translation
             cv::Mat translation_measured(3, 1, CV_64F);
@@ -1501,7 +1474,7 @@ using namespace std;
             
             good_measurement = true;
             
-        }
+        //}
         // Instantiate estimated translation and rotation
         cv::Mat translation_estimated(3, 1, CV_64F);
         cv::Mat rotation_estimated(3, 3, CV_64F);
@@ -1514,6 +1487,8 @@ using namespace std;
         [pnp_detection_est setPMatrix : rotation_estimated : translation_estimated];
         
     }
+    ///-- Step X : Draw POSITION
+    [Util drawPosition : frame_vis : [pnp_detection getPMatrix] : red];
     // -- Step X: Draw pose
     
     if(good_measurement)
@@ -1532,8 +1507,7 @@ using namespace std;
     pose_points2d.push_back([pnp_detection_est backproject3DPoint : cv::Point3f(0,1,0)]);  // axis y
     pose_points2d.push_back([pnp_detection_est backproject3DPoint : cv::Point3f(0,0,1)]);  // axis z
     [Util draw3DCoordinateAxes : frame_vis : pose_points2d];           // draw axes
-    ///POSITION
-    //[Util drawPosition : frame_vis : [pnp_detection_est getPMatrix] : red];
+    
     // FRAME RATE
     
     double detection_ratio = ((double)inliers_idx.rows/(double)good_matches.size())*100;
