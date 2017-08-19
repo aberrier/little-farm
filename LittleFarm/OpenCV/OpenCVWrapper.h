@@ -7,11 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <SceneKit/SceneKit.h>
+@interface ImgPosPair : NSObject
+{
+    @public UIImage* image;
+    @public float posX;
+    @public float posY;
+    @public float posZ;
+}
+- (UIImage*) getImage;
+- (float) getX;
+- (float) getY;
+- (float) getZ;
+@end
 @interface OpenCVWrapper : NSObject
 - (void) isItWorking;
 - (void) setupDetection;
-- (UIImage*) detectFrame : (CVPixelBufferRef) pixelBuffer;
+- (ImgPosPair*) detectFrame : (CVPixelBufferRef) pixelBuffer;
 - (NSString *) currentVersion;
 - (UIImage*) makeGreyFromImage:(UIImage *)image;
 

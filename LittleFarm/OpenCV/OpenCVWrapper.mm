@@ -1087,6 +1087,7 @@ using namespace std;
     int thickness_font = 2;
     
     cv::Mat originVector = cv::Mat::zeros(4, 1, CV_64FC1);
+    originVector.at<double>(3,0)=1;
     cv::Mat newVector = transformMatrix * originVector;
     if(newVector.at<double>(0, 0) != 0 && newVector.at<double>(1, 0) != 0 && newVector.at<double>(2, 0) != 0)
     {
@@ -1240,8 +1241,25 @@ using namespace std;
 
 
 
-
-
+///IMGPOSPAIRE
+@implementation ImgPosPair
+- (UIImage*) getImage
+{
+    return self->image;
+}
+- (float) getX
+{
+    return self->posX;
+}
+- (float) getY
+{
+    return self->posY;
+}
+- (float) getZ
+{
+    return self->posZ;
+}
+@end
 
 //************** OPENCVWRAPPER **********/
 
@@ -1251,6 +1269,7 @@ using namespace std;
 - (void) fillMeasurements: (cv::Mat &) measurements : (cv::Mat &) translation_measured : (cv::Mat &)rotation_measured;
 - (cv::Mat) euler2rot : (cv::Mat) vec3F;
 - (cv::Mat) rot2euler : (cv::Mat) mat;
+- (cv::Mat) convertPosMatrixToPosVec : (cv::Mat)pMat;
 @end
 
 @implementation OpenCVWrapper
@@ -1385,7 +1404,7 @@ using namespace std;
     
     
 }
-- (UIImage*) detectFrame : (CVPixelBufferRef) pixelBuffer
+- (ImgPosPair*) detectFrame : (CVPixelBufferRef) pixelBuffer
 {
     //Convert pixelBuffer to cv::Mat
     CIImage *ciImage = [CIImage imageWithCVPixelBuffer:pixelBuffer];
@@ -1487,7 +1506,9 @@ using namespace std;
         [pnp_detection_est setPMatrix : rotation_estimated : translation_estimated];
         
     }
-    ///-- Step X : Draw POSITION
+    ///-- Step X : POSITION
+    
+                      
     [Util drawPosition : frame_vis : [pnp_detection getPMatrix] : red];
     // -- Step X: Draw pose
     
@@ -1508,7 +1529,6 @@ using namespace std;
     pose_points2d.push_back([pnp_detection_est backproject3DPoint : cv::Point3f(0,0,1)]);  // axis z
     [Util draw3DCoordinateAxes : frame_vis : pose_points2d];           // draw axes
     
-    // FRAME RATE
     
     double detection_ratio = ((double)inliers_idx.rows/(double)good_matches.size())*100;
     [Util drawConfidence : frame_vis : detection_ratio : yellow ];
@@ -1527,7 +1547,16 @@ using namespace std;
     [Util drawText : frame_vis : text : green];
     [Util drawText2 : frame_vis : text2 : red];
     
-    return MatToUIImage(frame_vis);
+    //-- Step FINAL : Return position and frame
+    ImgPosPair* data = [[ImgPosPair alloc] init];
+    cv::Mat posVec = [self convertPosMatrixToPosVec:[pnp_detection getPMatrix]];
+    data->posX=posVec.at<double>(0);
+    data->posY=posVec.at<double>(1);
+    data->posZ=posVec.at<double>(2);
+    data->image = MatToUIImage(frame_vis);
+    
+    
+    return data;
 }
 - (void) isItWorking {
     //Model * newModel = [[Model alloc] init];
@@ -1535,6 +1564,13 @@ using namespace std;
 - (NSString*) currentVersion
 {
     return [NSString stringWithFormat:@"Opencv Version %s",CV_VERSION];
+}
+- (cv::Mat) convertPosMatrixToPosVec : (cv::Mat)pMat
+{
+    cv::Mat originVector = cv::Mat::zeros(4, 1, CV_64FC1);
+    originVector.at<double>(3,0)=1;
+    cv::Mat newVector = pMat * originVector;
+    return newVector;
 }
 - (void) initKalmanFilter :(cv::KalmanFilter&) KF : (int) nStates : (int) nMeasurements : (int) nInputs : (double) dt
 {

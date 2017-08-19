@@ -168,7 +168,27 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     @objc func openCVDetection()
     {
         let sampleBuffer = sceneView.session.currentFrame?.capturedImage
-        imageTest.image = openCV.detectFrame(sampleBuffer)
+        if object3D != nil
+        {
+            let data : ImgPosPair = openCV.detectFrame(sampleBuffer)
+            imageTest.image = data.getImage()
+            object3D?.position = applyCameraTransformation(SCNVector3(data.getX()/100,data.getY()/100,-data.getZ()/100))
+            updatePositionDisplay()
+            
+        }
+        
+    }
+    func applyCameraTransformation(_ firstPos : SCNVector3) -> SCNVector3
+    {
+        if let cameraFrame = sceneView.session.currentFrame
+        {
+            let originalVector4 = vector4(firstPos.x, firstPos.y, firstPos.z, 1)
+            let newVector4 = matrix_multiply(cameraFrame.camera.transform, originalVector4)
+            return SCNVector3(newVector4.x/newVector4.w,newVector4.y/newVector4.w,newVector4.z/newVector4.w)
+        }
+        return firstPos
+        
+        
     }
     func stopOpenCVTimer()
     {
@@ -374,9 +394,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         print("Virtual length : \(virtualSize)")
         print("ALPHA : \(alpha)")
         print("x:\(x),y:\(y),z:\(-z)")
-        let originalVector4 = vector4(x, y, -z, 1)
-        let newVector4 = matrix_multiply(sceneView.session.currentFrame!.camera.transform, originalVector4)
-        return SCNVector3(newVector4.x/newVector4.w,newVector4.y/newVector4.w,newVector4.z/newVector4.w)
+        return applyCameraTransformation(SCNVector3(x,y,z))
     }
     func _TransformMatrixFor2Dto3DProjection(coordinates : CGPoint, side : Float)->simd_float4x4
     {
