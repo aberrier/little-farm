@@ -58,6 +58,14 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     var timer = Timer()
     
     //OpenCV
+    var averXTab : [Float]  = []
+    var averYTab : [Float] = []
+    var averZTab : [Float] = []
+    var averConfidenceTab : [Double] = []
+    
+    var freeze = false
+    var counter = 0
+    var bufferBox : redBox = redBox()
     @IBOutlet var imageTest : UIImageView!
     let openCV = OpenCVWrapper()
     var openCVTimer = Timer();
@@ -170,10 +178,69 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         let sampleBuffer = sceneView.session.currentFrame?.capturedImage
         if object3D != nil
         {
-            let data : ImgPosPair = openCV.detectFrame(sampleBuffer)
+            let data : redBox = openCV.detectFrame(sampleBuffer)
             imageTest.image = data.getImage()
-            object3D?.position = applyCameraTransformation(SCNVector3(data.getX()/100,data.getY()/100,-data.getZ()/100))
-            updatePositionDisplay()
+            if(!freeze)
+            {
+                if counter < 10
+                {
+                    bufferBox.setZ(max(bufferBox.getZ(),data.getZ()))
+                    print("z : \(data.getZ())\nConfidence : \(data.getConfidence())")
+                    if(data.getConfidence() > 20)
+                    {
+                        averXTab+=[data.getX()]
+                        averYTab+=[data.getY()]
+                        averZTab+=[data.getZ()]
+                    }
+                    averConfidenceTab+=[data.getConfidence()]
+                    counter+=1
+                }
+                else
+                {
+                    var averX : Float = 0
+                    var averY : Float = 0
+                    var averZ : Float = 0
+                    var averConfidence : Double = 0
+                    for val in averConfidenceTab
+                    {
+                        averConfidence += val
+                    }
+                    averConfidence = averConfidence/Double(averConfidenceTab.count)
+                    
+                    averConfidenceTab=[]
+                    for val in averXTab
+                    {
+                        averX += val
+                    }
+                    averX = averX/Float(averXTab.count)
+                    averXTab=[]
+                    for val in averYTab
+                    {
+                        averY += val
+                    }
+                    averY = averY/Float(averYTab.count)
+                    averYTab=[]
+                    for val in averZTab
+                    {
+                        averZ += val
+                    }
+                    averZ = averZ/Float(averZTab.count)
+                    //Increase z
+                    averZ = (averZ + bufferBox.getZ())/2
+                    averZTab=[]
+                    print("\n****\nx:\(averX)\ny:\(averY)+\nz:\(averZ)\nConfidence : \(averConfidence)****\n")
+                    if(averConfidence > 20 || averZ > 10000)
+                    {
+                        object3D?.position = applyCameraTransformation(SCNVector3(averX/100,averY/100,-averZ/100))
+                        updatePositionDisplay()
+                    }
+                    bufferBox.setZ(0)
+                    counter=0
+                    
+                }
+            }
+            
+            
             
         }
         
@@ -193,6 +260,10 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     func stopOpenCVTimer()
     {
         openCVTimer.invalidate()
+    }
+    @IBAction func freezeSwitch(_ sender:UISwitch)
+    {
+        freeze = !freeze
     }
     //Add primal object
     func addObjectTest() {

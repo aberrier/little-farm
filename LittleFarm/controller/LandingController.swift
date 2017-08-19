@@ -54,9 +54,7 @@ class LandingController : UIViewController
         {
             print("Landing : Can't read general informations on database")
         }
-        let openCV = OpenCVWrapper()
-        openCV.isItWorking()
-        titleText.text = "test"
+
         
         
     }

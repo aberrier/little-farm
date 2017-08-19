@@ -69,17 +69,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch shifting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IL1-b0-RcU">
-                                <rect key="frame" x="236" y="659" width="108" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ooe-KY-WON">
                                 <rect key="frame" x="361" y="649" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Ooe-KY-WON" secondAttribute="height" multiplier="49:31" id="XRW-fa-aDD"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="freezeSwitch:" destination="BV1-FR-VrT" eventType="valueChanged" id="lTS-Qd-UOi"/>
+                                </connections>
                             </switch>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DvT-w9-f2z" customClass="LFButton" customModule="LittleFarm" customModuleProvider="target">
                                 <rect key="frame" x="9" y="26" width="46" height="30"/>
@@ -123,6 +120,12 @@
                                 <rect key="frame" x="237" y="0.0" width="177" height="139"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Freeze" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IL1-b0-RcU">
+                                <rect key="frame" x="300" y="654" width="51.666666666666686" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.18654271932624933" green="0.2337585151535031" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -149,7 +152,7 @@
                         <viewLayoutGuide key="safeArea" id="dlr-y7-KAJ"/>
                     </view>
                     <connections>
-                        <outlet property="dragSwitch" destination="Ooe-KY-WON" id="ZBp-zB-Ali"/>
+                        <outlet property="dragSwitch" destination="Ooe-KY-WON" id="Hut-St-xVx"/>
                         <outlet property="imageTest" destination="lrp-a1-zMa" id="bRg-B5-HPn"/>
                         <outlet property="infoLabel" destination="PWw-jP-9Ff" id="fS5-U6-D1i"/>
                         <outlet property="labelX" destination="ycd-p1-l3U" id="7HM-3r-Kpc"/>

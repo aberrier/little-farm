@@ -1242,7 +1242,21 @@ using namespace std;
 
 
 ///IMGPOSPAIRE
-@implementation ImgPosPair
+@implementation redBox
+-(id) init
+{
+    self = [super init];
+    if(self)
+    {
+        self->image = [[UIImage alloc] init];
+        self->posX = 0;
+        self->posY = 0;
+        self->posZ = 0;
+        self->confidence = -1;
+    }
+    return self;
+    
+}
 - (UIImage*) getImage
 {
     return self->image;
@@ -1258,6 +1272,26 @@ using namespace std;
 - (float) getZ
 {
     return self->posZ;
+}
+- (double) getConfidence
+{
+    return self->confidence;
+}
+- (void) setX : (float)val
+{
+    self->posX = val;
+}
+- (void) setY : (float)val
+{
+    self->posY = val;
+}
+- (void) setZ : (float)val
+{
+    self->posZ = val;
+}
+- (void) setConfidence : (float)val
+{
+    self->confidence = val;
 }
 @end
 
@@ -1404,7 +1438,7 @@ using namespace std;
     
     
 }
-- (ImgPosPair*) detectFrame : (CVPixelBufferRef) pixelBuffer
+- (redBox*) detectFrame : (CVPixelBufferRef) pixelBuffer
 {
     //Convert pixelBuffer to cv::Mat
     CIImage *ciImage = [CIImage imageWithCVPixelBuffer:pixelBuffer];
@@ -1547,13 +1581,16 @@ using namespace std;
     [Util drawText : frame_vis : text : green];
     [Util drawText2 : frame_vis : text2 : red];
     
-    //-- Step FINAL : Return position and frame
-    ImgPosPair* data = [[ImgPosPair alloc] init];
+    //-- Step FINAL : Return data
+    redBox* data = [[redBox alloc] init];
     cv::Mat posVec = [self convertPosMatrixToPosVec:[pnp_detection getPMatrix]];
     data->posX=posVec.at<double>(0);
     data->posY=posVec.at<double>(1);
     data->posZ=posVec.at<double>(2);
+    //std::cout << "Opencv - z : " << posVec.at<double>(2) << std::endl;
     data->image = MatToUIImage(frame_vis);
+    data->confidence = good_matches.size()==0 ? 0 : detection_ratio;
+    
     
     
     return data;
