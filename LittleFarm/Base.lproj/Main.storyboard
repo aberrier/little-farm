@@ -120,8 +120,8 @@
                                 <rect key="frame" x="237" y="0.0" width="177" height="139"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Freeze" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IL1-b0-RcU">
-                                <rect key="frame" x="300" y="654" width="51.666666666666686" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Freeze" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IL1-b0-RcU">
+                                <rect key="frame" x="292.33333333333326" y="659" width="51.666666666666686" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.18654271932624933" green="0.2337585151535031" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -409,6 +409,120 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OFe-d2-02e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="162.31884057971016" y="-2228.804347826087"/>
+        </scene>
+        <!--YAML Creation-->
+        <scene sceneID="bNF-Ko-sGR">
+            <objects>
+                <viewController title="YAML Creation" id="Guu-YZ-Jmy" customClass="YAMLRegistrationController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides/>
+                    <view key="view" contentMode="scaleToFill" id="Ybk-7a-4Mf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Coordinates" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U3U-1A-jQu">
+                                <rect key="frame" x="0.0" y="20" width="414" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hj4-NZ-nHX">
+                                <rect key="frame" x="0.0" y="81" width="414" height="580"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="img" translatesAutoresizingMaskIntoConstraints="NO" id="Bep-82-zX7">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="580"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="target" translatesAutoresizingMaskIntoConstraints="NO" id="Jok-bW-b0p">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmv-uB-JFg">
+                                <rect key="frame" x="78" y="670" width="70" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="arrow-left"/>
+                                <connections>
+                                    <action selector="changeImage:" destination="Guu-YZ-Jmy" eventType="touchUpInside" id="r6P-4d-RIg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2d-BZ-oDA">
+                                <rect key="frame" x="266" y="670" width="70" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="arrow-right"/>
+                                <connections>
+                                    <action selector="changeImage:" destination="Guu-YZ-Jmy" eventType="touchUpInside" id="yNZ-Wf-yrG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TrN-Gs-Xit">
+                                <rect key="frame" x="0.0" y="706" width="160" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Annuler"/>
+                                <connections>
+                                    <action selector="cancelAction:" destination="Guu-YZ-Jmy" eventType="touchUpInside" id="OuZ-Ka-03Q"/>
+                                    <segue destination="9CD-dv-kTg" kind="show" id="G7n-9e-qKo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsT-Tk-5Vv">
+                                <rect key="frame" x="156" y="669" width="102" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Ignorer"/>
+                                <connections>
+                                    <action selector="ignoreAction:" destination="Guu-YZ-Jmy" eventType="touchUpInside" id="bfq-q9-wuM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4uJ-5F-G0m">
+                                <rect key="frame" x="156" y="705" width="102" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Valider"/>
+                                <connections>
+                                    <action selector="validateAction:" destination="Guu-YZ-Jmy" eventType="touchUpInside" id="5rR-Im-POn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ab0-bJ-ja2">
+                                <rect key="frame" x="254" y="706" width="160" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Terminer"/>
+                                <connections>
+                                    <action selector="terminateAction:" destination="Guu-YZ-Jmy" eventType="touchUpInside" id="8zl-IP-Zz5"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BXn-Qm-thJ">
+                                <rect key="frame" x="266" y="81" width="148" height="154"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ad4-lu-1Nl">
+                                        <rect key="frame" x="-1" y="0.0" width="151" height="152"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    </sceneKitView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="YGQ-MZ-gI6"/>
+                    </view>
+                    <connections>
+                        <outlet property="backArrow" destination="kmv-uB-JFg" id="hHx-AZ-HsB"/>
+                        <outlet property="cancelButton" destination="TrN-Gs-Xit" id="7cL-fs-n81"/>
+                        <outlet property="ignoreButton" destination="WsT-Tk-5Vv" id="nPq-Or-AHo"/>
+                        <outlet property="imageDisplay" destination="Bep-82-zX7" id="CHa-pB-iFR"/>
+                        <outlet property="imageWrapperView" destination="hj4-NZ-nHX" id="jTe-0B-Etl"/>
+                        <outlet property="infoText" destination="U3U-1A-jQu" id="zer-zU-ILd"/>
+                        <outlet property="meshDisplay" destination="Ad4-lu-1Nl" id="Sn0-NX-AM3"/>
+                        <outlet property="meshWrapperView" destination="BXn-Qm-thJ" id="Lks-Kz-MoK"/>
+                        <outlet property="nextArrow" destination="m2d-BZ-oDA" id="OW3-Ef-FIq"/>
+                        <outlet property="selector" destination="Jok-bW-b0p" id="x31-mQ-XXv"/>
+                        <outlet property="terminateButton" destination="ab0-bJ-ja2" id="4he-xU-2Jj"/>
+                        <outlet property="validateButton" destination="4uJ-5F-G0m" id="WAv-Z7-zIL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xJx-FB-Atn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-859.4202898550725" y="-635.054347826087"/>
         </scene>
         <!--RegisterView-->
         <scene sceneID="nWG-8g-ytm">
@@ -786,6 +900,14 @@
                                     <segue destination="rCP-e4-kn9" kind="show" id="zWA-EX-f1z"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sxp-pT-hVs" customClass="LFButton" customModule="LittleFarm" customModuleProvider="target">
+                                <rect key="frame" x="97" y="646" width="223" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Créer un fichier YAML"/>
+                                <connections>
+                                    <segue destination="Guu-YZ-Jmy" kind="show" id="ebx-mg-Bm3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="S8k-Ly-8ah"/>
@@ -868,15 +990,19 @@
     </scenes>
     <resources>
         <image name="arrow" width="170" height="170"/>
+        <image name="arrow-left" width="2091" height="1120"/>
+        <image name="arrow-right" width="2091" height="1120"/>
         <image name="background-lift" width="287" height="358"/>
         <image name="default" width="512" height="512"/>
         <image name="delete" width="170" height="170"/>
         <image name="egg-1" width="697" height="920"/>
         <image name="egg-3" width="67" height="111"/>
         <image name="egg-black" width="100" height="132"/>
+        <image name="img" width="200" height="266"/>
+        <image name="target" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="P0d-KY-S2O"/>
-        <segue reference="sVP-7W-6oT"/>
+        <segue reference="G7n-9e-qKo"/>
     </inferredMetricsTieBreakers>
 </document>

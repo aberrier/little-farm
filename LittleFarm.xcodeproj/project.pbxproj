@@ -22,13 +22,10 @@
 		93281F601F20FAC4004C93E2 /* TreeInventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */; };
 		93281F691F20FC6C004C93E2 /* LFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F681F20FC6C004C93E2 /* LFButton.swift */; };
 		93281F6B1F210E00004C93E2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F6A1F210E00004C93E2 /* Color.swift */; };
-		93510F601F22197C00296425 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93510F5F1F22197C00296425 /* Assets.xcassets */; };
-		935999551F4850DA0043B70E /* meshF.ply in Resources */ = {isa = PBXBuildFile; fileRef = 935999531F4850DA0043B70E /* meshF.ply */; };
-		935999561F4850DA0043B70E /* ORBF.yml in Resources */ = {isa = PBXBuildFile; fileRef = 935999541F4850DA0043B70E /* ORBF.yml */; };
-		935999591F4858B90043B70E /* meshL.ply in Resources */ = {isa = PBXBuildFile; fileRef = 935999571F4858B80043B70E /* meshL.ply */; };
-		9359995A1F4858B90043B70E /* ORBL.yml in Resources */ = {isa = PBXBuildFile; fileRef = 935999581F4858B90043B70E /* ORBL.yml */; };
-		936084FC1F44C9220046C41B /* mesh.ply in Resources */ = {isa = PBXBuildFile; fileRef = 936084FB1F44C9210046C41B /* mesh.ply */; };
+		9363DBD61F4ADDD8006AB0FE /* YAMLRegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9363DBD51F4ADDD8006AB0FE /* YAMLRegistrationController.swift */; };
 		936ACA251F163DF700156AD8 /* test3DObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936ACA241F163DF700156AD8 /* test3DObject.swift */; };
+		93721AF71F4C69F1007674FC /* img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 93721AF61F4C69EF007674FC /* img.jpg */; };
+		93721AF91F4C6A60007674FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93721AF81F4C6A60007674FC /* Assets.xcassets */; };
 		937517661F2395B6007EF547 /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937517651F2395B6007EF547 /* General.swift */; };
 		937517681F23BA97007EF547 /* menuSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937517671F23BA97007EF547 /* menuSection.swift */; };
 		9375176A1F23C85F007EF547 /* menuSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937517691F23C85F007EF547 /* menuSection.xib */; };
@@ -36,6 +33,7 @@
 		9376AB201F2F580F00D28C95 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9376AB1F1F2F580600D28C95 /* libstdc++.tbd */; };
 		9376AB221F2F583C00D28C95 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9376AB211F2F583000D28C95 /* libc++.tbd */; };
 		937FE96F1F1E1ED600C3B0D7 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937FE96E1F1E1ED600C3B0D7 /* KDCircularProgress.swift */; };
+		9380CA561F4DA37D00F23A70 /* AxisCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9380CA551F4DA37D00F23A70 /* AxisCoordinate.swift */; };
 		939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19CB1F14EF7100C392CA /* AppDelegate.swift */; };
 		939C19CE1F14EF7200C392CA /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 939C19CD1F14EF7200C392CA /* art.scnassets */; };
 		939C19D01F14EF7200C392CA /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19CF1F14EF7200C392CA /* ARViewController.swift */; };
@@ -46,11 +44,11 @@
 		939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19FE1F14FDF800C392CA /* LandingController.swift */; };
 		93B18E731F2510C000146BD5 /* main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E711F2510C000146BD5 /* main.xcdatamodeld */; };
 		93B18E751F25292300146BD5 /* PersistentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E741F25292300146BD5 /* PersistentDataManager.swift */; };
-		93BBF85F1F42FFCA00E8933B /* ORB.yml in Resources */ = {isa = PBXBuildFile; fileRef = 93BBF85E1F42FFCA00E8933B /* ORB.yml */; };
 		93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C43AE41F15427B00159522 /* QRCodeViewController.swift */; };
 		93ED0C811F2779A20015BCC8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED0C801F2779A20015BCC8 /* User.swift */; };
 		93ED0C831F278C150015BCC8 /* imagePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED0C821F278C150015BCC8 /* imagePickerCell.swift */; };
 		93ED0C851F2798E90015BCC8 /* LFLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED0C841F2798E90015BCC8 /* LFLabel.swift */; };
+		93ED49CB1F4C9A0400F73C76 /* mesh.ply in Resources */ = {isa = PBXBuildFile; fileRef = 93ED49CA1F4C9A0300F73C76 /* mesh.ply */; };
 		93EE9A941F2A2408003CB029 /* userForAdminPanelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE9A931F2A2408003CB029 /* userForAdminPanelCell.swift */; };
 		93FB81911F473B2000EE055B /* BluetoothConnexionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB81901F473B2000EE055B /* BluetoothConnexionViewController.swift */; };
 		93FB81941F474AF700EE055B /* PeripheralTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB81931F474AF700EE055B /* PeripheralTableViewCell.swift */; };
@@ -99,16 +97,14 @@
 		93281F681F20FC6C004C93E2 /* LFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFButton.swift; sourceTree = "<group>"; };
 		93281F6A1F210E00004C93E2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		9336439E1F2FCCF700A9C52E /* Model.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Model.hpp; sourceTree = "<group>"; };
-		93510F5F1F22197C00296425 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		935999531F4850DA0043B70E /* meshF.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = meshF.ply; path = "../YAML Link/meshF.ply"; sourceTree = "<group>"; };
-		935999541F4850DA0043B70E /* ORBF.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ORBF.yml; path = "../YAML Link/ORBF.yml"; sourceTree = "<group>"; };
-		935999571F4858B80043B70E /* meshL.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = meshL.ply; path = "../YAML Link/link/meshL.ply"; sourceTree = "<group>"; };
-		935999581F4858B90043B70E /* ORBL.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ORBL.yml; path = "../YAML Link/link/ORBL.yml"; sourceTree = "<group>"; };
-		936084FB1F44C9210046C41B /* mesh.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = mesh.ply; path = ../mesh.ply; sourceTree = "<group>"; };
+		9363DBD51F4ADDD8006AB0FE /* YAMLRegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAMLRegistrationController.swift; sourceTree = "<group>"; };
+		9363DBD71F4AECD3006AB0FE /* ModelRegistration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModelRegistration.hpp; sourceTree = "<group>"; };
 		93667C711F44525700E0C023 /* Triangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Triangle.hpp; sourceTree = "<group>"; };
 		93667C741F44527400E0C023 /* Ray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ray.hpp; sourceTree = "<group>"; };
 		93667C7A1F445BA800E0C023 /* Util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Util.hpp; sourceTree = "<group>"; };
 		936ACA241F163DF700156AD8 /* test3DObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test3DObject.swift; sourceTree = "<group>"; };
+		93721AF61F4C69EF007674FC /* img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = img.jpg; path = "../OpenCV Detection c++/cube/img.jpg"; sourceTree = "<group>"; };
+		93721AF81F4C6A60007674FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		937517651F2395B6007EF547 /* General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
 		937517671F23BA97007EF547 /* menuSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuSection.swift; sourceTree = "<group>"; };
 		937517691F23C85F007EF547 /* menuSection.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = menuSection.xib; sourceTree = "<group>"; };
@@ -123,6 +119,7 @@
 		9379DA681F40C0E700981EB8 /* Mesh.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mesh.hpp; sourceTree = "<group>"; };
 		9379DA6B1F40C10F00981EB8 /* PnPProblem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PnPProblem.hpp; sourceTree = "<group>"; };
 		937FE96E1F1E1ED600C3B0D7 /* KDCircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
+		9380CA551F4DA37D00F23A70 /* AxisCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisCoordinate.swift; sourceTree = "<group>"; };
 		939C19C81F14EF7100C392CA /* LittleFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		939C19CB1F14EF7100C392CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		939C19CD1F14EF7200C392CA /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -139,12 +136,12 @@
 		939C19FE1F14FDF800C392CA /* LandingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingController.swift; sourceTree = "<group>"; };
 		93B18E721F2510C000146BD5 /* main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = main.xcdatamodel; sourceTree = "<group>"; };
 		93B18E741F25292300146BD5 /* PersistentDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentDataManager.swift; sourceTree = "<group>"; };
-		93BBF85E1F42FFCA00E8933B /* ORB.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ORB.yml; path = ../ORB.yml; sourceTree = "<group>"; };
 		93C208B01F41D62000FA8216 /* opencv-headers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "opencv-headers.h"; sourceTree = "<group>"; };
 		93C43AE41F15427B00159522 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		93ED0C801F2779A20015BCC8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		93ED0C821F278C150015BCC8 /* imagePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagePickerCell.swift; sourceTree = "<group>"; };
 		93ED0C841F2798E90015BCC8 /* LFLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFLabel.swift; sourceTree = "<group>"; };
+		93ED49CA1F4C9A0300F73C76 /* mesh.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = mesh.ply; path = ../YAML/cube/mesh.ply; sourceTree = "<group>"; };
 		93EE9A931F2A2408003CB029 /* userForAdminPanelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userForAdminPanelCell.swift; sourceTree = "<group>"; };
 		93FB81901F473B2000EE055B /* BluetoothConnexionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothConnexionViewController.swift; sourceTree = "<group>"; };
 		93FB81931F474AF700EE055B /* PeripheralTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralTableViewCell.swift; sourceTree = "<group>"; };
@@ -234,8 +231,17 @@
 				9379DA6B1F40C10F00981EB8 /* PnPProblem.hpp */,
 				9379DA601F40C08700981EB8 /* CVSWriter.hpp */,
 				9379DA651F40C0C100981EB8 /* CVSReader.hpp */,
+				9363DBD71F4AECD3006AB0FE /* ModelRegistration.hpp */,
 			);
 			path = header;
+			sourceTree = "<group>";
+		};
+		93721AF51F4C6509007674FC /* data */ = {
+			isa = PBXGroup;
+			children = (
+				93ED49C91F4C978700F73C76 /* model */,
+			);
+			name = data;
 			sourceTree = "<group>";
 		};
 		9376AB1A1F2F527700D28C95 /* OpenCV */ = {
@@ -265,6 +271,7 @@
 				93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */,
 				930456B81F46587C00DA45AC /* BluetoothChatViewController.swift */,
 				93FB81901F473B2000EE055B /* BluetoothConnexionViewController.swift */,
+				9363DBD51F4ADDD8006AB0FE /* YAMLRegistrationController.swift */,
 				93EE9A911F2A21D6003CB029 /* manager */,
 			);
 			path = controller;
@@ -282,6 +289,7 @@
 				93FE0FBC1F2A9CF800E08B42 /* ControllerType.swift */,
 				93ED0C801F2779A20015BCC8 /* User.swift */,
 				936ACA241F163DF700156AD8 /* test3DObject.swift */,
+				9380CA551F4DA37D00F23A70 /* AxisCoordinate.swift */,
 				93281F681F20FC6C004C93E2 /* LFButton.swift */,
 				93ED0C841F2798E90015BCC8 /* LFLabel.swift */,
 				9315530D1F2BAD8A0018D26C /* StringPair.swift */,
@@ -300,12 +308,7 @@
 		939C19BF1F14EF7100C392CA = {
 			isa = PBXGroup;
 			children = (
-				93BBF85E1F42FFCA00E8933B /* ORB.yml */,
-				936084FB1F44C9210046C41B /* mesh.ply */,
-				935999541F4850DA0043B70E /* ORBF.yml */,
-				935999531F4850DA0043B70E /* meshF.ply */,
-				935999581F4858B90043B70E /* ORBL.yml */,
-				935999571F4858B80043B70E /* meshL.ply */,
+				93721AF51F4C6509007674FC /* data */,
 				939C19CA1F14EF7100C392CA /* LittleFarm */,
 				939C19E11F14EF7200C392CA /* LittleFarmTests */,
 				939C19EC1F14EF7200C392CA /* LittleFarmUITests */,
@@ -339,7 +342,7 @@
 				93B18E701F25108B00146BD5 /* data */,
 				937FE96B1F1E1E9D00C3B0D7 /* extern */,
 				939C19D91F14EF7200C392CA /* Info.plist */,
-				93510F5F1F22197C00296425 /* Assets.xcassets */,
+				93721AF81F4C6A60007674FC /* Assets.xcassets */,
 				939C19CD1F14EF7200C392CA /* art.scnassets */,
 			);
 			path = LittleFarm;
@@ -369,6 +372,15 @@
 				93B18E711F2510C000146BD5 /* main.xcdatamodeld */,
 			);
 			path = data;
+			sourceTree = "<group>";
+		};
+		93ED49C91F4C978700F73C76 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				93721AF61F4C69EF007674FC /* img.jpg */,
+				93ED49CA1F4C9A0300F73C76 /* mesh.ply */,
+			);
+			name = model;
 			sourceTree = "<group>";
 		};
 		93EE9A901F2A2173003CB029 /* menu */ = {
@@ -540,17 +552,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				935999561F4850DA0043B70E /* ORBF.yml in Resources */,
-				93BBF85F1F42FFCA00E8933B /* ORB.yml in Resources */,
-				936084FC1F44C9220046C41B /* mesh.ply in Resources */,
 				939C19CE1F14EF7200C392CA /* art.scnassets in Resources */,
+				93ED49CB1F4C9A0400F73C76 /* mesh.ply in Resources */,
+				93721AF91F4C6A60007674FC /* Assets.xcassets in Resources */,
 				939C19D81F14EF7200C392CA /* LaunchScreen.storyboard in Resources */,
-				93510F601F22197C00296425 /* Assets.xcassets in Resources */,
-				9359995A1F4858B90043B70E /* ORBL.yml in Resources */,
+				93721AF71F4C69F1007674FC /* img.jpg in Resources */,
 				939C19D31F14EF7200C392CA /* Main.storyboard in Resources */,
 				9375176A1F23C85F007EF547 /* menuSection.xib in Resources */,
-				935999551F4850DA0043B70E /* meshF.ply in Resources */,
-				935999591F4858B90043B70E /* meshL.ply in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,6 +657,7 @@
 				931D65521F2656E700BA049B /* ConnexionViewController.swift in Sources */,
 				93FE0FB51F2A8D6600E08B42 /* StoryAction.swift in Sources */,
 				9315530E1F2BAD8A0018D26C /* StringPair.swift in Sources */,
+				9380CA561F4DA37D00F23A70 /* AxisCoordinate.swift in Sources */,
 				93281F6B1F210E00004C93E2 /* Color.swift in Sources */,
 				93FB81911F473B2000EE055B /* BluetoothConnexionViewController.swift in Sources */,
 				939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */,
@@ -660,6 +669,7 @@
 				93B18E731F2510C000146BD5 /* main.xcdatamodeld in Sources */,
 				931553181F2BEFEB0018D26C /* RegisterScenario.swift in Sources */,
 				93ED0C851F2798E90015BCC8 /* LFLabel.swift in Sources */,
+				9363DBD61F4ADDD8006AB0FE /* YAMLRegistrationController.swift in Sources */,
 				937517681F23BA97007EF547 /* menuSection.swift in Sources */,
 				93FE0FBD1F2A9CF800E08B42 /* ControllerType.swift in Sources */,
 				930456B91F46587C00DA45AC /* BluetoothChatViewController.swift in Sources */,

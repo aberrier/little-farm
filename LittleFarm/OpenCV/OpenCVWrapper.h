@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <SceneKit/SceneKit.h>
+#import "ModelRegistration.hpp"
+
+//REDBOX
 @interface redBox : NSObject
 {
     @public UIImage* image;
@@ -27,11 +30,36 @@
 - (void) setZ : (float)val;
 - (void) setConfidence : (float)val;
 @end
-@interface OpenCVWrapper : NSObject
+
+//BLUEBOX
+@interface blueBox : NSObject
+{
+@public UIImage* image;
+@public ModelRegistration* model;
+}
+- (UIImage*) getImage;
+- (ModelRegistration*) getModel;
+@end
+
+//Detection
+@interface OpenCVDetection : NSObject
 - (void) isItWorking;
-- (void) setupDetection;
+- (void) setup;
 - (redBox*) detectFrame : (CVPixelBufferRef) pixelBuffer;
 - (NSString *) currentVersion;
 - (UIImage*) makeGreyFromImage:(UIImage *)image;
+@end
 
+//Registration
+@interface OpenCVRegistration : NSObject
+- (void) setup;
+- (void) addPoint : (int) x : (int) y : (UIImage*) image;
+- (void) update;
+- (UIImage*) add2DPoints : (UIImage*) image;
+- (UIImage*) computePose : (UIImage*) image;
+- (void) nextVertex;
+- (int) getNumVertex;
+- (BOOL) isRegistrationFinished;
+- (redBox*) getCurrentVertex;
+- (SCNNode*) SCNNodeOf3DPoints;
 @end

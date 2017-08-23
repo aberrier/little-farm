@@ -67,7 +67,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     var counter = 0
     var bufferBox : redBox = redBox()
     @IBOutlet var imageTest : UIImageView!
-    let openCV = OpenCVWrapper()
+    let openCV = OpenCVDetection()
     var openCVTimer = Timer();
     override func viewDidLoad() {
         
@@ -94,8 +94,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: (#selector(setPositionOfObject)), userInfo: nil, repeats: true)
         
         //OpenCV
-        openCV.setupDetection();
-        openCVTimer = Timer.scheduledTimer(timeInterval: 0.016, target: self, selector: (#selector(openCVDetection)), userInfo: nil, repeats: true)
+        openCV.setup();
+        openCVTimer = Timer.scheduledTimer(timeInterval: 0.016, target: self, selector: (#selector(openCVFrameDetection)), userInfo: nil, repeats: true)
         
     }
     
@@ -173,7 +173,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     {
         timer.invalidate()
     }
-    @objc func openCVDetection()
+    @objc func openCVFrameDetection()
     {
         let sampleBuffer = sceneView.session.currentFrame?.capturedImage
         if object3D != nil

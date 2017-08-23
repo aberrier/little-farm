@@ -17,6 +17,7 @@
 #import "CVSWriter.hpp"
 #import "CVSReader.hpp"
 #import "Util.hpp"
+#import "ModelRegistration.hpp"
 //C++ headers
 #import <iostream>
 #import <fstream>
@@ -39,7 +40,7 @@ using namespace std;
 - (int) getNumberOfDescriptors;
 - (void) addCorrespondence : (cv::Point2f&) point2D : (cv::Point3f&) point3D;
 - (void) addOutlier : (cv::Point2f&) point2D;
-- (void) addDescriptor : (cv::Mat&) descriptor;
+- (void) addDescriptor : (cv::Mat) descriptor;
 - (void) addKeypoint : (cv::KeyPoint&) kp;
 - (void) save : (std::string) path;
 - (void) load : (std::string) path;
@@ -109,7 +110,7 @@ using namespace std;
 {
     self->list2DOutside.push_back(point2D);
 }
-- (void) addDescriptor : (cv::Mat&) descriptor
+- (void) addDescriptor : (cv::Mat) descriptor
 {
     self->listDescriptors.push_back(descriptor);
 }
@@ -130,16 +131,26 @@ using namespace std;
 }
 - (void) save : (std::string) path {
     
+    
     cv::Mat points3dmatrix = cv::Mat(self->list3DInside);
     cv::Mat points2dmatrix = cv::Mat(self->list2DInside);
-    //cv::Mat keyPointmatrix = cv::Mat(list_keypoints_);
+    cv::Mat keyPointmatrix = cv::Mat(self->listKeypoints);
     //Save file
+    std::ostringstream strs;
+    strs << "points_3d" << points3dmatrix;
+    strs << "points_2d" << points2dmatrix;
+    strs << "keypoints" << keyPointmatrix;
+    strs << "descriptors" << self->listDescriptors;
+    
+    //std::cout << std::endl << std::endl << "YAML FILE" << std::endl << strs.str() << std::endl << "***" << std::endl;
+    /*
     cv::FileStorage storage(path, cv::FileStorage::WRITE);
     storage << "points_3d" << points3dmatrix;
     storage << "points_2d" << points2dmatrix;
     storage << "keypoints" << self->listKeypoints;
     storage << "descriptors" << self->listDescriptors;
     storage.release();
+    */
     
 }
 @end
@@ -435,8 +446,9 @@ using namespace std;
                 if(tmp_str == "vertex") num_vertex = [Util StringToInt:[NSString stringWithCString:n.c_str() encoding:[NSString defaultCStringEncoding]]];
                 if(tmp_str == "face") num_triangles = [Util StringToInt:[NSString stringWithCString:n.c_str() encoding:[NSString defaultCStringEncoding]]];
             }
-            stringstream corrector(tmp_str);
-            getline(corrector, tmp_str, '\n');
+            //Correction of different line-return between platforms
+            tmp_str = tmp_str.substr(0,tmp_str.size()-1);
+            
             if(tmp_str == "end_header") end_header = true;
         }
         
@@ -615,6 +627,16 @@ using namespace std;
     // Update mesh attributes
     numVertexs = (int)listVertex.size();
     numTriangles = (int)listTriangles.size();
+    unsigned int hash = [[NSNumber numberWithUnsignedInteger:[self hash]] intValue];
+    std::string prf = "[";
+    prf += std::to_string(hash);
+    prf += "] : ";
+    std::cout <<  prf << "Mesh loaded with " << numVertexs << " vertex and " << numTriangles << " triangles." << std::endl;
+    for(int i = 0; i < listVertex.size() ; i++)
+    {
+        cv::Point3f a = listVertex.at(i);
+        std::cout << prf << "Point(" << a.x << "," << a.y << "," << a.z << ")" << std::endl;
+    }
 }
 @end
 
@@ -908,13 +930,33 @@ using namespace std;
     cv::Mat distCoeffs = cv::Mat::zeros(4, 1, CV_64FC1);
     cv::Mat rvec = cv::Mat::zeros(3, 1, CV_64FC1);
     cv::Mat tvec = cv::Mat::zeros(3, 1, CV_64FC1);
-    
     bool useExtrinsicGuess = false;
     
+    //Data analyze
+    /*
+    cout << "listPoint2D : " << endl << "***" << endl;
+    for(cv::Point2f pt : listPoints2d)
+    {
+        std::cout << "(" << pt.x << "," << pt.y << ")" << endl;
+    }
+    cout << "***" << endl;
+    cout << "listPoint3D : " << endl << "***" << endl;
+    for(cv::Point3f pt : listPoints3d)
+    {
+        std::cout << "(" << pt.x << "," << pt.y << "," << pt.z << ")" << endl;
+    }
+    cout << "***" << endl;
+    cout << "A matrix" << endl << "***" << AMatrix << endl << "***" << endl;
+    cout << "distCoeffs" << endl << "***" << distCoeffs << endl << "***" << endl;
+    cout << "rvec" << endl << "***" << rvec << endl << "***" << endl;
+    cout << "tvec" << endl << "***" << tvec << endl << "***" << endl;
+    cout << "useExtrinsicGuess :" << useExtrinsicGuess << endl;
+    cout << "flags : " << flags << endl;
+    */
     // Pose estimation
     bool correspondence = cv::solvePnP( listPoints3d, listPoints2d, AMatrix, distCoeffs, rvec, tvec,
                                        useExtrinsicGuess, flags);
-    
+    std::cout << "2" << std::endl;
     // Transforms Rotation Vector to Matrix
     Rodrigues(rvec,RMatrix);
     TMatrix = tvec;
@@ -1030,6 +1072,7 @@ using namespace std;
 + (void) drawObjectMesh : (cv::Mat) image :  (Mesh *) mesh : (PnPProblem *) pnpProblem : (cv::Scalar) color;
 // Draw the 3D coordinate axes
 + (void) draw3DCoordinateAxes :(cv::Mat) image : (std::vector<cv::Point2f> &)list_points2d;
+
 @end
 
 @implementation Util
@@ -1235,13 +1278,42 @@ using namespace std;
     
     cv::putText(image, text, cv::Point(25,75), fontFace, fontScale, color, thickness_font, 8);
 }
+
 @end
 
+//BLUEBOX
+@implementation blueBox
+-(id) init
+{
+    self = [super init];
+    if(self)
+    {
+        self->image = [[UIImage alloc] init];
+        self->model = [[ModelRegistration alloc] init];
+    }
+    return self;
+    
+}
+- (UIImage*) getImage
+{
+    return self->image;
+}
+- (ModelRegistration*) getModel
+{
+    return self->model;
+}
+- (void) setImage : (UIImage*) val
+{
+    self->image = [val mutableCopy];
+    
+}
+- (void) setModel_shallow  :(ModelRegistration*) val
+{
+    self->model = [val mutableCopy];
+}
+@end
 
-
-
-
-///IMGPOSPAIRE
+///REDBOX
 @implementation redBox
 -(id) init
 {
@@ -1294,10 +1366,346 @@ using namespace std;
     self->confidence = val;
 }
 @end
+///MODELREGISTRATION
+@interface ModelRegistration()
+{
+    /** The current number of registered points */
+    int nRegistrations;
+    /** The total number of points to register */
+    int maxRegistrations;
+    /** The list of 2D points to register the model */
+    std::vector<cv::Point2f> listPoints2D;
+    /** The list of 3D points to register the model */
+    std::vector<cv::Point3f> listPoints3D;
+}
+- (std::vector<cv::Point2f>) getPoints2D;
+- (std::vector<cv::Point3f>) getPoints3D;
+- (int) getNumMax;
+- (int) getNumRegist;
 
-//************** OPENCVWRAPPER **********/
+- (BOOL) isRegistrable;
+- (void) registerPoint : (cv::Point2f &) point2d : (cv::Point3f &)point3d;
+- (void) reset;
 
-@interface OpenCVWrapper()
+@end
+@implementation ModelRegistration
+-(id) init
+{
+    self = [super init];
+    if (self)
+    {
+        self->nRegistrations = 0;
+        self->maxRegistrations = 0;
+    }
+    return self;
+}
+- (std::vector<cv::Point2f>) getPoints2D
+{
+    return self->listPoints2D;
+}
+- (std::vector<cv::Point3f>) getPoints3D
+{
+    return self->listPoints3D;
+}
+- (int) getNumMax
+{
+    return self->maxRegistrations;
+}
+- (int) getNumRegist
+{
+    return self->nRegistrations;
+}
+
+- (BOOL) isRegistrable
+{
+    return self->nRegistrations < self->maxRegistrations;
+}
+- (void) registerPoint : (cv::Point2f &) point2d : (cv::Point3f &)point3d
+{
+    // add correspondence at the end of the vector
+    self->listPoints2D.push_back(point2d);
+    self->listPoints3D.push_back(point3d);
+    self->nRegistrations++;
+}
+- (void) reset
+{
+    self->nRegistrations = 0;
+    self-> maxRegistrations = 0;
+    self->listPoints2D.clear();
+    self->listPoints3D.clear();
+}
+@end
+
+//************** OPENCVREGISTRATION**********/
+@interface OpenCVRegistration()
+
+@end
+
+@implementation OpenCVRegistration
+{
+    ModelRegistration* registration;
+    Model* model;
+    Mesh* mesh;
+    PnPProblem* pnpRegistration;
+    RobustMatcher* rmatcher;
+    int numKeyPoints;
+    // Some basic colors
+    cv::Scalar red;
+    cv::Scalar green;
+    cv::Scalar blue;
+    cv::Scalar yellow;
+    //Dictionnary of ModelRegistration for
+    NSMutableDictionary<NSNumber* , ModelRegistration*> * dic;
+    
+    //loop variables
+    BOOL endRegistration;
+    int vertexIndex;
+    cv::Point3d currentPoint;
+}
+
+- (void) setup
+{
+    ///*******************PARAMETERS******************///
+    ///Ipad 2017 Camera
+    double f = 42;                           // focal length in mm
+    double sx = 5, sy = 4;             // sensor size
+    double width = 4032, height = 3024;        // image size (in px ?)
+    NSMutableArray< NSNumber* > * params_WEBCAM = [NSMutableArray arrayWithObjects:
+                                                   [NSNumber numberWithFloat : width*f/sx],
+                                                   [NSNumber numberWithFloat : height*f/sy],
+                                                   [NSNumber numberWithFloat : width/2],
+                                                   [NSNumber numberWithFloat : height/2],
+                                                   nil];
+    
+    
+    std::string plyReadPath =  [[[NSBundle mainBundle] pathForResource: @"mesh" ofType: @"ply"] UTF8String];
+    
+    // set parameters
+    numKeyPoints = 10000;
+    
+    ///**************************///
+    vertexIndex = 0;
+    endRegistration = false;
+    
+    ///Instantiate objects
+    model = [[Model alloc] init];
+    mesh = [[Mesh alloc] init];
+    pnpRegistration = [[PnPProblem alloc] init:params_WEBCAM];
+    
+    // load a mesh given the *.ply file path
+    [mesh load : plyReadPath];
+    currentPoint = cv::Point3d([mesh getVertex:0]);
+    //Instantiate robust matcher: detector, extractor, matcher
+    rmatcher = [[RobustMatcher alloc] init];
+    cv::Ptr<cv::FeatureDetector> detector = cv::ORB::create(numKeyPoints);
+    [rmatcher setFeatureDetector : detector];
+    
+    // Some basic colors
+    red = cv::Scalar(0, 0, 255);
+    green = cv::Scalar(0,255,0);
+    blue = cv::Scalar(255,0,0);
+    yellow = cv::Scalar(0,255,255);
+    
+    self->dic = [[NSMutableDictionary alloc] init];
+    
+    
+}
+- (void) addPoint : (int) x : (int) y : (UIImage*) image
+{
+    NSNumber * key = [NSNumber numberWithUnsignedInteger:[image hash]];
+    ModelRegistration * mr = [self->dic objectForKey : key];
+    if(mr == nil)
+    {
+        //std::cout << "key : " << [[key stringValue] UTF8String] << std::endl;
+        mr = [[ModelRegistration alloc] init];
+        [self->dic setObject:mr forKey:key];
+        
+    }
+    cv::Point2f point2D = cv::Point2f(x+10,y+10);
+    cv::Point3f point3D = [mesh getVertex:vertexIndex];
+    [mr registerPoint: point2D : point3D];
+    [self nextVertex];
+    //[self->dic setObject:mr forKey:key];
+    
+}
+- (void) nextVertex
+{
+    
+    if(vertexIndex < [mesh getNumVertices]-1 && !endRegistration)
+    {
+        vertexIndex++;
+        currentPoint = cv::Point3d([mesh getVertex:vertexIndex]);
+    }
+    else
+    {
+        endRegistration=true;
+    }
+    [self update];
+}
+- (void) update
+{
+    
+}
+- (UIImage*) computePose : (UIImage*) image
+{
+    NSNumber * key = [NSNumber numberWithUnsignedInteger:[image hash]];
+    ModelRegistration * mr = [self->dic objectForKey : key];
+    if(mr == nil)
+    {
+        //std::cout << "key : " << [[key stringValue] UTF8String] << std::endl;
+        mr = [[ModelRegistration alloc] init];
+        [self->dic setObject:mr forKey:key];
+        
+    }
+    // The list of registered points
+    vector<cv::Point2f> listPoints2D = [mr getPoints2D];
+    vector<cv::Point3f> listPoints3D = [mr getPoints3D];
+    cv::Mat imageMat;
+    cv::Mat displayMat;
+    UIImageToMat(image, imageMat);
+    UIImageToMat(image, displayMat);
+    // Estimate pose given the registered points
+    bool isCorrespondence = [pnpRegistration estimatePose:listPoints3D :listPoints2D :cv::SOLVEPNP_ITERATIVE];
+    if (isCorrespondence)
+    {
+        cout << "Correspondence found" << endl;
+        
+        // Compute all the 2D points of the mesh to verify the algorithm and draw it
+        vector<cv::Point2f> listPoints2DMesh = [pnpRegistration verifyPoints:mesh];
+        std::cout << "Size :" << listPoints2DMesh.size() << std::endl;
+        //[Util draw2DPoints:displayMat :listPoints2DMesh :green];
+        
+    } else {
+        cout << "Correspondence not found" << endl << endl;
+    }
+    
+    /** COMPUTE 3D of the image Keypoints **/
+    
+    // Containers for keypoints and descriptors of the model
+    vector<cv::KeyPoint> keypointsModel;
+    cv::Mat descriptors;
+    
+    // Compute keypoints and descriptors
+    [rmatcher computeKeyPoints : imageMat : keypointsModel];
+    [rmatcher computeDescriptors : imageMat : keypointsModel : descriptors];
+    
+    // Check if keypoints are on the surface of the registration image and add to the model
+    for (unsigned int i = 0; i < keypointsModel.size(); ++i) {
+        cv::Point2f point2d(keypointsModel[i].pt);
+        cv::Point3f point3d;
+        bool onSurface = [pnpRegistration backproject2DPoint : mesh : point2d : point3d];
+        if (onSurface)
+        {
+            [model addCorrespondence : point2d : point3d];
+            [model addDescriptor : descriptors.row(i)];
+            [model addKeypoint : keypointsModel[i]];
+        }
+        else
+        {
+            [model addOutlier : point2d];
+        }
+    }
+    
+    // save the model into a *.yaml file
+    [model save : ""];
+    
+    // Out image
+    displayMat = imageMat.clone();
+    
+    // The list of the points2d of the model
+    vector<cv::Point2f> listPointsIn = [model getPoints2DIn];
+    vector<cv::Point2f> listPointsOut = [model getPoints2DOut];
+    
+    // Draw some debug text
+    std::cout << "There are " << listPointsIn.size() << " inliers" << std::endl;
+    std::cout << "There are " << listPointsOut.size() << " outliers" << std::endl;
+    
+    
+    // Draw the object mesh
+    [Util drawObjectMesh:displayMat :mesh :pnpRegistration :blue];
+    
+    // Draw found keypoints depending on if are or not on the surface
+    [Util draw2DPoints : displayMat : listPointsIn : green];
+    [Util draw2DPoints : displayMat : listPointsOut : red];
+    
+    UIImage* newImage = [[UIImage alloc] init];
+    newImage = MatToUIImage(displayMat);
+    return newImage;
+    
+    
+}
+- (UIImage*) add2DPoints : (UIImage*) image
+{
+    NSNumber * key = [NSNumber numberWithUnsignedInteger:[image hash]];
+    ModelRegistration * mr = [self->dic objectForKey : key];
+    if(mr == nil)
+    {
+        //std::cout << "key : " << [[key stringValue] UTF8String] << std::endl;
+        mr = [[ModelRegistration alloc] init];
+        [self->dic setObject:mr forKey:key];
+        return image;
+    }
+    cv::Mat imageMat;
+    UIImageToMat(image, imageMat);
+    vector<cv::Point2f> point2DList = [mr getPoints2D];
+    vector<cv::Point3f> point3DList = [mr getPoints3D];
+    [Util drawPoints:imageMat :point2DList :point3DList :red];
+    UIImage* newImage = [[UIImage alloc] init];
+    newImage = MatToUIImage(imageMat);
+    return newImage;
+    
+}
+- (redBox*) getCurrentVertex
+{
+    redBox* newPoint = [[redBox alloc] init];
+    cv::Point3d point3D = [mesh getVertex:vertexIndex];
+    [newPoint setX:point3D.x];
+    [newPoint setY:point3D.y];
+    [newPoint setZ:point3D.z];
+    return newPoint;
+}
+- (int) getNumVertex
+{
+    return [mesh getNumVertices];
+}
+- (BOOL) isRegistrationFinished
+{
+    return self->endRegistration;
+}
+- (SCNNode*) SCNNodeOf3DPoints
+{
+    SCNNode* newNode = [[SCNNode alloc] init];
+    //Get points already placed
+    for(NSNumber* key in dic)
+    {
+        ModelRegistration* currentModel = [dic objectForKey:key];
+        vector<cv::Point3f> point3DList = [currentModel getPoints3D];
+        for(int i=0; i<point3DList.size() ;i++)
+        {
+            SCNSphere * g = [SCNSphere sphereWithRadius:0.1];
+            SCNNode* node = [SCNNode nodeWithGeometry:g];
+            [g.firstMaterial.diffuse setContents:[UIColor blueColor]];
+            node.position = SCNVector3Make(point3DList.at(i).x, point3DList.at(i).y, point3DList.at(i).z);
+            [newNode addChildNode:node];
+        }
+            
+    }
+    //Get point that have to be placed
+    SCNSphere * g = [SCNSphere sphereWithRadius:0.1];
+    SCNNode* node = [SCNNode nodeWithGeometry:g];
+    [g.firstMaterial.diffuse setContents:[UIColor redColor]];
+    cv::Point3f currentPoint = [mesh getVertex:vertexIndex];
+    node.position = SCNVector3Make(currentPoint.x, currentPoint.y, currentPoint.z);
+    [newNode addChildNode:node];
+    
+    
+    return newNode;
+}
+@end
+
+//************** OPENCVWDETECTION **********/
+
+@interface OpenCVDetection()
 - (void) initKalmanFilter :(cv::KalmanFilter&) KF : (int) nStates : (int) nMeasurements : (int) nInputs : (double) dt;
 - (void) updateKalmanFilter : (cv::KalmanFilter &) KF : (cv::Mat &) measurement : (cv::Mat &) translation_estimated : (cv::Mat &) rotation_estimated;
 - (void) fillMeasurements: (cv::Mat &) measurements : (cv::Mat &) translation_measured : (cv::Mat &)rotation_measured;
@@ -1306,7 +1714,7 @@ using namespace std;
 - (cv::Mat) convertPosMatrixToPosVec : (cv::Mat)pMat;
 @end
 
-@implementation OpenCVWrapper
+@implementation OpenCVDetection
 {
     
     //Model object
@@ -1353,7 +1761,7 @@ using namespace std;
     int pnpMethod;
 }
 
-- (void) setupDetection
+- (void) setup
 {
     ///*******************PARAMETERS******************///
     float ratioTest = 0.70f;
@@ -1397,8 +1805,8 @@ using namespace std;
     blue = cv::Scalar(255,0,0);
     yellow = cv::Scalar(0,255,255);
     
-    std::string ymlReadPath =  [[[NSBundle mainBundle] pathForResource: @"ORBL" ofType: @"yml"] UTF8String];
-    std::string plyReadPath =  [[[NSBundle mainBundle] pathForResource: @"meshL" ofType: @"ply"] UTF8String];
+    std::string ymlReadPath =  [[[NSBundle mainBundle] pathForResource: @"ORBC" ofType: @"yml"] UTF8String];
+    std::string plyReadPath =  [[[NSBundle mainBundle] pathForResource: @"meshC" ofType: @"ply"] UTF8String];
     
     self->pnp_detection = [[PnPProblem alloc] init:params_WEBCAM];
     self->pnp_detection_est = [[PnPProblem alloc] init:params_WEBCAM];
