@@ -24,12 +24,13 @@
 		93281F6B1F210E00004C93E2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F6A1F210E00004C93E2 /* Color.swift */; };
 		9363DBD61F4ADDD8006AB0FE /* YAMLRegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9363DBD51F4ADDD8006AB0FE /* YAMLRegistrationController.swift */; };
 		936ACA251F163DF700156AD8 /* test3DObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936ACA241F163DF700156AD8 /* test3DObject.swift */; };
-		93721AF71F4C69F1007674FC /* img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 93721AF61F4C69EF007674FC /* img.jpg */; };
+		937061581F516CE10058B664 /* meshLink.ply in Resources */ = {isa = PBXBuildFile; fileRef = 937061571F516CE10058B664 /* meshLink.ply */; };
+		9370615E1F51C1D80058B664 /* meshV1.2.ply in Resources */ = {isa = PBXBuildFile; fileRef = 9370615D1F51C1910058B664 /* meshV1.2.ply */; };
 		93721AF91F4C6A60007674FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93721AF81F4C6A60007674FC /* Assets.xcassets */; };
 		937517661F2395B6007EF547 /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937517651F2395B6007EF547 /* General.swift */; };
 		937517681F23BA97007EF547 /* menuSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937517671F23BA97007EF547 /* menuSection.swift */; };
 		9375176A1F23C85F007EF547 /* menuSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937517691F23C85F007EF547 /* menuSection.xib */; };
-		9376AB1E1F2F52D000D28C95 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9376AB1D1F2F52D000D28C95 /* OpenCVWrapper.mm */; };
+		9376AB1E1F2F52D000D28C95 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9376AB1D1F2F52D000D28C95 /* OpenCVWrapper.mm */; settings = {COMPILER_FLAGS = "-Wno-nullability-completeness"; }; };
 		9376AB201F2F580F00D28C95 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9376AB1F1F2F580600D28C95 /* libstdc++.tbd */; };
 		9376AB221F2F583C00D28C95 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9376AB211F2F583000D28C95 /* libc++.tbd */; };
 		937FE96F1F1E1ED600C3B0D7 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937FE96E1F1E1ED600C3B0D7 /* KDCircularProgress.swift */; };
@@ -42,6 +43,9 @@
 		939C19E31F14EF7200C392CA /* LittleFarmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19E21F14EF7200C392CA /* LittleFarmTests.swift */; };
 		939C19EE1F14EF7200C392CA /* LittleFarmUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19ED1F14EF7200C392CA /* LittleFarmUITests.swift */; };
 		939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19FE1F14FDF800C392CA /* LandingController.swift */; };
+		93A004671F4F84F700ABBD39 /* ConfigDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A004661F4F84F700ABBD39 /* ConfigDataManager.swift */; };
+		93A0046B1F4F884600ABBD39 /* camera.json in Resources */ = {isa = PBXBuildFile; fileRef = 93A0046A1F4F884600ABBD39 /* camera.json */; };
+		93A0046D1F4F885B00ABBD39 /* productKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 93A0046C1F4F885B00ABBD39 /* productKey.json */; };
 		93B18E731F2510C000146BD5 /* main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E711F2510C000146BD5 /* main.xcdatamodeld */; };
 		93B18E751F25292300146BD5 /* PersistentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E741F25292300146BD5 /* PersistentDataManager.swift */; };
 		93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C43AE41F15427B00159522 /* QRCodeViewController.swift */; };
@@ -103,7 +107,8 @@
 		93667C741F44527400E0C023 /* Ray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ray.hpp; sourceTree = "<group>"; };
 		93667C7A1F445BA800E0C023 /* Util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Util.hpp; sourceTree = "<group>"; };
 		936ACA241F163DF700156AD8 /* test3DObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test3DObject.swift; sourceTree = "<group>"; };
-		93721AF61F4C69EF007674FC /* img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = img.jpg; path = "../OpenCV Detection c++/cube/img.jpg"; sourceTree = "<group>"; };
+		937061571F516CE10058B664 /* meshLink.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = meshLink.ply; path = ../YAML/link/meshLink.ply; sourceTree = "<group>"; };
+		9370615D1F51C1910058B664 /* meshV1.2.ply */ = {isa = PBXFileReference; lastKnownFileType = file; name = meshV1.2.ply; path = ../YAML/V1.2/meshV1.2.ply; sourceTree = "<group>"; };
 		93721AF81F4C6A60007674FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		937517651F2395B6007EF547 /* General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
 		937517671F23BA97007EF547 /* menuSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuSection.swift; sourceTree = "<group>"; };
@@ -134,6 +139,9 @@
 		939C19ED1F14EF7200C392CA /* LittleFarmUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleFarmUITests.swift; sourceTree = "<group>"; };
 		939C19EF1F14EF7200C392CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		939C19FE1F14FDF800C392CA /* LandingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingController.swift; sourceTree = "<group>"; };
+		93A004661F4F84F700ABBD39 /* ConfigDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigDataManager.swift; sourceTree = "<group>"; };
+		93A0046A1F4F884600ABBD39 /* camera.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = camera.json; sourceTree = "<group>"; };
+		93A0046C1F4F885B00ABBD39 /* productKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = productKey.json; sourceTree = "<group>"; };
 		93B18E721F2510C000146BD5 /* main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = main.xcdatamodel; sourceTree = "<group>"; };
 		93B18E741F25292300146BD5 /* PersistentDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentDataManager.swift; sourceTree = "<group>"; };
 		93C208B01F41D62000FA8216 /* opencv-headers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "opencv-headers.h"; sourceTree = "<group>"; };
@@ -239,6 +247,7 @@
 		93721AF51F4C6509007674FC /* data */ = {
 			isa = PBXGroup;
 			children = (
+				93A004681F4F880C00ABBD39 /* config */,
 				93ED49C91F4C978700F73C76 /* model */,
 			);
 			name = data;
@@ -366,6 +375,15 @@
 			path = LittleFarmUITests;
 			sourceTree = "<group>";
 		};
+		93A004681F4F880C00ABBD39 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				93A0046A1F4F884600ABBD39 /* camera.json */,
+				93A0046C1F4F885B00ABBD39 /* productKey.json */,
+			);
+			name = config;
+			sourceTree = "<group>";
+		};
 		93B18E701F25108B00146BD5 /* data */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,7 +395,8 @@
 		93ED49C91F4C978700F73C76 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				93721AF61F4C69EF007674FC /* img.jpg */,
+				9370615D1F51C1910058B664 /* meshV1.2.ply */,
+				937061571F516CE10058B664 /* meshLink.ply */,
 				93ED49CA1F4C9A0300F73C76 /* mesh.ply */,
 			);
 			name = model;
@@ -396,6 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				93B18E741F25292300146BD5 /* PersistentDataManager.swift */,
+				93A004661F4F84F700ABBD39 /* ConfigDataManager.swift */,
 			);
 			path = manager;
 			sourceTree = "<group>";
@@ -553,12 +573,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				939C19CE1F14EF7200C392CA /* art.scnassets in Resources */,
-				93ED49CB1F4C9A0400F73C76 /* mesh.ply in Resources */,
 				93721AF91F4C6A60007674FC /* Assets.xcassets in Resources */,
 				939C19D81F14EF7200C392CA /* LaunchScreen.storyboard in Resources */,
-				93721AF71F4C69F1007674FC /* img.jpg in Resources */,
 				939C19D31F14EF7200C392CA /* Main.storyboard in Resources */,
 				9375176A1F23C85F007EF547 /* menuSection.xib in Resources */,
+				93A0046B1F4F884600ABBD39 /* camera.json in Resources */,
+				93A0046D1F4F885B00ABBD39 /* productKey.json in Resources */,
+				937061581F516CE10058B664 /* meshLink.ply in Resources */,
+				9370615E1F51C1D80058B664 /* meshV1.2.ply in Resources */,
+				93ED49CB1F4C9A0400F73C76 /* mesh.ply in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,6 +686,7 @@
 				939C19CC1F14EF7100C392CA /* AppDelegate.swift in Sources */,
 				93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */,
 				93281F5E1F20FAA1004C93E2 /* ExplorationViewController.swift in Sources */,
+				93A004671F4F84F700ABBD39 /* ConfigDataManager.swift in Sources */,
 				931553151F2BE5650018D26C /* Tools.swift in Sources */,
 				9311D56A1F292B3F003E1538 /* AdminPanelController.swift in Sources */,
 				937FE96F1F1E1ED600C3B0D7 /* KDCircularProgress.swift in Sources */,

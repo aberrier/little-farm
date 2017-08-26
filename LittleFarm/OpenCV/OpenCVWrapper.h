@@ -19,8 +19,8 @@
     @public float posZ;
     @public double confidence;
 }
-- (id) init;
-- (UIImage*) getImage;
+- (id _Nonnull ) init;
+- (UIImage* _Nonnull) getImage;
 - (float) getX;
 - (float) getY;
 - (float) getZ;
@@ -37,29 +37,46 @@
 @public UIImage* image;
 @public ModelRegistration* model;
 }
-- (UIImage*) getImage;
-- (ModelRegistration*) getModel;
+- (UIImage* _Nonnull) getImage;
+- (ModelRegistration* _Nonnull) getModel;
 @end
 
 //Detection
 @interface OpenCVDetection : NSObject
-- (void) isItWorking;
+- (id _Nonnull) init;
+- (BOOL) isSetuped;
+- (void) setFilePaths : (NSString* _Nonnull) yml : (NSString* _Nonnull) ply;
+- (void) loadCameraParameters : (const double[]) params;
+- (void) loadDistorsionParameters : (const double[]) params;
 - (void) setup;
-- (redBox*) detectFrame : (CVPixelBufferRef) pixelBuffer;
-- (NSString *) currentVersion;
-- (UIImage*) makeGreyFromImage:(UIImage *)image;
+
+- (redBox* _Nonnull) detectOnPixelBuffer : (CVPixelBufferRef) pixelBuffer;
+- (double) getTimeInterval;
+- (void) setTimeInterval : (double) val;
 @end
 
 //Registration
 @interface OpenCVRegistration : NSObject
+- (id _Nonnull) init;
+- (BOOL) isSetuped;
+- (void) setFilePath : (NSString* _Nonnull) ply;
+- (void) loadCameraParameters : (const double[] ) params;
+- (void) loadDistorsionParameters : (const double[]) params;
 - (void) setup;
-- (void) addPoint : (int) x : (int) y : (UIImage*) image;
-- (void) update;
-- (UIImage*) add2DPoints : (UIImage*) image;
-- (UIImage*) computePose : (UIImage*) image;
+
+- (void) addPoint : (int) x : (int) y : (UIImage* _Nonnull) image;
+- (UIImage*_Nonnull) add2DPoints : (UIImage* _Nonnull) image : (int) orientation;
+- (UIImage* _Nonnull) computePose : (UIImage* _Nonnull) image : (int) orientation;
+- (SCNNode* _Nonnull) SCNNodeOf3DPoints;
+
+-(void) setScale : (float) scale;
+
+- (void) saveFileAt : (NSString* _Nonnull) path;
+
 - (void) nextVertex;
 - (int) getNumVertex;
+- (int) getVertexIndex;
 - (BOOL) isRegistrationFinished;
-- (redBox*) getCurrentVertex;
-- (SCNNode*) SCNNodeOf3DPoints;
+- (redBox* _Nonnull) getCurrentVertex;
+
 @end
