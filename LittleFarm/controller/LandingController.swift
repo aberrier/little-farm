@@ -54,11 +54,6 @@ class LandingController : UIViewController
         {
             print("Landing : Can't read general informations on database")
         }
-        let test = OpenCVRegistration()
-        test.setup()
-        let a : UIImage = UIImage(named: "default")!
-        test.addPoint(2, 3, a)
-        test.add2DPoints(a)
         
     }
     
