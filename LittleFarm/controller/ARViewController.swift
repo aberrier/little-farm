@@ -114,8 +114,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: UIDevice.current.modelName ) ,
             let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: UIDevice.current.modelName )
         {
-            let intrinsicCoef : [Double] = [cameraIntrinsic[0],cameraIntrinsic[4],cameraIntrinsic[2],cameraIntrinsic[5]]
-            openCV.loadCameraParameters(intrinsicCoef)
+            openCV.loadCameraParameters(cameraIntrinsic)
             openCV.loadDistorsionParameters(cameraDistorsion)
         }
         else
