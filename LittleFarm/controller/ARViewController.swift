@@ -83,6 +83,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     var averY : [Float] = []
     var averZ : [Float] = []
     
+    var meshName = "meshV1.2"
     let configData = ConfigDataManager.sharedInstance
     override func viewDidLoad() {
         
@@ -113,7 +114,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: UIDevice.current.modelName ) ,
             let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: UIDevice.current.modelName )
         {
-            openCV.loadCameraParameters(cameraIntrinsic)
+            let intrinsicCoef : [Double] = [cameraIntrinsic[0],cameraIntrinsic[4],cameraIntrinsic[2],cameraIntrinsic[5]]
+            openCV.loadCameraParameters(intrinsicCoef)
             openCV.loadDistorsionParameters(cameraDistorsion)
         }
         else
@@ -121,7 +123,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
             print("No calibration matrix found for \(UIDevice.current.modelName)")
         }
         //File path
-        openCV.setFilePaths(GT.getFileForWriting(name: "ORB.yml")!, Bundle.main.path(forResource: "meshLink", ofType: "ply")!)
+        openCV.setFilePaths(GT.getFileForWriting(name: "ORB.yml")!, Bundle.main.path(forResource: meshName, ofType: "ply")!)
         //Time interval
         openCV.setTimeInterval(0.016)
         //Setup

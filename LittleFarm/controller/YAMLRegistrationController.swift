@@ -48,7 +48,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var modeDrag = false
     var modeDragSelector = false
     let name = "ORB.yml"
-    let meshName = "meshV1.2"
+    let meshName = "mesh"
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -61,7 +61,6 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
                 imgTab += [GT.normalizedImage(image: image)]
             }
         }
-        
         layerCommand.isHidden = !layerSwitch.isOn
         standardCommand.isHidden = layerSwitch.isOn
         xStepper.maximumValue = Double(imageWrapperView.frame.size.width)
@@ -82,10 +81,11 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         
         infoText.numberOfLines = 2
         //OpenCV setup
-        //Camera calibration
+        
         if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: "iPhone 7" /*UIDevice.current.modelName*/ ) ,
             let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: "iPhone 7" /*UIDevice.current.modelName*/ )
         {
+            
             openCVRegistration.loadCameraParameters(cameraIntrinsic)
             openCVRegistration.loadDistorsionParameters(cameraDistorsion)
         }
@@ -217,11 +217,29 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         while !openCVRegistration.isRegistrationFinished()
         {
             let box : redBox = openCVRegistration.getCurrentVertex()
-            pointsNode.position = SCNVector3(box.getX(),box.getY(),box.getZ())
-            let position2D = scene.rootNode.convertPosition(pointsNode.position, to: scene.rootNode)
-            openCVRegistration.addPoint(Int32(position2D.x), Int32(position2D.y), imgTab[currentIndex])
-            updateDisplay()
+            var position = SCNVector3(box.getX(),box.getY(),box.getZ())
+            pointsNode.position = position
+            
+            let image = imgTab[currentIndex]
+            
+            position = meshDisplay.projectPoint(position)
+            var coord = CGPoint(x: CGFloat(position.x), y: CGFloat(position.y))
+            coord.x += meshWrapperView.frame.minX
+            coord.y += meshWrapperView.frame.minY - imageWrapperView.frame.minY
+            
+            
+            let test = UIImageView(image: UIImage(named: "ruby"))
+            test.frame = CGRect(x: Int(coord.x), y: Int(coord.y), width: 10, height: 10)
+            self.imageWrapperView.addSubview(test)
+            
+            let x = Int32((coord.x * image.size.width)/(imageWrapperView.frame.size.width))
+            let y = Int32((coord.y * image.size.height)/(imageWrapperView.frame.size.height))
+            print("Position : \(x),\(y)")
+            print("Size : \(imgTab[currentIndex].size)")
+            //openCVRegistration.addPoint(200, 200, imgTab[currentIndex])
+            openCVRegistration.addPoint(x, y, imgTab[currentIndex])
         }
+        updateDisplay()
     }
     @IBAction func switchLayerAction(_ sender : UISwitch)
     {
@@ -247,7 +265,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         {
             infoText.text = "Registration finished."
             
-            imageDisplay.image = openCVRegistration.computePose(originalImage, Int32(originalImage.imageOrientation.hashValue))
+            imageDisplay.image = openCVRegistration.computePose(originalImage)
             openCVRegistration.saveFile(at: GT.getFileForWriting(name: name)!)
             //let result : String = "\(GT.getFileOnString(name: name)!)"
             //print(result)
@@ -257,8 +275,10 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         {
             infoText.text = "Where is the point (\(data.getX()),\(data.getY()),\(data.getZ())) ?\n\(openCVRegistration.getVertexIndex())/\(openCVRegistration.getNumVertex())"
             imageDisplay.image = originalImage
-            imageDisplay.image = openCVRegistration.add2DPoints(originalImage, Int32(originalImage.imageOrientation.hashValue))
+            imageDisplay.image = openCVRegistration.add2DPoints(originalImage)
         }
+        //imageDisplay.image = openCVRegistration.add2DPoints(originalImage)
+        
         
     }
     //Gesture recognizers
