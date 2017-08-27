@@ -19,8 +19,8 @@
     @public float posZ;
     @public double confidence;
 }
-- (id _Nonnull ) init;
-- (UIImage* _Nonnull) getImage;
+- (id) init;
+- (UIImage*) getImage;
 - (float) getX;
 - (float) getY;
 - (float) getZ;
@@ -37,32 +37,23 @@
 @public UIImage* image;
 @public ModelRegistration* model;
 }
-- (UIImage* _Nonnull) getImage;
-- (ModelRegistration* _Nonnull) getModel;
+- (UIImage*) getImage;
+- (ModelRegistration*) getModel;
 @end
 
 //Detection
 @interface OpenCVDetection : NSObject
-- (id _Nonnull) init;
-- (BOOL) isSetuped;
-- (void) setFilePaths : (NSString* _Nonnull) yml : (NSString* _Nonnull) ply;
-- (void) loadCameraParameters : (const double[]) params;
-- (void) loadDistorsionParameters : (const double[]) params;
+- (void) isItWorking;
 - (void) setup;
-
-- (redBox* _Nonnull) detectOnPixelBuffer : (CVPixelBufferRef) pixelBuffer;
-- (double) getTimeInterval;
-- (void) setTimeInterval : (double) val;
+- (redBox*) detectFrame : (CVPixelBufferRef) pixelBuffer;
+- (NSString *) currentVersion;
+- (UIImage*) makeGreyFromImage:(UIImage *)image;
 @end
 
 //Registration
 @interface OpenCVRegistration : NSObject
-- (id _Nonnull) init;
-- (BOOL) isSetuped;
-- (void) setFilePath : (NSString* _Nonnull) ply;
-- (void) loadCameraParameters : (const double[] ) params;
-- (void) loadDistorsionParameters : (const double[]) params;
 - (void) setup;
+<<<<<<< HEAD
 
 - (void) addPoint : (int) x : (int) y : (UIImage* _Nonnull) image;
 - (UIImage*_Nonnull) add2DPoints : (UIImage* _Nonnull) image;
@@ -73,10 +64,15 @@
 
 - (void) saveFileAt : (NSString* _Nonnull) path;
 
+=======
+- (void) addPoint : (int) x : (int) y : (UIImage*) image;
+- (void) update;
+- (UIImage*) add2DPoints : (UIImage*) image;
+- (UIImage*) computePose : (UIImage*) image;
+>>>>>>> parent of 757272e... Optimzation and YAML creation
 - (void) nextVertex;
 - (int) getNumVertex;
-- (int) getVertexIndex;
 - (BOOL) isRegistrationFinished;
-- (redBox* _Nonnull) getCurrentVertex;
-
+- (redBox*) getCurrentVertex;
+- (SCNNode*) SCNNodeOf3DPoints;
 @end

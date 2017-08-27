@@ -58,14 +58,18 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     var timer = Timer()
     
     //OpenCV
-    @IBOutlet var imageTest : UIImageView!
+    var averXTab : [Float]  = []
+    var averYTab : [Float] = []
+    var averZTab : [Float] = []
+    var averConfidenceTab : [Double] = []
     
     var freeze = false
     var counter = 0
     var bufferBox : redBox = redBox()
-    
+    @IBOutlet var imageTest : UIImageView!
     let openCV = OpenCVDetection()
     var openCVTimer = Timer();
+<<<<<<< HEAD
     
     //Filter
     let minX : Float = -1.0
@@ -85,6 +89,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     
     var meshName = "mesh"
     let configData = ConfigDataManager.sharedInstance
+=======
+>>>>>>> parent of 757272e... Optimzation and YAML creation
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -109,6 +115,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         sceneView.session.run(configuration)
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: (#selector(setPositionOfObject)), userInfo: nil, repeats: true)
         
+<<<<<<< HEAD
         //OpenCV setup
         //Camera calibration
         if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: UIDevice.current.modelName ) ,
@@ -126,9 +133,11 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         //Time interval
         openCV.setTimeInterval(0.016)
         //Setup
+=======
+        //OpenCV
+>>>>>>> parent of 757272e... Optimzation and YAML creation
         openCV.setup();
-        //Start detection
-        openCVTimer = Timer.scheduledTimer(timeInterval: openCV.getTimeInterval(), target: self, selector: (#selector(openCVFrameDetection)), userInfo: nil, repeats: true)
+        openCVTimer = Timer.scheduledTimer(timeInterval: 0.016, target: self, selector: (#selector(openCVFrameDetection)), userInfo: nil, repeats: true)
         
     }
     
@@ -211,60 +220,81 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         let sampleBuffer = sceneView.session.currentFrame?.capturedImage
         if object3D != nil
         {
-            
-            let data : redBox = openCV.detect(on: sampleBuffer)
+            let data : redBox = openCV.detectFrame(sampleBuffer)
             imageTest.image = data.getImage()
-            //Conversion to ARKIT coordinate scale
-    
-            data.setX(data.getX()/100)
-            data.setY(data.getY()/100)
-            data.setZ(-data.getZ()/100)
-            if(!freeze && LFFilter(data))
+            if(!freeze)
             {
-                /*
-                averX+=[data.getX()]
-                averY+=[data.getY()]
-                averZ+=[data.getZ()]
-                print("Count : \(averX.count)")
-                if averX.count > 100
+                if counter < 10
                 {
-                    freeze = true
+                    bufferBox.setZ(max(bufferBox.getZ(),data.getZ()))
+                    print("z : \(data.getZ())\nConfidence : \(data.getConfidence())")
+                    if(data.getConfidence() > 20)
+                    {
+                        averXTab+=[data.getX()]
+                        averYTab+=[data.getY()]
+                        averZTab+=[data.getZ()]
+                    }
+                    averConfidenceTab+=[data.getConfidence()]
+                    counter+=1
                 }
+                else
+                {
+                    var averX : Float = 0
+                    var averY : Float = 0
+                    var averZ : Float = 0
+                    var averConfidence : Double = 0
+                    for val in averConfidenceTab
+                    {
+                        averConfidence += val
+                    }
+                    averConfidence = averConfidence/Double(averConfidenceTab.count)
+                    
+                    averConfidenceTab=[]
+                    for val in averXTab
+                    {
+                        averX += val
+                    }
+                    averX = averX/Float(averXTab.count)
+                    averXTab=[]
+                    for val in averYTab
+                    {
+                        averY += val
+                    }
+                    averY = averY/Float(averYTab.count)
+                    averYTab=[]
+                    for val in averZTab
+                    {
+                        averZ += val
+                    }
+                    averZ = averZ/Float(averZTab.count)
+                    //Increase z
+                    averZ = (averZ + bufferBox.getZ())/2
+                    averZTab=[]
+                    print("\n****\nx:\(averX)\ny:\(averY)+\nz:\(averZ)\nConfidence : \(averConfidence)****\n")
+                    if(averConfidence > 20 || averZ > 10000)
+                    {
+                        object3D?.position = applyCameraTransformation(SCNVector3(averX/100,averY/100,-averZ/100))
+                        updatePositionDisplay()
+                    }
+                    bufferBox.setZ(0)
+                    counter=0
+                    
+                }
+<<<<<<< HEAD
                 
                 object3D?.position = applyCameraTransformation(SCNVector3(getAverageValue(averX),getAverageValue(averY),getAverageValue(averZ)))
                  */
                 object3D?.position = SCNVector3(data.getX(),data.getY(),data.getZ())
                 object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))
                 updatePositionDisplay()
+=======
+>>>>>>> parent of 757272e... Optimzation and YAML creation
             }
             
             
             
         }
         
-    }
-    func getAverageValue(_ tab : [Float]) -> Float
-    {
-        var avr : Float = 0
-        for val in tab
-        {
-            avr += val
-        }
-        return avr/Float(tab.count)
-    }
-    func LFFilter( _ data : redBox) -> Bool
-    {
-        if(data.getX() >= minX && data.getX() <= maxX &&
-            data.getY() >= minY && data.getY() <= maxY &&
-            data.getZ() >= minZ && data.getZ() <= maxZ &&
-            data.getConfidence() >= minConfidence)
-        {
-            print("Position(\(data.getX()),\(data.getY()),\(data.getZ()),\(data.getConfidence())%) accepted.")
-            return true
-        }
-        //print("Stack : \(data.getX() >= minX):\(data.getX() <= maxX):\(data.getY() >= minY):\(data.getY() <= maxY):\(data.getZ() >= minZ):\(data.getZ() <= maxZ):\(data.getConfidence() >= minConfidence)")
-        //print("Position(\(data.getX()),\(data.getY()),\(data.getZ()),\(data.getConfidence())%) rejected.")
-        return false
     }
     func applyCameraTransformation(_ firstPos : SCNVector3) -> SCNVector3
     {
@@ -526,8 +556,6 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
     }
-    
 }
-
 
 

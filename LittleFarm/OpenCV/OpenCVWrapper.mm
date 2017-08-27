@@ -134,22 +134,23 @@ using namespace std;
     
     cv::Mat points3dmatrix = cv::Mat(self->list3DInside);
     cv::Mat points2dmatrix = cv::Mat(self->list2DInside);
-    /*
     cv::Mat keyPointmatrix = cv::Mat(self->listKeypoints);
-    //Displayu debug
+    //Save file
     std::ostringstream strs;
     strs << "points_3d" << points3dmatrix;
     strs << "points_2d" << points2dmatrix;
     strs << "keypoints" << keyPointmatrix;
     strs << "descriptors" << self->listDescriptors;
-     std::cout << std::endl << std::endl << "YAML FILE" << std::endl << strs.str() << std::endl << "***" << std::endl;
-     */
+    
+    //std::cout << std::endl << std::endl << "YAML FILE" << std::endl << strs.str() << std::endl << "***" << std::endl;
+    /*
     cv::FileStorage storage(path, cv::FileStorage::WRITE);
     storage << "points_3d" << points3dmatrix;
     storage << "points_2d" << points2dmatrix;
     storage << "keypoints" << self->listKeypoints;
     storage << "descriptors" << self->listDescriptors;
     storage.release();
+    */
     
 }
 @end
@@ -446,8 +447,14 @@ using namespace std;
                 if(tmp_str == "face") num_triangles = [Util StringToInt:[NSString stringWithCString:n.c_str() encoding:[NSString defaultCStringEncoding]]];
             }
             //Correction of different line-return between platforms
+<<<<<<< HEAD
             std::string tmp_str2 = tmp_str.substr(0,tmp_str.size()-1);
             if(tmp_str == "end_header" || tmp_str2 =="end_header") end_header = true;
+=======
+            tmp_str = tmp_str.substr(0,tmp_str.size()-1);
+            
+            if(tmp_str == "end_header") end_header = true;
+>>>>>>> parent of 757272e... Optimzation and YAML creation
         }
         
         // read file content
@@ -731,7 +738,7 @@ using namespace std;
 - (cv::Mat) getRMatrix;
 - (cv::Mat) getTMatrix;
 - (cv::Mat) getPMatrix;
-- (void) addDistorsionParameters : (NSMutableArray*) param;
+
 - (void) setPMatrix : (cv::Mat&) R_matrix : (cv::Mat&) t_matrix;
 
 // Functions for Möller–Trumbore intersection algorithm
@@ -745,8 +752,6 @@ using namespace std;
 {
     /** The calibration matrix */
     cv::Mat AMatrix;
-    /** The calibration distorsion matrix */
-    cv::Mat DMatrix;
     /** The computed rotation matrix */
     cv::Mat RMatrix;
     /** The computed translation matrix */
@@ -760,6 +765,7 @@ using namespace std;
     if(self)
     {
         self->AMatrix = cv::Mat::zeros(3, 3, CV_64FC1);   // intrinsic camera parameters
+<<<<<<< HEAD
         self->AMatrix.at<double>(0, 0) = [param[0] doubleValue];       //      [ fx(0)   0  cx(2) ]
         self->AMatrix.at<double>(0, 1) = [param[1] doubleValue];
         self->AMatrix.at<double>(0, 2) = [param[2] doubleValue];
@@ -770,12 +776,20 @@ using namespace std;
         self->AMatrix.at<double>(2, 1) = [param[7] doubleValue];      //      [  0   0   1 ]
         self->AMatrix.at<double>(2, 2) = [param[8] doubleValue];
         self->DMatrix = cv::Mat::zeros(5, 1, CV_64FC1);
+=======
+        self->AMatrix.at<double>(0, 0) = [param[0] doubleValue];       //      [ fx   0  cx ]
+        self->AMatrix.at<double>(1, 1) = [param[1] doubleValue];       //      [  0  fy  cy ]
+        self->AMatrix.at<double>(0, 2) = [param[2] doubleValue];      //      [  0   0   1 ]
+        self->AMatrix.at<double>(1, 2) = [param[3] doubleValue];
+        self->AMatrix.at<double>(2, 2) = 1;
+>>>>>>> parent of 757272e... Optimzation and YAML creation
         self->RMatrix = cv::Mat::zeros(3, 3, CV_64FC1);   // rotation matrix
         self->TMatrix = cv::Mat::zeros(3, 1, CV_64FC1);   // translation matrix
         self->PMatrix = cv::Mat::zeros(3, 4, CV_64FC1);   // rotation-translation matrix
     }
     return self;
 }
+<<<<<<< HEAD
 - (void) addDistorsionParameters : (NSMutableArray*) param
 {
     self->DMatrix.at<double>(0,0) = [param[0] doubleValue];
@@ -784,6 +798,9 @@ using namespace std;
     self->DMatrix.at<double>(3,0) = [param[3] doubleValue];
     self->DMatrix.at<double>(4,0) = [param[4] doubleValue];
 }
+=======
+
+>>>>>>> parent of 757272e... Optimzation and YAML creation
 - (BOOL) backproject2DPoint : (Mesh*) mesh : (cv::Point2f&) point2d : (cv::Point3f&) point3d
 {
     // Triangles list of the object mesh
@@ -937,6 +954,7 @@ using namespace std;
 }
 - (BOOL) estimatePose : (std::vector<cv::Point3f>&) listPoints3d : (std::vector<cv::Point2f>&) listPoints2d :  (int) flags
 {
+    cv::Mat distCoeffs = cv::Mat::zeros(4, 1, CV_64FC1);
     cv::Mat rvec = cv::Mat::zeros(3, 1, CV_64FC1);
     cv::Mat tvec = cv::Mat::zeros(3, 1, CV_64FC1);
     bool useExtrinsicGuess = false;
@@ -963,8 +981,9 @@ using namespace std;
     cout << "flags : " << flags << endl;
     */
     // Pose estimation
-    bool correspondence = cv::solvePnP( listPoints3d, listPoints2d, AMatrix, DMatrix, rvec, tvec,
+    bool correspondence = cv::solvePnP( listPoints3d, listPoints2d, AMatrix, distCoeffs, rvec, tvec,
                                        useExtrinsicGuess, flags);
+    std::cout << "2" << std::endl;
     // Transforms Rotation Vector to Matrix
     Rodrigues(rvec,RMatrix);
     TMatrix = tvec;
@@ -991,7 +1010,7 @@ using namespace std;
     cv::InputArray inputArray(listPoints3d);
     cv::Mat mat = inputArray.getMat();
     cv::Mat matDirect = cv::Mat(listPoints3d);
-    cv::solvePnPRansac( listPoints3d, listPoints2d, AMatrix, DMatrix, rvec, tvec,
+    cv::solvePnPRansac( listPoints3d, listPoints2d, AMatrix, distCoeffs, rvec, tvec,
                        useExtrinsicGuess, iterationsCount, reprojectionError, confidence,
                        inliers, flags );
     Rodrigues(rvec,RMatrix);      // converts Rotation Vector to Matrix
@@ -1460,8 +1479,6 @@ using namespace std;
     cv::Scalar green;
     cv::Scalar blue;
     cv::Scalar yellow;
-    
-    float scale;
     //Dictionnary of ModelRegistration for
     NSMutableDictionary<NSNumber* , ModelRegistration*> * dic;
     
@@ -1469,6 +1486,7 @@ using namespace std;
     BOOL endRegistration;
     int vertexIndex;
     cv::Point3d currentPoint;
+<<<<<<< HEAD
     
     //Parameters
     BOOL setuped;
@@ -1540,10 +1558,26 @@ using namespace std;
                          [NSNumber numberWithDouble : params[4]],
                          nil];
     
+=======
+>>>>>>> parent of 757272e... Optimzation and YAML creation
 }
+
 - (void) setup
 {
     ///*******************PARAMETERS******************///
+    ///Ipad 2017 Camera
+    double f = 42;                           // focal length in mm
+    double sx = 5, sy = 4;             // sensor size
+    double width = 4032, height = 3024;        // image size (in px ?)
+    NSMutableArray< NSNumber* > * params_WEBCAM = [NSMutableArray arrayWithObjects:
+                                                   [NSNumber numberWithFloat : width*f/sx],
+                                                   [NSNumber numberWithFloat : height*f/sy],
+                                                   [NSNumber numberWithFloat : width/2],
+                                                   [NSNumber numberWithFloat : height/2],
+                                                   nil];
+    
+    
+    std::string plyReadPath =  [[[NSBundle mainBundle] pathForResource: @"mesh" ofType: @"ply"] UTF8String];
     
     // set parameters
     numKeyPoints = 10000;
@@ -1555,8 +1589,7 @@ using namespace std;
     ///Instantiate objects
     model = [[Model alloc] init];
     mesh = [[Mesh alloc] init];
-    pnpRegistration = [[PnPProblem alloc] init:paramsCAM];
-    [pnpRegistration addDistorsionParameters:paramsDistorsion];
+    pnpRegistration = [[PnPProblem alloc] init:params_WEBCAM];
     
     // load a mesh given the *.ply file path
     [mesh load : plyReadPath];
@@ -1571,7 +1604,6 @@ using namespace std;
     green = cv::Scalar(0,255,0);
     blue = cv::Scalar(255,0,0);
     yellow = cv::Scalar(0,255,255);
-    
     
     self->dic = [[NSMutableDictionary alloc] init];
     
@@ -1591,6 +1623,7 @@ using namespace std;
     cv::Point3f point3D = [mesh getVertex:vertexIndex];
     [mr registerPoint: point2D : point3D];
     [self nextVertex];
+    //[self->dic setObject:mr forKey:key];
     
 }
 - (void) nextVertex
@@ -1605,14 +1638,11 @@ using namespace std;
     {
         endRegistration=true;
     }
+    [self update];
 }
-- (int) getVertexIndex
+- (void) update
 {
-    return vertexIndex;
-}
-- (void) saveFileAt : (NSString*) path
-{
-    [model save:[path UTF8String]];
+    
 }
 - (UIImage*) computePose : (UIImage*) image
 {
@@ -1631,7 +1661,11 @@ using namespace std;
     cv::Mat imageMat;
     cv::Mat displayMat;
     UIImageToMat(image, imageMat);
+<<<<<<< HEAD
     
+=======
+    UIImageToMat(image, displayMat);
+>>>>>>> parent of 757272e... Optimzation and YAML creation
     // Estimate pose given the registered points
     bool isCorrespondence = [pnpRegistration estimatePose:listPoints3D :listPoints2D :cv::SOLVEPNP_ITERATIVE];
     if (isCorrespondence)
@@ -1672,6 +1706,10 @@ using namespace std;
             [model addOutlier : point2d];
         }
     }
+    
+    // save the model into a *.yaml file
+    [model save : ""];
+    
     // Out image
    UIImageToMat(image, displayMat);
     
@@ -1692,7 +1730,10 @@ using namespace std;
     [Util draw2DPoints : displayMat : listPointsOut : red];
     
     UIImage* newImage = [[UIImage alloc] init];
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 757272e... Optimzation and YAML creation
     newImage = MatToUIImage(displayMat);
     return newImage;
     
@@ -1746,7 +1787,7 @@ using namespace std;
         vector<cv::Point3f> point3DList = [currentModel getPoints3D];
         for(int i=0; i<point3DList.size() ;i++)
         {
-            SCNSphere * g = [SCNSphere sphereWithRadius:0.1*scale];
+            SCNSphere * g = [SCNSphere sphereWithRadius:0.1];
             SCNNode* node = [SCNNode nodeWithGeometry:g];
             [g.firstMaterial.diffuse setContents:[UIColor blueColor]];
             node.position = SCNVector3Make(point3DList.at(i).x, point3DList.at(i).y, point3DList.at(i).z);
@@ -1755,7 +1796,7 @@ using namespace std;
             
     }
     //Get point that have to be placed
-    SCNSphere * g = [SCNSphere sphereWithRadius:0.1*scale];
+    SCNSphere * g = [SCNSphere sphereWithRadius:0.1];
     SCNNode* node = [SCNNode nodeWithGeometry:g];
     [g.firstMaterial.diffuse setContents:[UIColor redColor]];
     cv::Point3f currentPoint = [mesh getVertex:vertexIndex];
@@ -1764,10 +1805,6 @@ using namespace std;
     
     
     return newNode;
-}
-- (void) setScale : (float) scale
-{
-    self->scale=scale;
 }
 @end
 
@@ -1785,13 +1822,12 @@ using namespace std;
 @implementation OpenCVDetection
 {
     
-    BOOL setuped;
     //Model object
     Model * model;
     //Mesh object
     Mesh * mesh;
     //Frame
-    cv::Mat frameVis;
+    cv::Mat frame_vis;
     RobustMatcher * rmatcher;
     
     cv::Ptr<cv::FeatureDetector> orb;
@@ -1800,14 +1836,14 @@ using namespace std;
     cv::Ptr<cv::DescriptorMatcher> matcher;
     cv::KalmanFilter KF;
     cv::Mat measurements;
-    BOOL goodMeasurement;
+    BOOL good_measurement;
     
-    vector<cv::Point3f> listPoints3DModel;
+    vector<cv::Point3f> list_points3d_model;
     cv::Mat descriptors_model;
     cv::VideoCapture cap;
     
-    PnPProblem * pnpDetection;
-    PnPProblem * pnpDetectionEst;
+    PnPProblem * pnp_detection;
+    PnPProblem * pnp_detection_est;
     
     // Some basic colors
     cv::Scalar red, green , blue , yellow;
@@ -1825,13 +1861,10 @@ using namespace std;
     
     // Kalman Filter parameters
     int minInliersKalman;    // Kalman threshold updating
-    int nStates;            // the number of states
-    int nMeasurements;       // the number of measured states
-    int nInputs;             // the number of control actions
-    double dt;           // time between measurements (1/FPS)
     
     // PnP parameters
     int pnpMethod;
+<<<<<<< HEAD
     
     //Camera parameters
     NSMutableArray< NSNumber* > * paramsCAM;
@@ -1904,7 +1937,10 @@ using namespace std;
 - (BOOL) isSetuped
 {
     return setuped;
+=======
+>>>>>>> parent of 757272e... Optimzation and YAML creation
 }
+
 - (void) setup
 {
     ///*******************PARAMETERS******************///
@@ -1915,7 +1951,16 @@ using namespace std;
     int nInputs = 0;             // the number of control actions
     double dt = 0.125;           // time between measurements (1/FPS)
     
-    
+    ///Ipad 2017 Camera
+    double f = 42;                           // focal length in mm
+    double sx = 5, sy = 4;             // sensor size
+    double width = 4032, height = 3024;        // image size (in px ?)
+    NSMutableArray< NSNumber* > * params_WEBCAM = [NSMutableArray arrayWithObjects:
+                                                   [NSNumber numberWithFloat : width*f/sx],
+                                                   [NSNumber numberWithFloat : height*f/sy],
+                                                   [NSNumber numberWithFloat : width/2],
+                                                   [NSNumber numberWithFloat : height/2],
+                                                   nil];
     // Robust Matcher parameters
     numKeyPoints = 2000;      // number of detected keypoints
     ratioTest = 0.70f;          // ratio test
@@ -1923,14 +1968,15 @@ using namespace std;
     
     // RANSAC parameters
     iterationsCount = 500;      // number of Ransac iterations.
-    reprojectionError = 2.0;  // maximum allowed distance to consider it an inlier.
-    confidence = 0.95;        // ransac successful confidence.
+    reprojectionError = 4.0;  // maximum allowed distance to consider it an inlier.
+    confidence = 0.05;        // ransac successful confidence.
     
     // Kalman Filter parameters
-    minInliersKalman = 30;    // Kalman threshold updating
+    minInliersKalman = 10;    // Kalman threshold updating
     
     // PnP parameters
     pnpMethod = cv::SOLVEPNP_ITERATIVE;
+    
     ///**************************///
     
     // Some basic colors
@@ -1939,10 +1985,12 @@ using namespace std;
     blue = cv::Scalar(255,0,0);
     yellow = cv::Scalar(0,255,255);
     
-    self->pnpDetection = [[PnPProblem alloc] init:paramsCAM];
-    self->pnpDetectionEst = [[PnPProblem alloc] init:paramsCAM];
-    [pnpDetection addDistorsionParameters:paramsDistorsion];
-    [pnpDetectionEst addDistorsionParameters:paramsDistorsion];
+    std::string ymlReadPath =  [[[NSBundle mainBundle] pathForResource: @"ORBC" ofType: @"yml"] UTF8String];
+    std::string plyReadPath =  [[[NSBundle mainBundle] pathForResource: @"meshC" ofType: @"ply"] UTF8String];
+    
+    self->pnp_detection = [[PnPProblem alloc] init:params_WEBCAM];
+    self->pnp_detection_est = [[PnPProblem alloc] init:params_WEBCAM];
+    
     self->model = [[Model alloc] init];
     [self->model load:ymlReadPath]; // load a 3D textured object model
     
@@ -1969,18 +2017,18 @@ using namespace std;
     [self initKalmanFilter : self->KF : nStates : nMeasurements : nInputs : dt];    // init function
     self->measurements = cv::Mat(nMeasurements, 1, CV_64F);
     measurements.setTo(cv::Scalar(0));
-    goodMeasurement = false;
+    good_measurement = false;
     
     
     // Get the MODEL INFO
-    self->listPoints3DModel = [model getPoints3D];  // list with model 3D coordinates
+    self->list_points3d_model = [model getPoints3D];  // list with model 3D coordinates
     self->descriptors_model = [model getDescriptors];                  // list with descriptors of each 3D coordinate
-    setuped = true;
+    
     
 }
-- (redBox*) detectOnPixelBuffer : (CVPixelBufferRef) pixelBuffer
+- (redBox*) detectFrame : (CVPixelBufferRef) pixelBuffer
 {
-    // -- Step 0: Convert pixelBuffer to cv::Mat
+    //Convert pixelBuffer to cv::Mat
     CIImage *ciImage = [CIImage imageWithCVPixelBuffer:pixelBuffer];
     
     CIContext *temporaryContext = [CIContext contextWithOptions:nil];
@@ -1993,146 +2041,154 @@ using namespace std;
     cv::flip(imageMat, imageMat, 1);
     
     
-    frameVis = imageMat.clone();    // refresh visualisation frame
+    frame_vis = imageMat.clone();    // refresh visualisation frame
+    
     
     // -- Step 1: Robust matching between model descriptors and scene descriptors
     
-    vector<cv::DMatch> goodMatches;       // to obtain the 3D points of the model
-    vector<cv::KeyPoint> keypointsScene;  // to obtain the 2D points of the scene
+    vector<cv::DMatch> good_matches;       // to obtain the 3D points of the model
+    vector<cv::KeyPoint> keypoints_scene;  // to obtain the 2D points of the scene
     if(fast_match)
     {
-        [rmatcher fastRobustMatch : imageMat : goodMatches : keypointsScene : descriptors_model];
+        [rmatcher fastRobustMatch : imageMat : good_matches : keypoints_scene : descriptors_model];
     }
     else
     {
-        [rmatcher robustMatch : imageMat : goodMatches : keypointsScene : descriptors_model];
+        [rmatcher robustMatch : imageMat : good_matches : keypoints_scene : descriptors_model];
     }
+    
     // -- Step 2: Find out the 2D/3D correspondences
     
-    vector<cv::Point3f> listPoints3DModelMatch; // container for the model 3D coordinates found in the scene
-    vector<cv::Point2f> listPoints2DSceneMatch; // container for the model 2D coordinates found in the scene
+    vector<cv::Point3f> list_points3d_model_match; // container for the model 3D coordinates found in the scene
+    vector<cv::Point2f> list_points2d_scene_match; // container for the model 2D coordinates found in the scene
     
     
-    for(unsigned int match_index = 0; match_index < goodMatches.size(); ++match_index)
+    for(unsigned int match_index = 0; match_index < good_matches.size(); ++match_index)
     {
-        cv::Point3f point3DModel = listPoints3DModel[ goodMatches[match_index].trainIdx ];  // 3D point from model
-        cv::Point2f point2DScene = keypointsScene[ goodMatches[match_index].queryIdx ].pt; // 2D point from the scene
-        listPoints3DModelMatch.push_back(point3DModel);         // add 3D point
-        listPoints2DSceneMatch.push_back(point2DScene);         // add 2D point
+        cv::Point3f point3d_model = list_points3d_model[ good_matches[match_index].trainIdx ];  // 3D point from model
+        cv::Point2f point2d_scene = keypoints_scene[ good_matches[match_index].queryIdx ].pt; // 2D point from the scene
+        list_points3d_model_match.push_back(point3d_model);         // add 3D point
+        list_points2d_scene_match.push_back(point2d_scene);         // add 2D point
     }
     
     // Draw outliers
-    [Util draw2DPoints : frameVis : listPoints2DSceneMatch : red];
+    [Util draw2DPoints : frame_vis : list_points2d_scene_match : red];
     
     
-    cv::Mat inliersIdx;
-    vector<cv::Point2f> listPoints2DInliers;
+    cv::Mat inliers_idx;
+    vector<cv::Point2f> list_points2d_inliers;
     
-    
-    if(goodMatches.size() > 4) // Matches < 4, then RANSAC crashes
+    if(good_matches.size() > 4) // Matches < 4, then RANSAC crashes
     {
         // -- Step 3: Estimate the pose using RANSAC approach
-        [pnpDetection estimatePoseRANSAC : listPoints3DModelMatch : listPoints2DSceneMatch
-                                          : pnpMethod : inliersIdx
+        [pnp_detection estimatePoseRANSAC : list_points3d_model_match : list_points2d_scene_match
+                                          : pnpMethod : inliers_idx
                                           : iterationsCount : reprojectionError : confidence];
         
         // -- Step 4: Catch the inliers keypoints to draw
-        for(int inliersIndex = 0; inliersIndex < inliersIdx.rows; ++inliersIndex)
+        for(int inliers_index = 0; inliers_index < inliers_idx.rows; ++inliers_index)
         {
-            int n = inliersIdx.at<int>(inliersIndex);         // i-inlier
-            cv::Point2f point2d = listPoints2DSceneMatch[n]; // i-inlier point 2D
-            listPoints2DInliers.push_back(point2d);           // add i-inlier to list
+            int n = inliers_idx.at<int>(inliers_index);         // i-inlier
+            cv::Point2f point2d = list_points2d_scene_match[n]; // i-inlier point 2D
+            list_points2d_inliers.push_back(point2d);           // add i-inlier to list
         }
         // Draw inliers points 2D
-        [Util draw2DPoints : frameVis : listPoints2DInliers : blue];
+        [Util draw2DPoints : frame_vis : list_points2d_inliers : blue];
         
         // -- Step 5: Kalman Filter
-        goodMeasurement = false;
+        
+        good_measurement = false;
         // GOOD MEASUREMENT
-        if(inliersIdx.rows >= minInliersKalman)
-        {
+        //if( inliers_idx.rows >= minInliersKalman )
+        //{
             
             // Get the measured translation
-            cv::Mat translationMeasured(3, 1, CV_64F);
-            translationMeasured = [pnpDetection getTMatrix];
+            cv::Mat translation_measured(3, 1, CV_64F);
+            translation_measured = [pnp_detection getTMatrix];
             
             // Get the measured rotation
-            cv::Mat rotationMeasured(3, 3, CV_64F);
-            rotationMeasured = [pnpDetection getRMatrix];
+            cv::Mat rotation_measured(3, 3, CV_64F);
+            rotation_measured = [pnp_detection getRMatrix];
             
             // fill the measurements vector
-            [self fillMeasurements : measurements : translationMeasured : rotationMeasured ];
+            [self fillMeasurements : measurements : translation_measured : rotation_measured ];
             
-            goodMeasurement = true;
+            good_measurement = true;
             
-        }
+        //}
         // Instantiate estimated translation and rotation
-        cv::Mat translationEstimated(3, 1, CV_64F);
-        cv::Mat rotationEstimated(3, 3, CV_64F);
+        cv::Mat translation_estimated(3, 1, CV_64F);
+        cv::Mat rotation_estimated(3, 3, CV_64F);
         
         // update the Kalman filter with good measurements
-        [self updateKalmanFilter : KF : measurements : translationEstimated : rotationEstimated];
+        [self updateKalmanFilter : KF : measurements : translation_estimated : rotation_estimated];
         
         
         // -- Step 6: Set estimated projection matrix
-        [pnpDetectionEst setPMatrix : rotationEstimated : translationEstimated];
+        [pnp_detection_est setPMatrix : rotation_estimated : translation_estimated];
         
     }
     ///-- Step X : POSITION
-    [Util drawPosition : frameVis : [pnpDetection getPMatrix] : red];
     
+                      
+    [Util drawPosition : frame_vis : [pnp_detection getPMatrix] : red];
     // -- Step X: Draw pose
-    if(goodMeasurement)
+    
+    if(good_measurement)
     {
-        [Util drawObjectMesh : frameVis : mesh : pnpDetection : green ];  // draw current pose
+        [Util drawObjectMesh : frame_vis : mesh : pnp_detection : green ];  // draw current pose
     }
     else
     {
-        [Util drawObjectMesh : frameVis : mesh : pnpDetectionEst : yellow]; // draw estimated pose
+        [Util drawObjectMesh : frame_vis : mesh : pnp_detection_est : yellow]; // draw estimated pose
     }
     
-    vector<cv::Point2f> posePoints2D;
-    posePoints2D.push_back([pnpDetectionEst backproject3DPoint : cv::Point3f(0,0,0)]);  // axis center
-    posePoints2D.push_back([pnpDetectionEst backproject3DPoint : cv::Point3f(1,0,0)]);  // axis x
-    posePoints2D.push_back([pnpDetectionEst backproject3DPoint : cv::Point3f(0,1,0)]);  // axis y
-    posePoints2D.push_back([pnpDetectionEst backproject3DPoint : cv::Point3f(0,0,1)]);  // axis z
-    [Util draw3DCoordinateAxes : frameVis : posePoints2D];           // draw axes
+    //float l = 5;
+    vector<cv::Point2f> pose_points2d;
+    pose_points2d.push_back([pnp_detection_est backproject3DPoint : cv::Point3f(0,0,0)]);  // axis center
+    pose_points2d.push_back([pnp_detection_est backproject3DPoint : cv::Point3f(1,0,0)]);  // axis x
+    pose_points2d.push_back([pnp_detection_est backproject3DPoint : cv::Point3f(0,1,0)]);  // axis y
+    pose_points2d.push_back([pnp_detection_est backproject3DPoint : cv::Point3f(0,0,1)]);  // axis z
+    [Util draw3DCoordinateAxes : frame_vis : pose_points2d];           // draw axes
     
     
-    double detectionRatio = ((double)inliersIdx.rows/(double)goodMatches.size())*100;
-    [Util drawConfidence : frameVis : detectionRatio : yellow ];
+    double detection_ratio = ((double)inliers_idx.rows/(double)good_matches.size())*100;
+    [Util drawConfidence : frame_vis : detection_ratio : yellow ];
     
     // -- Step X: Draw some debugging text
     
     // Draw some debug text
-    int inliers_int = inliersIdx.rows;
-    int outliers_int = (int)goodMatches.size() - inliers_int;
+    int inliers_int = inliers_idx.rows;
+    int outliers_int = (int)good_matches.size() - inliers_int;
     string inliers_str = [[Util IntToString : inliers_int] UTF8String];
     string outliers_str = [[Util IntToString : outliers_int] UTF8String];
-    string n = [[Util IntToString : (int)goodMatches.size()] UTF8String];
+    string n = [[Util IntToString : (int)good_matches.size()] UTF8String];
     string text = "Found " + inliers_str + " of " + n + " matches";
     string text2 = "Inliers: " + inliers_str + " - Outliers: " + outliers_str;
     
-    [Util drawText : frameVis : text : green];
-    [Util drawText2 : frameVis : text2 : red];
+    [Util drawText : frame_vis : text : green];
+    [Util drawText2 : frame_vis : text2 : red];
     
     //-- Step FINAL : Return data
     redBox* data = [[redBox alloc] init];
-    cv::Mat posVec = [self convertPosMatrixToPosVec:[pnpDetection getPMatrix]];
+    cv::Mat posVec = [self convertPosMatrixToPosVec:[pnp_detection getPMatrix]];
     data->posX=posVec.at<double>(0);
     data->posY=posVec.at<double>(1);
     data->posZ=posVec.at<double>(2);
-    data->image = MatToUIImage(frameVis);
-    data->confidence = goodMatches.size()==0 ? 0 : detectionRatio;
+    //std::cout << "Opencv - z : " << posVec.at<double>(2) << std::endl;
+    data->image = MatToUIImage(frame_vis);
+    data->confidence = good_matches.size()==0 ? 0 : detection_ratio;
+    
+    
+    
     return data;
 }
--(double) getTimeInterval
-{
-    return dt;
+- (void) isItWorking {
+    //Model * newModel = [[Model alloc] init];
 }
--(void) setTimeInterval : (double) val
+- (NSString*) currentVersion
 {
-    dt = val;
+    return [NSString stringWithFormat:@"Opencv Version %s",CV_VERSION];
 }
 - (cv::Mat) convertPosMatrixToPosVec : (cv::Mat)pMat
 {
