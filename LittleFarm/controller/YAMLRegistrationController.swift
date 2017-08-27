@@ -42,13 +42,14 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var pointsNode = SCNNode()
     var meshNode = SCNNode()
     let openCVRegistration = OpenCVRegistration()
-    let imgData = ["img-v2.1","img"]
+    
+    let imgData = ["img-cube"]
     var imgTab : [UIImage] = []
     var currentIndex = 0
     var modeDrag = false
     var modeDragSelector = false
     let name = "ORB.yml"
-    let meshName = "meshV1.2"
+    let meshName = "mesh"
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -87,8 +88,8 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         infoText.numberOfLines = 2
         //OpenCV setup
         
-        if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: "iPhone 7" /*UIDevice.current.modelName*/ ) ,
-            let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: "iPhone 7" /*UIDevice.current.modelName*/ )
+        if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: UIDevice.current.modelName ) ,
+            let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: UIDevice.current.modelName )
         {
             openCVRegistration.loadCameraParameters(cameraIntrinsic)
             openCVRegistration.loadDistorsionParameters(cameraDistorsion)
@@ -98,7 +99,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
             print("No calibration matrix found for \(UIDevice.current.modelName)")
         }
         //File path
-        openCVRegistration.setFilePath(Bundle.main.path(forResource: "meshV2.1", ofType: "ply")!)
+        openCVRegistration.setFilePath(Bundle.main.path(forResource: meshName, ofType: "ply")!)
         openCVRegistration.setup()
         //gesture recognizers
         let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(dragObject))
