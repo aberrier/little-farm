@@ -633,7 +633,7 @@ using namespace std;
     for(int i = 0; i < listVertex.size() ; i++)
     {
         cv::Point3f a = listVertex.at(i);
-        std::cout << prf << "Point(" << a.x << "," << a.y << "," << a.z << ")" << std::endl;
+        //std::cout << prf << "Point(" << a.x << "," << a.y << "," << a.z << ")" << std::endl;
     }
 }
 @end
@@ -769,7 +769,6 @@ using namespace std;
         self->AMatrix.at<double>(2, 0) = [param[6] doubleValue];       //      [  0  fy(1)  cy(3) ]
         self->AMatrix.at<double>(2, 1) = [param[7] doubleValue];      //      [  0   0   1 ]
         self->AMatrix.at<double>(2, 2) = [param[8] doubleValue];
-        std::cout << "A :" << AMatrix << std::endl;
         self->DMatrix = cv::Mat::zeros(5, 1, CV_64FC1);
         self->RMatrix = cv::Mat::zeros(3, 3, CV_64FC1);   // rotation matrix
         self->TMatrix = cv::Mat::zeros(3, 1, CV_64FC1);   // translation matrix

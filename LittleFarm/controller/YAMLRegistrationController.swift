@@ -42,13 +42,13 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var pointsNode = SCNNode()
     var meshNode = SCNNode()
     let openCVRegistration = OpenCVRegistration()
-    let imgData = ["img-v1.2","img"]
+    let imgData = ["img-v2.1","img"]
     var imgTab : [UIImage] = []
     var currentIndex = 0
     var modeDrag = false
     var modeDragSelector = false
     let name = "ORB.yml"
-    let meshName = "mesh"
+    let meshName = "meshV1.2"
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -59,6 +59,11 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
             if let image =  UIImage(named: str)
             {
                 imgTab += [GT.normalizedImage(image: image)]
+            }
+            else
+            {
+                print("Image not loaded.")
+                imgTab += [UIImage()]
             }
         }
         layerCommand.isHidden = !layerSwitch.isOn
@@ -85,7 +90,6 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: "iPhone 7" /*UIDevice.current.modelName*/ ) ,
             let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: "iPhone 7" /*UIDevice.current.modelName*/ )
         {
-            
             openCVRegistration.loadCameraParameters(cameraIntrinsic)
             openCVRegistration.loadDistorsionParameters(cameraDistorsion)
         }
@@ -94,7 +98,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
             print("No calibration matrix found for \(UIDevice.current.modelName)")
         }
         //File path
-        openCVRegistration.setFilePath(Bundle.main.path(forResource: meshName, ofType: "ply")!)
+        openCVRegistration.setFilePath(Bundle.main.path(forResource: "meshV2.1", ofType: "ply")!)
         openCVRegistration.setup()
         //gesture recognizers
         let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(dragObject))
