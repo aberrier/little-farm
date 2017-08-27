@@ -23,6 +23,8 @@
 		93281F601F20FAC4004C93E2 /* TreeInventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */; };
 		93281F691F20FC6C004C93E2 /* LFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F681F20FC6C004C93E2 /* LFButton.swift */; };
 		93281F6B1F210E00004C93E2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F6A1F210E00004C93E2 /* Color.swift */; };
+		9340E9481F53283C000A02E0 /* bunny.ply in Resources */ = {isa = PBXBuildFile; fileRef = 9340E9471F53283C000A02E0 /* bunny.ply */; };
+		9340E94A1F53297C000A02E0 /* meshV1.2.ply in Resources */ = {isa = PBXBuildFile; fileRef = 9340E9491F53297C000A02E0 /* meshV1.2.ply */; };
 		9363DBD61F4ADDD8006AB0FE /* YAMLRegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9363DBD51F4ADDD8006AB0FE /* YAMLRegistrationController.swift */; };
 		9364EDD41F5308A700A44CEA /* mesh.ply in Resources */ = {isa = PBXBuildFile; fileRef = 93ED49CA1F4C9A0300F73C76 /* mesh.ply */; };
 		936ACA251F163DF700156AD8 /* test3DObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936ACA241F163DF700156AD8 /* test3DObject.swift */; };
@@ -84,7 +86,6 @@
 
 /* Begin PBXFileReference section */
 		20C3E8FD636C5845EC5D7025 /* Pods_LittleFarm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LittleFarm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AF7FD191F5204A900AB39EC /* meshV1.2.ply */ = {isa = PBXFileReference; lastKnownFileType = text; name = meshV1.2.ply; path = ../meshV1.2.ply; sourceTree = "<group>"; };
 		6AF7FD1B1F52F31200AB39EC /* meshV2.1.ply */ = {isa = PBXFileReference; lastKnownFileType = text; path = meshV2.1.ply; sourceTree = "<group>"; };
 		8C5112F2AE149E7CAE1B4FDD /* Pods-LittleFarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LittleFarm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LittleFarm/Pods-LittleFarm.debug.xcconfig"; sourceTree = "<group>"; };
 		930456B81F46587C00DA45AC /* BluetoothChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothChatViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +103,8 @@
 		93281F681F20FC6C004C93E2 /* LFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFButton.swift; sourceTree = "<group>"; };
 		93281F6A1F210E00004C93E2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		9336439E1F2FCCF700A9C52E /* Model.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Model.hpp; sourceTree = "<group>"; };
+		9340E9471F53283C000A02E0 /* bunny.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = bunny.ply; path = ../bunny.ply; sourceTree = "<group>"; };
+		9340E9491F53297C000A02E0 /* meshV1.2.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = meshV1.2.ply; path = ../YAML/V1.2/meshV1.2.ply; sourceTree = "<group>"; };
 		9363DBD51F4ADDD8006AB0FE /* YAMLRegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAMLRegistrationController.swift; sourceTree = "<group>"; };
 		9363DBD71F4AECD3006AB0FE /* ModelRegistration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModelRegistration.hpp; sourceTree = "<group>"; };
 		93667C711F44525700E0C023 /* Triangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Triangle.hpp; sourceTree = "<group>"; };
@@ -398,7 +401,8 @@
 				937061571F516CE10058B664 /* meshLink.ply */,
 				93ED49CA1F4C9A0300F73C76 /* mesh.ply */,
 				6AF7FD1B1F52F31200AB39EC /* meshV2.1.ply */,
-				6AF7FD191F5204A900AB39EC /* meshV1.2.ply */,
+				9340E9491F53297C000A02E0 /* meshV1.2.ply */,
+				9340E9471F53283C000A02E0 /* bunny.ply */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -574,6 +578,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9364EDD41F5308A700A44CEA /* mesh.ply in Resources */,
+				9340E94A1F53297C000A02E0 /* meshV1.2.ply in Resources */,
 				6AF7FD1C1F52F3E700AB39EC /* meshV2.1.ply in Resources */,
 				939C19CE1F14EF7200C392CA /* art.scnassets in Resources */,
 				93721AF91F4C6A60007674FC /* Assets.xcassets in Resources */,
@@ -581,6 +586,7 @@
 				939C19D31F14EF7200C392CA /* Main.storyboard in Resources */,
 				9375176A1F23C85F007EF547 /* menuSection.xib in Resources */,
 				93A0046B1F4F884600ABBD39 /* camera.json in Resources */,
+				9340E9481F53283C000A02E0 /* bunny.ply in Resources */,
 				93A0046D1F4F885B00ABBD39 /* productKey.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
