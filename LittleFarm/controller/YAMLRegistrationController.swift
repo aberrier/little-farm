@@ -12,25 +12,36 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
 {
     @IBOutlet var meshDisplay: SCNView!
     @IBOutlet var imageDisplay: UIImageView!
+    
+    @IBOutlet var infoText: UILabel!
+    @IBOutlet var meshWrapperView: UIView!
+    @IBOutlet var selector: UIImageView!
+    
+    @IBOutlet var imageWrapperView: UIView!
+    @IBOutlet var standardCommand: UIView!
+    @IBOutlet var layerCommand: UIView!
+    
+    //Standard command
     @IBOutlet var backArrow: UIButton!
     @IBOutlet var nextArrow: UIButton!
     @IBOutlet var cancelButton: UIButton!
     @IBOutlet var validateButton: UIButton!
     @IBOutlet var ignoreButton: UIButton!
     @IBOutlet var terminateButton: UIButton!
-    @IBOutlet var infoText: UILabel!
-    @IBOutlet var meshWrapperView: UIView!
-    @IBOutlet var selector: UIImageView!
     
-    @IBOutlet var imageWrapperView: UIView!
+    //Layer command
+    @IBOutlet var layerSwitch: UISwitch!
+    @IBOutlet var yStepper: UIStepper!
+    @IBOutlet var xStepper: UIStepper!
+    @IBOutlet var validateLayering: UIButton!
     
-    
+    let configData = ConfigDataManager.sharedInstance
     
     //Data
     var scene = SCNScene()
     var pointsNode = SCNNode()
+    var meshNode = SCNNode()
     let openCVRegistration = OpenCVRegistration()
-<<<<<<< HEAD
     
     let imgData = ["img-cube"]
     var imgTab : [UIImage] = []
@@ -39,17 +50,10 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var modeDragSelector = false
     let name = "ORB.yml"
     let meshName = "mesh"
-=======
-    let imgData = ["img"]
-    var currentIndex = 0
-    var modeDrag = false
-    var testNode = SCNNode()
->>>>>>> parent of 757272e... Optimzation and YAML creation
     override func viewDidLoad()
     {
         super.viewDidLoad()
         //setup
-<<<<<<< HEAD
         //load the image array
         for str in imgData
         {
@@ -72,9 +76,6 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         
         meshWrapperView.backgroundColor = UIColor.clear
         configData.extractCameraFeatures()
-=======
-        
->>>>>>> parent of 757272e... Optimzation and YAML creation
         selector.isHidden = true
         meshDisplay.autoenablesDefaultLighting = true
         meshDisplay.allowsCameraControl = true
@@ -83,11 +84,8 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         let axis = AxisCoordinate()
         scene.rootNode.addChildNode(axis)
         scene.rootNode.addChildNode(pointsNode)
-        scene.rootNode.camera? = SCNCamera()
-        scene.rootNode.camera?.zNear = -1
         
         infoText.numberOfLines = 2
-<<<<<<< HEAD
         //OpenCV setup
         
         if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: UIDevice.current.modelName ) ,
@@ -102,32 +100,31 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         }
         //File path
         openCVRegistration.setFilePath(Bundle.main.path(forResource: meshName, ofType: "ply")!)
-=======
-        //open cv setup
->>>>>>> parent of 757272e... Optimzation and YAML creation
         openCVRegistration.setup()
         //gesture recognizers
-        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(dragMesh))
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(dragObject))
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(touchAction))
         let longPressRecognizer = UILongPressGestureRecognizer(target : self,action : #selector(activateDrag))
         longPressRecognizer.minimumPressDuration = 0.5
         panRecognizer.delegate = self
         longPressRecognizer.delegate = self
         tapRecognizer.delegate = self
-        meshWrapperView.addGestureRecognizer(panRecognizer)
-        meshWrapperView.addGestureRecognizer(longPressRecognizer)
+        
+        view.addGestureRecognizer(panRecognizer)
+        view.addGestureRecognizer(longPressRecognizer)
         imageWrapperView.addGestureRecognizer(tapRecognizer)
         //Load mesh
-        if let virtualObjectScene = SCNScene(named: "art.scnassets/mesh.scn")
+        if let virtualObjectScene = SCNScene(named: "art.scnassets/"+meshName+".scn")
         {
             let wrapperNode = SCNNode()
             
             for child in virtualObjectScene.rootNode.childNodes {
                 wrapperNode.addChildNode(child)
             }
-            
-            testNode = wrapperNode
-            scene.rootNode.addChildNode(wrapperNode)
+            //set OpenCV mesh scale
+            meshNode = wrapperNode
+            openCVRegistration.setScale(meshNode.boundingSphere.radius)
+            scene.rootNode.addChildNode(meshNode)
             
         }
         else
@@ -140,9 +137,15 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         
         
     }
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        scene.rootNode.camera? = SCNCamera()
+        scene.rootNode.camera?.zNear = -2
+        xStepper.value = Double(meshWrapperView.frame.width/imageWrapperView.frame.width)*100
+        yStepper.value = Double(meshWrapperView.frame.height/imageWrapperView.frame.height)*100
         
     }
+    
     
     //Actions
     @IBAction func cancelAction(_ sender : UIButton)
@@ -166,15 +169,16 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         else
         {
             
-            let coord = selector.center
-            let image =  UIImage(named: imgData[currentIndex])!
+            var coord = selector.center
+            //coord.x = coord.x - 16
+            //coord.y = coord.y - 13
+            let image = imgTab[currentIndex]
             let x = Int32((coord.x*image.size.width)/(imageWrapperView.frame.size.width))
             let y = Int32((coord.y*image.size.height)/(imageWrapperView.frame.size.height))
             
-            print("Image dimension : x:\(image.size.width) , y:\(image.size.height)")
-            print("Coord : x:\(coord.x) , y:\(coord.y)")
-            print("Swift : x:\(x) , y:\(y)")
+            print("Point at : x:\(x) , y:\(y)")
             openCVRegistration.addPoint(x, y,image)
+            
             updateDisplay()
             
             
@@ -193,16 +197,17 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         case  backArrow :
             if currentIndex > 0
             {
-               currentIndex-=1
+                currentIndex-=1
+                print(currentIndex)
             }
         case nextArrow :
             if currentIndex < imgData.count
             {
                 currentIndex+=1
+                print(currentIndex)
             }
         default : break
         }
-<<<<<<< HEAD
         updateDisplay()
     }
     @IBAction func validateLayering(_ sender : UIButton)
@@ -252,22 +257,18 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     @IBAction func modifySizeAction(_ sender : UIStepper)
     {
             meshWrapperView.frame = CGRect(x:meshWrapperView.frame.minX, y:meshWrapperView.frame.minY , width: (CGFloat(xStepper.value)*imageWrapperView.frame.width)/100 , height: (CGFloat(yStepper.value)*imageWrapperView.frame.height)/100 )
-=======
->>>>>>> parent of 757272e... Optimzation and YAML creation
     }
     func updateDisplay()
     {
         //Coordinates
-        let data = openCVRegistration.getCurrentVertex()!
-        let originalImage = UIImage(named: imgData[currentIndex])
-        
+        let data = openCVRegistration.getCurrentVertex()
+        let originalImage = imgTab[currentIndex]
         pointsNode = openCVRegistration.scnNodeOf3DPoints()
         scene.rootNode.addChildNode(pointsNode)
         
         if openCVRegistration.isRegistrationFinished()
         {
             infoText.text = "Registration finished."
-<<<<<<< HEAD
             
             imageDisplay.image = openCVRegistration.computePose(originalImage)
             openCVRegistration.saveFile(at: GT.getFileForWriting(name: name)!)
@@ -279,15 +280,6 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         {
             infoText.text = "Where is the point (\(data.getX()),\(data.getY()),\(data.getZ())) ?\n\(openCVRegistration.getVertexIndex())/\(openCVRegistration.getNumVertex())"
             imageDisplay.image = originalImage
-=======
-            imageDisplay.image = openCVRegistration.computePose(originalImage)
-        }
-        else
-        {
-            
-            infoText.text = "Where is the point (\(data.getX()),\(data.getY()),\(data.getZ())) ?"
-            print("Image dimension 2 : x:\(originalImage?.size.width) , y:\(originalImage?.size.height)")
->>>>>>> parent of 757272e... Optimzation and YAML creation
             imageDisplay.image = openCVRegistration.add2DPoints(originalImage)
         }
         //imageDisplay.image = openCVRegistration.add2DPoints(originalImage)
@@ -296,7 +288,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     }
     //Gesture recognizers
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-            return true
+        return true
     }
     @objc func touchAction(_ sender : UITapGestureRecognizer)
     {
@@ -309,22 +301,44 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     }
     @objc func activateDrag(_ sender : UILongPressGestureRecognizer)
     {
-        switch(sender.state)
+        if(selector.frame.contains(sender.location(in: view)))
         {
-            
-        case .began:
-            meshDisplay.backgroundColor = UIColorSet.transparentGrayBlue
-        case .changed:
-            modeDrag = true
-            meshDisplay.allowsCameraControl = false
-        case .ended:
-            modeDrag = false
-            meshDisplay.allowsCameraControl = true
-            meshDisplay.backgroundColor = UIColor.clear
-        default : break
+            switch(sender.state)
+            {
+                
+            case .began:
+                break
+                //selector.layer.borderWidth = 4
+            //selector.layer.borderColor = UIColorSet.darkBlue.cgColor
+            case .changed:
+                break
+            //modeDragSelector = true
+            case .ended:
+                modeDragSelector = false
+                //selector.layer.borderWidth = 0
+            //selector.layer.borderColor = UIColor.clear.cgColor
+            default : break
+            }
         }
+        if(meshWrapperView.frame.contains(sender.location(in: view)))
+        {
+            switch(sender.state)
+            {
+                
+            case .began:
+                meshDisplay.backgroundColor = UIColorSet.transparentGrayBlue
+            case .changed:
+                modeDrag = true
+                meshDisplay.allowsCameraControl = false
+            case .ended:
+                modeDrag = false
+                meshDisplay.allowsCameraControl = true
+            default : break
+            }
+        }
+        
     }
-    @objc func dragMesh(_ sender : UIPanGestureRecognizer)
+    @objc func dragObject(_ sender : UIPanGestureRecognizer)
     {
         if modeDrag
         {
@@ -333,13 +347,26 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
                 
             case .began :
                 meshWrapperView.layer.borderWidth = 4
-                meshWrapperView.layer.borderColor = UIColorSet.darkBlue.cgColor
+                meshWrapperView.layer.borderColor = layerSwitch.isOn ? UIColor.black.cgColor : UIColorSet.darkBlue.cgColor
             case .changed :
                 let coord = sender.location(in: self.view)
                 meshWrapperView.center = coord
             case .ended :
                 meshWrapperView.layer.borderWidth = 0
-                meshWrapperView.layer.borderColor = UIColor.clear.cgColor
+                meshWrapperView.layer.borderColor = layerSwitch.isOn ? UIColor.black.cgColor : UIColor.clear.cgColor
+                meshDisplay.backgroundColor = layerSwitch.isOn ? UIColor.clear : UIColor.white
+            default :
+                break
+            }
+        }
+        if modeDragSelector
+        {
+            switch(sender.state)
+            {
+            case .changed :
+                let coord = sender.location(in: self.view)
+                selector.center = coord
+                
             default :
                 break
             }
@@ -348,5 +375,6 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     }
     
 }
+
 
 
