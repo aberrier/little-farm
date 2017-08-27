@@ -447,7 +447,6 @@ using namespace std;
             }
             //Correction of different line-return between platforms
             std::string tmp_str2 = tmp_str.substr(0,tmp_str.size()-1);
-            std::cout << tmp_str << std::endl;
             if(tmp_str == "end_header" || tmp_str2 =="end_header") end_header = true;
         }
         
@@ -761,11 +760,16 @@ using namespace std;
     if(self)
     {
         self->AMatrix = cv::Mat::zeros(3, 3, CV_64FC1);   // intrinsic camera parameters
-        self->AMatrix.at<double>(0, 0) = [param[0] doubleValue];       //      [ fx   0  cx ]
-        self->AMatrix.at<double>(1, 1) = [param[1] doubleValue];       //      [  0  fy  cy ]
-        self->AMatrix.at<double>(0, 2) = [param[2] doubleValue];      //      [  0   0   1 ]
-        self->AMatrix.at<double>(1, 2) = [param[3] doubleValue];
-        self->AMatrix.at<double>(2, 2) = 1;
+        self->AMatrix.at<double>(0, 0) = [param[0] doubleValue];       //      [ fx(0)   0  cx(2) ]
+        self->AMatrix.at<double>(0, 1) = [param[1] doubleValue];
+        self->AMatrix.at<double>(0, 2) = [param[2] doubleValue];
+        self->AMatrix.at<double>(1, 0) = [param[3] doubleValue];
+        self->AMatrix.at<double>(1, 1) = [param[4] doubleValue];
+        self->AMatrix.at<double>(1, 2) = [param[5] doubleValue];
+        self->AMatrix.at<double>(2, 0) = [param[6] doubleValue];       //      [  0  fy(1)  cy(3) ]
+        self->AMatrix.at<double>(2, 1) = [param[7] doubleValue];      //      [  0   0   1 ]
+        self->AMatrix.at<double>(2, 2) = [param[8] doubleValue];
+        std::cout << "A :" << AMatrix << std::endl;
         self->DMatrix = cv::Mat::zeros(5, 1, CV_64FC1);
         self->RMatrix = cv::Mat::zeros(3, 3, CV_64FC1);   // rotation matrix
         self->TMatrix = cv::Mat::zeros(3, 1, CV_64FC1);   // translation matrix
@@ -775,13 +779,11 @@ using namespace std;
 }
 - (void) addDistorsionParameters : (NSMutableArray*) param
 {
-    std::cout << "ADD DISTORSION" << std::endl;
     self->DMatrix.at<double>(0,0) = [param[0] doubleValue];
     self->DMatrix.at<double>(1,0) = [param[1] doubleValue];
     self->DMatrix.at<double>(2,0) = [param[2] doubleValue];
     self->DMatrix.at<double>(3,0) = [param[3] doubleValue];
     self->DMatrix.at<double>(4,0) = [param[4] doubleValue];
-    std::cout << "FINISHED ADD DISTORSION" << std::endl;
 }
 - (BOOL) backproject2DPoint : (Mesh*) mesh : (cv::Point2f&) point2d : (cv::Point3f&) point3d
 {
@@ -924,11 +926,9 @@ using namespace std;
     point3d_vec.at<double>(1) = point3d.y;
     point3d_vec.at<double>(2) = point3d.z;
     point3d_vec.at<double>(3) = 1;
-    
     // 2D point vector [u v 1]'
     cv::Mat point2d_vec = cv::Mat(4, 1, CV_64FC1);
     point2d_vec = AMatrix * PMatrix * point3d_vec;
-    
     // Normalization of [u v]'
     cv::Point2f point2d;
     point2d.x = (float)(point2d_vec.at<double>(0) / point2d_vec.at<double>(2));
@@ -1211,11 +1211,9 @@ using namespace std;
         cv::Point3f point_3d_0 = [mesh getVertex : tmp_triangle[0]];
         cv::Point3f point_3d_1 = [mesh getVertex : tmp_triangle[1]];
         cv::Point3f point_3d_2 = [mesh getVertex : tmp_triangle[2]];
-        
         cv::Point2f point_2d_0 = [pnpProblem backproject3DPoint : point_3d_0];
         cv::Point2f point_2d_1 = [pnpProblem backproject3DPoint : point_3d_1];
         cv::Point2f point_2d_2 = [pnpProblem backproject3DPoint : point_3d_2];
-        
         cv::line(image, point_2d_0, point_2d_1, color, 1);
         cv::line(image, point_2d_1, point_2d_2, color, 1);
         cv::line(image, point_2d_2, point_2d_0, color, 1);
@@ -1523,6 +1521,12 @@ using namespace std;
                  [NSNumber numberWithDouble: params[1]],
                  [NSNumber numberWithDouble: params[2]],
                  [NSNumber numberWithDouble : params[3]],
+                 [NSNumber numberWithDouble : params[4]],
+                 [NSNumber numberWithDouble : params[5]],
+                 [NSNumber numberWithDouble : params[6]],
+                 [NSNumber numberWithDouble : params[7]],
+                 [NSNumber numberWithDouble : params[8]],
+                 
                  nil];
     
 }
@@ -1580,12 +1584,11 @@ using namespace std;
     ModelRegistration * mr = [self->dic objectForKey : key];
     if(mr == nil)
     {
-        //std::cout << "key : " << [[key stringValue] UTF8String] << std::endl;
         mr = [[ModelRegistration alloc] init];
         [self->dic setObject:mr forKey:key];
         
     }
-    cv::Point2f point2D = cv::Point2f(x+10,y+10);
+    cv::Point2f point2D = cv::Point2f(x,y);
     cv::Point3f point3D = [mesh getVertex:vertexIndex];
     [mr registerPoint: point2D : point3D];
     [self nextVertex];
@@ -1612,7 +1615,7 @@ using namespace std;
 {
     [model save:[path UTF8String]];
 }
-- (UIImage*) computePose : (UIImage*) image : (int) orientation
+- (UIImage*) computePose : (UIImage*) image
 {
     NSNumber * key = [NSNumber numberWithUnsignedInteger:[image hash]];
     ModelRegistration * mr = [self->dic objectForKey : key];
@@ -1630,7 +1633,6 @@ using namespace std;
     cv::Mat displayMat;
     UIImageToMat(image, imageMat);
     
-    displayMat = imageMat.clone();
     // Estimate pose given the registered points
     bool isCorrespondence = [pnpRegistration estimatePose:listPoints3D :listPoints2D :cv::SOLVEPNP_ITERATIVE];
     if (isCorrespondence)
@@ -1639,7 +1641,6 @@ using namespace std;
         
         // Compute all the 2D points of the mesh to verify the algorithm and draw it
         vector<cv::Point2f> listPoints2DMesh = [pnpRegistration verifyPoints:mesh];
-        std::cout << "Size :" << listPoints2DMesh.size() << std::endl;
         //[Util draw2DPoints:displayMat :listPoints2DMesh :green];
         
     } else {
@@ -1673,7 +1674,7 @@ using namespace std;
         }
     }
     // Out image
-    displayMat = imageMat.clone();
+   UIImageToMat(image, displayMat);
     
     // The list of the points2d of the model
     vector<cv::Point2f> listPointsIn = [model getPoints2DIn];
@@ -1692,15 +1693,13 @@ using namespace std;
     [Util draw2DPoints : displayMat : listPointsOut : red];
     
     UIImage* newImage = [[UIImage alloc] init];
-    //Rotation
-    //transpose(displayMat,imageMat);
-    //flip(displayMat,imageMat,orientation);
+
     newImage = MatToUIImage(displayMat);
     return newImage;
     
     
 }
-- (UIImage*) add2DPoints : (UIImage*) image : (int) orientation
+- (UIImage*) add2DPoints : (UIImage*) image
 {
     NSNumber * key = [NSNumber numberWithUnsignedInteger:[image hash]];
     ModelRegistration * mr = [self->dic objectForKey : key];
@@ -1713,10 +1712,6 @@ using namespace std;
     }
     cv::Mat imageMat;
     UIImageToMat(image, imageMat);
-    //Rotation
-    //transpose(imageMat,imageMat);
-    //flip(imageMat,imageMat,orientation);
-    
     vector<cv::Point2f> point2DList = [mr getPoints2D];
     vector<cv::Point3f> point3DList = [mr getPoints3D];
     [Util drawPoints:imageMat :point2DList :point3DList :red];
@@ -1886,6 +1881,12 @@ using namespace std;
                  [NSNumber numberWithDouble: params[1]],
                  [NSNumber numberWithDouble: params[2]],
                  [NSNumber numberWithDouble : params[3]],
+                 [NSNumber numberWithDouble : params[4]],
+                 [NSNumber numberWithDouble : params[5]],
+                 [NSNumber numberWithDouble : params[6]],
+                 [NSNumber numberWithDouble : params[7]],
+                 [NSNumber numberWithDouble : params[8]],
+                 
                  nil];
     
 }

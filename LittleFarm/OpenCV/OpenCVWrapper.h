@@ -65,8 +65,8 @@
 - (void) setup;
 
 - (void) addPoint : (int) x : (int) y : (UIImage* _Nonnull) image;
-- (UIImage*_Nonnull) add2DPoints : (UIImage* _Nonnull) image : (int) orientation;
-- (UIImage* _Nonnull) computePose : (UIImage* _Nonnull) image : (int) orientation;
+- (UIImage*_Nonnull) add2DPoints : (UIImage* _Nonnull) image;
+- (UIImage* _Nonnull) computePose : (UIImage* _Nonnull) image;
 - (SCNNode* _Nonnull) SCNNodeOf3DPoints;
 
 -(void) setScale : (float) scale;

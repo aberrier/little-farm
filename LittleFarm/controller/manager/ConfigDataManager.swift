@@ -48,11 +48,11 @@ class ConfigDataManager
     }
     func getCamera(informations: cameraInformation,ofModel : String) -> [Double]?
     {
-        print("\(cameraTab)")
         if let cameraData = cameraTab[ofModel]
         {
             if let matrix = cameraData[informations]
             {
+                print("MATRIX \(matrix)")
                 return matrix
             }
         }
