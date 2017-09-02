@@ -31,6 +31,17 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     @IBOutlet var stepperZ : UIStepper!
     
     //AR variables
+    @IBOutlet var positionButton : UIButton!
+    @IBOutlet var replacePositionbutton : UIButton!
+    
+    var positionPlaced = false
+    {
+        didSet
+        {
+            positionButton.isHidden = positionPlaced
+            replacePositionbutton.isHidden = !positionPlaced
+        }
+    }
     @IBOutlet var sceneView: ARSCNView!
     var positionBuffer : SCNVector3 = SCNVector3(0,0,0)
     var object3D : testObject?
@@ -75,7 +86,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     let maxY : Float = 2.0
     
     let minZ : Float = -2.0
-    let maxZ : Float = -0.05
+    let maxZ : Float = 0
     let minConfidence = 20.0
     
     //Average
@@ -97,6 +108,10 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         
         //storyView setup
         storyView.setup()
+        
+        //Placement button setup
+        positionButton.isHidden = positionPlaced
+        replacePositionbutton.isHidden = !positionPlaced
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -107,28 +122,17 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         let configuration = ARWorldTrackingSessionConfiguration()
         // Run the view's session
         sceneView.session.run(configuration)
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: (#selector(setPositionOfObject)), userInfo: nil, repeats: true)
+        //Add the axis
+        let axis = AxisCoordinate()
+        axis.position = SCNVector3Zero
+        sceneView.scene.rootNode.addChildNode(axis)
         
+        //timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: (#selector(setPositionOfObject)), userInfo: nil, repeats: true)
+        addObjectTest()
         //OpenCV setup
-        //Camera calibration
-        if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: UIDevice.current.modelName ) ,
-            let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: UIDevice.current.modelName )
-        {
-            openCV.loadCameraParameters(cameraIntrinsic)
-            openCV.loadDistorsionParameters(cameraDistorsion)
-        }
-        else
-        {
-            print("No calibration matrix found for \(UIDevice.current.modelName)")
-        }
-        //File path
-        openCV.setFilePaths(GT.getFileForWriting(name: "ORB.yml")!, Bundle.main.path(forResource: meshName, ofType: "ply")!)
-        //Time interval
-        openCV.setTimeInterval(0.016)
-        //Setup
-        openCV.setup();
-        //Start detection
-        openCVTimer = Timer.scheduledTimer(timeInterval: openCV.getTimeInterval(), target: self, selector: (#selector(openCVFrameDetection)), userInfo: nil, repeats: true)
+        //let ymlPath = Bundle.main.path(forResource: "ORBL", ofType: "yml")!
+        let ymlPath = GT.getFileForWriting(name: "ORB.yml")!
+        //setupDetection(ymlPath: ymlPath, plyPath: Bundle.main.path(forResource: "mesh", ofType: "ply")!)
         
     }
     
@@ -138,7 +142,38 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
-    
+    @IBAction func setPositionOfObject( _ sender : UIButton)
+    {
+        object3D?.position = applyCameraTransformation(SCNVector3Zero)
+        positionPlaced = true
+        
+    }
+    @IBAction func replacePosition( _ sender : UIButton)
+    {
+        positionPlaced = false
+    }
+    func setupDetection(ymlPath : String,plyPath : String)
+    {
+        //Camera calibration
+        if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: UIDevice.current.modelName) ,
+            let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: UIDevice.current.modelName)
+        {
+            openCV.loadCameraParameters(cameraIntrinsic)
+            openCV.loadDistorsionParameters(cameraDistorsion)
+        }
+        else
+        {
+            print("No calibration matrix found for \(UIDevice.current.modelName)")
+        }
+        //File path
+        openCV.setFilePaths(ymlPath,plyPath )
+        //Time interval
+        openCV.setTimeInterval(0.016)
+        //Setup
+        openCV.setup();
+        //Start detection
+        openCVTimer = Timer.scheduledTimer(timeInterval: openCV.getTimeInterval(), target: self, selector: (#selector(openCVFrameDetection)), userInfo: nil, repeats: true)
+    }
     //Modify position with steppers
     @IBAction func modifyPosition(sender : UIStepper)
     {
@@ -219,7 +254,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
             data.setX(data.getX()/100)
             data.setY(data.getY()/100)
             data.setZ(-data.getZ()/100)
-            if(!freeze && LFFilter(data))
+            if(!freeze /*&& LFFilter(data)*/)
             {
                 /*
                 averX+=[data.getX()]
@@ -234,7 +269,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
                 object3D?.position = applyCameraTransformation(SCNVector3(getAverageValue(averX),getAverageValue(averY),getAverageValue(averZ)))
                  */
                 object3D?.position = SCNVector3(data.getX(),data.getY(),data.getZ())
-                object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))
+                //object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))
                 updatePositionDisplay()
             }
             
@@ -262,8 +297,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
             print("Position(\(data.getX()),\(data.getY()),\(data.getZ()),\(data.getConfidence())%) accepted.")
             return true
         }
-        //print("Stack : \(data.getX() >= minX):\(data.getX() <= maxX):\(data.getY() >= minY):\(data.getY() <= maxY):\(data.getZ() >= minZ):\(data.getZ() <= maxZ):\(data.getConfidence() >= minConfidence)")
-        //print("Position(\(data.getX()),\(data.getY()),\(data.getZ()),\(data.getConfidence())%) rejected.")
+        print("Stack : \(data.getX() >= minX):\(data.getX() <= maxX):\(data.getY() >= minY):\(data.getY() <= maxY):\(data.getZ() >= minZ):\(data.getZ() <= maxZ):\(data.getConfidence() >= minConfidence)")
+        print("Position(\(data.getX()),\(data.getY()),\(data.getZ()),\(data.getConfidence())%) rejected.")
         return false
     }
     func applyCameraTransformation(_ firstPos : SCNVector3) -> SCNVector3

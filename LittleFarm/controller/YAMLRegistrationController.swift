@@ -43,16 +43,17 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var meshNode = SCNNode()
     let openCVRegistration = OpenCVRegistration()
     
-    let imgData = ["img-v2.1"]
+    let imgData = ["img-cube"]
     var imgTab : [UIImage] = []
     var currentIndex = 0
     var modeDrag = false
     var modeDragSelector = false
     let name = "ORB.yml"
-    let meshName = "meshV1.2"
+    let meshName = "mesh"
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        //print("\(GT.getFileOnString(name: name)!)")
         //setup
         //load the image array
         for str in imgData
@@ -88,9 +89,10 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         infoText.numberOfLines = 2
         //OpenCV setup
         
-        if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: UIDevice.current.modelName ) ,
-            let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: UIDevice.current.modelName )
+        if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: "WAW"/*UIDevice.current.modelName*/ ) ,
+            let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: "WAW" )
         {
+            print("Intrinsic \(cameraIntrinsic) , Distorsion \(cameraDistorsion)")
             openCVRegistration.loadCameraParameters(cameraIntrinsic)
             openCVRegistration.loadDistorsionParameters(cameraDistorsion)
         }
@@ -232,6 +234,11 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
             coord.x += meshWrapperView.frame.minX
             coord.y += meshWrapperView.frame.minY - imageWrapperView.frame.minY
             
+            
+            let test = UIImageView(image: UIImage(named: "ruby"))
+            test.frame = CGRect(x: Int(coord.x), y: Int(coord.y), width: 10, height: 10)
+            self.imageWrapperView.addSubview(test)
+            
             let x = Int32((coord.x * image.size.width)/(imageWrapperView.frame.size.width))
             let y = Int32((coord.y * image.size.height)/(imageWrapperView.frame.size.height))
             print("Position : \(x),\(y)")
@@ -267,8 +274,8 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
             
             imageDisplay.image = openCVRegistration.computePose(originalImage)
             openCVRegistration.saveFile(at: GT.getFileForWriting(name: name)!)
-            //let result : String = "\(GT.getFileOnString(name: name)!)"
-            //print(result)
+            print("\(GT.getFileOnString(name: name))")
+            
             
         }
         else
