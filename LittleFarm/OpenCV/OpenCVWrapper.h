@@ -19,8 +19,8 @@
     @public float posZ;
     @public double confidence;
 }
-- (id _Nonnull ) init;
-- (UIImage* _Nonnull) getImage;
+- (id) init;
+- (UIImage*) getImage;
 - (float) getX;
 - (float) getY;
 - (float) getZ;
@@ -37,46 +37,46 @@
 @public UIImage* image;
 @public ModelRegistration* model;
 }
-- (UIImage* _Nonnull) getImage;
-- (ModelRegistration* _Nonnull) getModel;
+- (UIImage*) getImage;
+- (ModelRegistration*) getModel;
 @end
 
 //Detection
 @interface OpenCVDetection : NSObject
-- (id _Nonnull) init;
+- (id) init;
 - (BOOL) isSetuped;
-- (void) setFilePaths : (NSString* _Nonnull) yml : (NSString* _Nonnull) ply;
+- (void) setFilePaths : (NSString*) yml : (NSString*) ply;
 - (void) loadCameraParameters : (const double[]) params;
 - (void) loadDistorsionParameters : (const double[]) params;
 - (void) setup;
 
-- (redBox* _Nonnull) detectOnPixelBuffer : (CVPixelBufferRef) pixelBuffer;
+- (redBox*) detectOnPixelBuffer : (CVPixelBufferRef) pixelBuffer;
 - (double) getTimeInterval;
 - (void) setTimeInterval : (double) val;
 @end
 
 //Registration
 @interface OpenCVRegistration : NSObject
-- (id _Nonnull) init;
+- (id ) init;
 - (BOOL) isSetuped;
-- (void) setFilePath : (NSString* _Nonnull) ply;
+- (void) setFilePath : (NSString*) ply;
 - (void) loadCameraParameters : (const double[] ) params;
 - (void) loadDistorsionParameters : (const double[]) params;
 - (void) setup;
 
-- (void) addPoint : (int) x : (int) y : (UIImage* _Nonnull) image;
-- (UIImage*_Nonnull) add2DPoints : (UIImage* _Nonnull) image;
-- (UIImage* _Nonnull) computePose : (UIImage* _Nonnull) image;
-- (SCNNode* _Nonnull) SCNNodeOf3DPoints;
+- (void) addPoint : (int) x : (int) y : (UIImage*) image;
+- (UIImage*) add2DPoints : (UIImage*) image;
+- (UIImage*) computePose : (UIImage*) image;
+- (SCNNode*) SCNNodeOf3DPoints;
 
 -(void) setScale : (float) scale;
 
-- (void) saveFileAt : (NSString* _Nonnull) path;
+- (void) saveFileAt : (NSString*) path;
 
 - (void) nextVertex;
 - (int) getNumVertex;
 - (int) getVertexIndex;
 - (BOOL) isRegistrationFinished;
-- (redBox* _Nonnull) getCurrentVertex;
+- (redBox*) getCurrentVertex;
 
 @end

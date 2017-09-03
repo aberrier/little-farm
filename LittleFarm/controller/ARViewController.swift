@@ -13,11 +13,7 @@ import CoreMotion
 
 class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     
-    
-    
     var dataManager = PersistentDataManager.sharedInstance
-    
-    
     
     //Debug outlets, should be gone soon 🙂
     @IBOutlet var labelX : UILabel!
@@ -30,36 +26,29 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     @IBOutlet var stepperY : UIStepper!
     @IBOutlet var stepperZ : UIStepper!
     
-    //AR variables
+    //Position placement
     @IBOutlet var positionButton : UIButton!
     @IBOutlet var replacePositionbutton : UIButton!
     
-    var positionPlaced = false
+    var positionTrigger = false
     {
         didSet
         {
-            positionButton.isHidden = positionPlaced
-            replacePositionbutton.isHidden = !positionPlaced
+            positionButton.isHidden = positionTrigger
+            replacePositionbutton.isHidden = !positionTrigger
         }
     }
+    //AR variables
     @IBOutlet var sceneView: ARSCNView!
+    var testObjectIsInstancied : Bool = false
     var positionBuffer : SCNVector3 = SCNVector3(0,0,0)
     var object3D : testObject?
-    {
-        didSet
-        {
-            labelX.text="x: \(object3D?.position.x ?? 0)"
-            labelY.text="y: \(object3D?.position.y ?? 0)"
-            labelZ.text="z: \(object3D?.position.z ?? 0)"
-            stepperX.value=Double(object3D!.position.x*100)
-            stepperY.value=Double(object3D!.position.y*100)
-            stepperZ.value=Double(object3D!.position.z*100)
-        }
-    }
+    
+    //QRCode mode
     var qrZone : CGRect = CGRect.zero
     var scene : SCNScene = SCNScene()
-    var isPositionGiven : Bool = false
-    var testObjectIsInstancied : Bool = false
+    var qrCodeMode : Bool = false
+    
     //Story variables
     let scenario = StoryScenario.instance
     @IBOutlet var storyView : StoryView!
@@ -75,7 +64,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     var counter = 0
     var bufferBox : redBox = redBox()
     
-    let openCV = OpenCVDetection()
+    let openCV = OpenCVDetection()!
     var openCVTimer = Timer();
     
     //Filter
@@ -110,8 +99,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         storyView.setup()
         
         //Placement button setup
-        positionButton.isHidden = positionPlaced
-        replacePositionbutton.isHidden = !positionPlaced
+        positionButton.isHidden = positionTrigger
+        replacePositionbutton.isHidden = !positionTrigger
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -127,11 +116,20 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         axis.position = SCNVector3Zero
         sceneView.scene.rootNode.addChildNode(axis)
         
-        //timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: (#selector(setPositionOfObject)), userInfo: nil, repeats: true)
-        addObjectTest()
+        //If QRCode mode is activated, we place the 3D Object on it
+        if(qrCodeMode)
+        {
+            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: (#selector(setPositionOfObjectOnQRZone)), userInfo: nil, repeats: true)
+        }
+        else
+        {
+            setObjectTest()
+        }
+        
         //OpenCV setup
+        
         //let ymlPath = Bundle.main.path(forResource: "ORBL", ofType: "yml")!
-        let ymlPath = GT.getFileForWriting(name: "ORB.yml")!
+        //let ymlPath = GT.getFileForWriting(name: "ORB.yml")!
         //setupDetection(ymlPath: ymlPath, plyPath: Bundle.main.path(forResource: "mesh", ofType: "ply")!)
         
     }
@@ -144,13 +142,13 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     }
     @IBAction func setPositionOfObject( _ sender : UIButton)
     {
-        object3D?.position = applyCameraTransformation(SCNVector3Zero)
-        positionPlaced = true
+        object3D?.position = applyCameraTransformation(SCNVector3(0,0,-0.10))
+        positionTrigger = true
         
     }
     @IBAction func replacePosition( _ sender : UIButton)
     {
-        positionPlaced = false
+        positionTrigger = false
     }
     func setupDetection(ymlPath : String,plyPath : String)
     {
@@ -202,28 +200,19 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         
     }
     //Timer
-    @objc func setPositionOfObject()
+    @objc func setPositionOfObjectOnQRZone()
     {
         if sceneView.isPlaying && !actionActivated
         {
             //3D Position of the object
-            if(object3D == nil)
+            if object3D == nil
             {
-                let delay = 2.0
                 self.infoLabel.text="Calculating coordinates"
                 //Calculating coordinates
-                
-                self.positionBuffer=self.PositionFor2Dto3DProjection(area: self.qrZone)
-                self.infoLabel.text="Look around for \(delay) seconds."
-                //Display object
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute:
-                    {
-                        self.addObjectTest()
-                        self.object3D?.position = self.positionBuffer
-                        self.updatePositionDisplay()
-                        self.infoLabel.text="Object placed"
-                        
-                })
+                self.setObjectTest()
+                self.object3D?.position = self.PositionFor2Dto3DProjection(area: self.qrZone)
+                self.updatePositionDisplay()
+                self.infoLabel.text="Object placed"
                 actionActivated = true
             }
             else
@@ -250,23 +239,23 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
             let data : redBox = openCV.detect(on: sampleBuffer)
             imageTest.image = data.getImage()
             //Conversion to ARKIT coordinate scale
-    
+            
             data.setX(data.getX()/100)
             data.setY(data.getY()/100)
             data.setZ(-data.getZ()/100)
             if(!freeze /*&& LFFilter(data)*/)
             {
                 /*
-                averX+=[data.getX()]
-                averY+=[data.getY()]
-                averZ+=[data.getZ()]
-                print("Count : \(averX.count)")
-                if averX.count > 100
-                {
-                    freeze = true
-                }
-                
-                object3D?.position = applyCameraTransformation(SCNVector3(getAverageValue(averX),getAverageValue(averY),getAverageValue(averZ)))
+                 averX+=[data.getX()]
+                 averY+=[data.getY()]
+                 averZ+=[data.getZ()]
+                 print("Count : \(averX.count)")
+                 if averX.count > 100
+                 {
+                 freeze = true
+                 }
+                 
+                 object3D?.position = applyCameraTransformation(SCNVector3(getAverageValue(averX),getAverageValue(averY),getAverageValue(averZ)))
                  */
                 object3D?.position = SCNVector3(data.getX(),data.getY(),data.getZ())
                 //object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))
@@ -287,6 +276,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         }
         return avr/Float(tab.count)
     }
+    
     func LFFilter( _ data : redBox) -> Bool
     {
         if(data.getX() >= minX && data.getX() <= maxX &&
@@ -301,6 +291,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         print("Position(\(data.getX()),\(data.getY()),\(data.getZ()),\(data.getConfidence())%) rejected.")
         return false
     }
+    
     func applyCameraTransformation(_ firstPos : SCNVector3) -> SCNVector3
     {
         if let cameraFrame = sceneView.session.currentFrame
@@ -313,27 +304,24 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         
         
     }
+    
     func stopOpenCVTimer()
     {
         openCVTimer.invalidate()
     }
+    
     @IBAction func freezeSwitch(_ sender:UISwitch)
     {
         freeze = !freeze
     }
+    
     //Add primal object
-    func addObjectTest() {
+    func setObjectTest() {
         
-        guard !testObjectIsInstancied else
-        {
-            print("Test object already instancied.")
-            return
-        }
         object3D = testObject()
         object3D?.loadModal()
         object3D?.name = "primal"
         sceneView.scene.rootNode.addChildNode(object3D!)
-        testObjectIsInstancied=true
         
     }
     
@@ -390,7 +378,6 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         {
             for result in sceneView.hitTest(CGPoint(x: sender.location(in: view).x,y: sender.location(in: view).y), options: nil)
             {
-                print(result.node.parent?.name ?? "default")
                 if result.node.parent?.name == "cupcake"
                 {
                     turnObjectTest()
@@ -563,6 +550,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     }
     
 }
+
+
 
 
 

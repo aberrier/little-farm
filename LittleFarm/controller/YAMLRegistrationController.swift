@@ -41,7 +41,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var scene = SCNScene()
     var pointsNode = SCNNode()
     var meshNode = SCNNode()
-    let openCVRegistration = OpenCVRegistration()
+    let openCVRegistration = OpenCVRegistration()!
     
     let imgData = ["img-cube"]
     var imgTab : [UIImage] = []
@@ -171,7 +171,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         else
         {
             
-            var coord = selector.center
+            let coord = selector.center
             //coord.x = coord.x - 16
             //coord.y = coord.y - 13
             let image = imgTab[currentIndex]
@@ -263,7 +263,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     func updateDisplay()
     {
         //Coordinates
-        let data = openCVRegistration.getCurrentVertex()
+        let data = openCVRegistration.getCurrentVertex()!
         let originalImage = imgTab[currentIndex]
         pointsNode = openCVRegistration.scnNodeOf3DPoints()
         scene.rootNode.addChildNode(pointsNode)

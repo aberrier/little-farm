@@ -25,8 +25,15 @@ class ConnexionViewController : UIViewController
         }
         else
         {
-           callQRCodeController()
+           callARCodeController()
         }
+    }
+    func callARCodeController()
+    {
+        let storyboard = UIStoryboard(name : "Main", bundle : nil)
+        let ARView = storyboard.instantiateViewController(withIdentifier: "ARView") as! ARViewController
+        ARView.qrCodeMode = false
+        self.present(ARView, animated: true, completion: nil)
     }
     func callQRCodeController()
     {

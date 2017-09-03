@@ -383,7 +383,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjg-8a-cWG">
-                                                    <rect key="frame" x="-1" y="0.0" width="290" height="60"/>
+                                                    <rect key="frame" x="-1" y="0.0" width="290" height="59"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                     <state key="normal" title="Surname Name"/>
@@ -392,7 +392,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cZ-lC-qoV">
-                                                    <rect key="frame" x="327" y="12" width="30" height="31"/>
+                                                    <rect key="frame" x="327" y="11" width="30" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="delete"/>
                                                     <connections>
@@ -935,7 +935,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Démarrer"/>
                                 <connections>
-                                    <action selector="callQRCodeControllerWithSender:" destination="9CD-dv-kTg" eventType="touchUpInside" id="LqS-og-Cfh"/>
+                                    <action selector="callARCodeControllerWithSender:" destination="9CD-dv-kTg" eventType="touchUpInside" id="mc0-PR-lLf"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYH-wd-cTN" customClass="LFButton" customModule="LittleFarm" customModuleProvider="target">
@@ -943,7 +943,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Lancer le jeu"/>
                                 <connections>
-                                    <action selector="callQRCodeControllerWithSender:" destination="9CD-dv-kTg" eventType="touchUpInside" id="kSU-nz-rob"/>
+                                    <action selector="callARCodeControllerWithSender:" destination="9CD-dv-kTg" eventType="touchUpInside" id="gyg-DK-oNE"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6N-Vs-dll">
@@ -1078,6 +1078,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="P0d-KY-S2O"/>
-        <segue reference="G7n-9e-qKo"/>
+        <segue reference="Xey-pJ-cbw"/>
     </inferredMetricsTieBreakers>
 </document>
