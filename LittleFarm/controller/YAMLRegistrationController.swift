@@ -42,30 +42,15 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var pointsNode = SCNNode()
     var meshNode = SCNNode()
     let openCVRegistration = OpenCVRegistration()!
-    
-<<<<<<< HEAD
-<<<<<<< HEAD
-    let imgData = ["img-link"]
-=======
     let imgData = ["img-cube"]
->>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
-=======
-    let imgData = ["img-cube"]
->>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
+
     var imgTab : [UIImage] = []
     var currentIndex = 0
     var modeDrag = false
     var modeDragSelector = false
     let name = "ORB.yml"
-<<<<<<< HEAD
-<<<<<<< HEAD
-    let meshName = "meshLink"
-=======
+
     let meshName = "mesh"
->>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
-=======
-    let meshName = "mesh"
->>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -249,15 +234,6 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
             var coord = CGPoint(x: CGFloat(position.x), y: CGFloat(position.y))
             coord.x += meshWrapperView.frame.minX
             coord.y += meshWrapperView.frame.minY - imageWrapperView.frame.minY
-            
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-            
->>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
-=======
-            
->>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
             let test = UIImageView(image: UIImage(named: "ruby"))
             test.frame = CGRect(x: Int(coord.x), y: Int(coord.y), width: 10, height: 10)
             self.imageWrapperView.addSubview(test)

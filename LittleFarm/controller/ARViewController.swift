@@ -114,7 +114,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         //Add the axis
         let axis = AxisCoordinate()
         axis.position = SCNVector3Zero
-        sceneView.scene.rootNode.addChildNode(axis)
+        //sceneView.scene.rootNode.addChildNode(axis)
         
         //If QRCode mode is activated, we place the 3D Object on it
         if(qrCodeMode)
@@ -164,15 +164,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
             print("No calibration matrix found for \(UIDevice.current.modelName)")
         }
         //File path
-<<<<<<< HEAD
-<<<<<<< HEAD
-        openCV.setFilePaths(Bundle.main.path(forResource: "ORB", ofType: "yml")!/*GT.getFileForWriting(name: "ORB.yml")!*/, Bundle.main.path(forResource: meshName, ofType: "ply")!)
-=======
         openCV.setFilePaths(ymlPath,plyPath )
->>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
-=======
-        openCV.setFilePaths(ymlPath,plyPath )
->>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
+
         //Time interval
         openCV.setTimeInterval(0.016)
         //Setup
@@ -266,17 +259,9 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
                  
                  object3D?.position = applyCameraTransformation(SCNVector3(getAverageValue(averX),getAverageValue(averY),getAverageValue(averZ)))
                  */
-<<<<<<< HEAD
-<<<<<<< HEAD
-                object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))
-=======
                 object3D?.position = SCNVector3(data.getX(),data.getY(),data.getZ())
                 //object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))
->>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
-=======
-                object3D?.position = SCNVector3(data.getX(),data.getY(),data.getZ())
-                //object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))
->>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
+
                 updatePositionDisplay()
             }
             
