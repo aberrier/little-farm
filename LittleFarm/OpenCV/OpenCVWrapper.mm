@@ -125,6 +125,7 @@ using namespace std;
     cv::FileStorage storage (path, cv::FileStorage::READ);
     storage["points_3d"] >> points3DMat;
     storage["descriptors"] >> self->listDescriptors;
+    //std::cout << "****\n" << storage.releaseAndGetString() << "****\n"  << std::endl;
     points3DMat.copyTo(self->list3DInside);
     
     storage.release();
@@ -335,6 +336,7 @@ using namespace std;
     
     // 1b. Extraction of the ORB descriptors
     cv::Mat descriptors_frame;
+    [self computeDescriptors : frame : keypoints_frame : descriptors_frame];
     //If the camera views is completly dark, the descriptor frame can be empty and lead to a crash
     if(!descriptors_frame.isContinuous())
     {
@@ -342,8 +344,6 @@ using namespace std;
         good_matches.clear();
         return;
     }
-    [self computeDescriptors : frame : keypoints_frame : descriptors_frame];
-    
     // 2. Match the two image descriptors
     std::vector<std::vector<cv::DMatch> > matches12, matches21;
     
@@ -2076,7 +2076,6 @@ using namespace std;
         
         // -- Step 6: Set estimated projection matrix
         [pnpDetectionEst setPMatrix : rotationEstimated : translationEstimated];
-        
     }
     ///-- Step X : POSITION
     [Util drawPosition : frameVis : [pnpDetection getPMatrix] : red];

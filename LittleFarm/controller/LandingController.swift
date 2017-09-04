@@ -56,7 +56,13 @@ class LandingController : UIViewController
         }
         
     }
-    
+    @IBAction func callARCodeController(sender : UIButton)
+    {
+        let storyboard = UIStoryboard(name : "Main", bundle : nil)
+        let ARView = storyboard.instantiateViewController(withIdentifier: "ARView") as! ARViewController
+        ARView.qrCodeMode = false
+        self.present(ARView, animated: true, completion: nil)
+    }
     @IBAction func callQRCodeController(sender : UIButton)
     {
         //Call QRCodeController with its mission

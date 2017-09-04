@@ -126,6 +126,22 @@
                                 <color key="textColor" red="0.18654271932624933" green="0.2337585151535031" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9tP-56-Lf9">
+                                <rect key="frame" x="177" y="325" width="60" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="ruby"/>
+                                <connections>
+                                    <action selector="setPositionOfObject:" destination="BV1-FR-VrT" eventType="touchUpInside" id="fai-o6-fyr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ort-zH-U4N" customClass="LFButton" customModule="LittleFarm" customModuleProvider="target">
+                                <rect key="frame" x="83" y="26" width="113" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Repositionner"/>
+                                <connections>
+                                    <action selector="replacePosition:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Brh-QD-w0m"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -158,6 +174,8 @@
                         <outlet property="labelX" destination="ycd-p1-l3U" id="7HM-3r-Kpc"/>
                         <outlet property="labelY" destination="lTK-Dv-F0b" id="sGt-wx-Fsy"/>
                         <outlet property="labelZ" destination="vU2-Nz-15k" id="7hJ-pq-hAA"/>
+                        <outlet property="positionButton" destination="9tP-56-Lf9" id="R2z-Kn-JZk"/>
+                        <outlet property="replacePositionbutton" destination="Ort-zH-U4N" id="GnL-TN-gTG"/>
                         <outlet property="sceneView" destination="UMX-VL-czW" id="vg1-6d-lCG"/>
                         <outlet property="stepperX" destination="uJn-7A-kmk" id="eOD-bc-EMK"/>
                         <outlet property="stepperY" destination="OkR-aW-NkP" id="AxF-kX-yIn"/>
@@ -365,7 +383,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjg-8a-cWG">
-                                                    <rect key="frame" x="-1" y="0.0" width="290" height="60"/>
+                                                    <rect key="frame" x="-1" y="0.0" width="290" height="59"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                     <state key="normal" title="Surname Name"/>
@@ -374,7 +392,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cZ-lC-qoV">
-                                                    <rect key="frame" x="327" y="12" width="30" height="31"/>
+                                                    <rect key="frame" x="327" y="11" width="30" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="delete"/>
                                                     <connections>
@@ -917,7 +935,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Démarrer"/>
                                 <connections>
-                                    <action selector="callQRCodeControllerWithSender:" destination="9CD-dv-kTg" eventType="touchUpInside" id="LqS-og-Cfh"/>
+                                    <action selector="callARCodeControllerWithSender:" destination="9CD-dv-kTg" eventType="touchUpInside" id="mc0-PR-lLf"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYH-wd-cTN" customClass="LFButton" customModule="LittleFarm" customModuleProvider="target">
@@ -925,7 +943,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Lancer le jeu"/>
                                 <connections>
-                                    <action selector="callQRCodeControllerWithSender:" destination="9CD-dv-kTg" eventType="touchUpInside" id="kSU-nz-rob"/>
+                                    <action selector="callARCodeControllerWithSender:" destination="9CD-dv-kTg" eventType="touchUpInside" id="gyg-DK-oNE"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6N-Vs-dll">
@@ -1055,10 +1073,11 @@
         <image name="egg-3" width="67" height="111"/>
         <image name="egg-black" width="100" height="132"/>
         <image name="img" width="480" height="640"/>
+        <image name="ruby" width="77" height="77"/>
         <image name="target" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="P0d-KY-S2O"/>
-        <segue reference="G7n-9e-qKo"/>
+        <segue reference="Xey-pJ-cbw"/>
     </inferredMetricsTieBreakers>
 </document>

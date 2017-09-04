@@ -45,6 +45,7 @@ class ConfigDataManager
         } catch {
             print("Error deserializing JSON: \(error)")
         }
+        print("\n\(cameraTab)\n")
     }
     func getCamera(informations: cameraInformation,ofModel : String) -> [Double]?
     {

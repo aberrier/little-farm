@@ -132,15 +132,8 @@ class QRCodeViewController : UIViewController, AVCaptureMetadataOutputObjectsDel
     {
         let storyboard = UIStoryboard(name : "Main", bundle : nil)
         let ARView = storyboard.instantiateViewController(withIdentifier: "ARView") as! ARViewController
-        if let qrCode = codeRectangle
-        {
-            ARView.qrZone = qrCode
-        }
-        else
-        {
-            print("No QR zone detected.")
-            ARView.qrZone=CGRect.zero
-        }
+        ARView.qrZone = codeRectangle!
+        ARView.qrCodeMode = true
         self.present(ARView, animated: true, completion: nil)
     }
     

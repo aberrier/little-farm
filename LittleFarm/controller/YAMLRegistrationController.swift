@@ -41,18 +41,27 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var scene = SCNScene()
     var pointsNode = SCNNode()
     var meshNode = SCNNode()
-    let openCVRegistration = OpenCVRegistration()
+    let openCVRegistration = OpenCVRegistration()!
     
+<<<<<<< HEAD
     let imgData = ["img-link"]
+=======
+    let imgData = ["img-cube"]
+>>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
     var imgTab : [UIImage] = []
     var currentIndex = 0
     var modeDrag = false
     var modeDragSelector = false
     let name = "ORB.yml"
+<<<<<<< HEAD
     let meshName = "meshLink"
+=======
+    let meshName = "mesh"
+>>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        //print("\(GT.getFileOnString(name: name)!)")
         //setup
         //load the image array
         for str in imgData
@@ -88,9 +97,10 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         infoText.numberOfLines = 2
         //OpenCV setup
         
-        if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: UIDevice.current.modelName ) ,
-            let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: UIDevice.current.modelName )
+        if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: "WAW"/*UIDevice.current.modelName*/ ) ,
+            let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: "WAW" )
         {
+            print("Intrinsic \(cameraIntrinsic) , Distorsion \(cameraDistorsion)")
             openCVRegistration.loadCameraParameters(cameraIntrinsic)
             openCVRegistration.loadDistorsionParameters(cameraDistorsion)
         }
@@ -169,7 +179,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         else
         {
             
-            var coord = selector.center
+            let coord = selector.center
             //coord.x = coord.x - 16
             //coord.y = coord.y - 13
             let image = imgTab[currentIndex]
@@ -232,6 +242,10 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
             coord.x += meshWrapperView.frame.minX
             coord.y += meshWrapperView.frame.minY - imageWrapperView.frame.minY
             
+<<<<<<< HEAD
+=======
+            
+>>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
             let test = UIImageView(image: UIImage(named: "ruby"))
             test.frame = CGRect(x: Int(coord.x), y: Int(coord.y), width: 10, height: 10)
             self.imageWrapperView.addSubview(test)
@@ -260,7 +274,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     func updateDisplay()
     {
         //Coordinates
-        let data = openCVRegistration.getCurrentVertex()
+        let data = openCVRegistration.getCurrentVertex()!
         let originalImage = imgTab[currentIndex]
         pointsNode = openCVRegistration.scnNodeOf3DPoints()
         scene.rootNode.addChildNode(pointsNode)
@@ -271,8 +285,8 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
             
             imageDisplay.image = openCVRegistration.computePose(originalImage)
             openCVRegistration.saveFile(at: GT.getFileForWriting(name: name)!)
-            //let result : String = "\(GT.getFileOnString(name: name)!)"
-            //print(result)
+            print("\(GT.getFileOnString(name: name))")
+            
             
         }
         else
