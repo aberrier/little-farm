@@ -165,7 +165,11 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         }
         //File path
 <<<<<<< HEAD
+<<<<<<< HEAD
         openCV.setFilePaths(Bundle.main.path(forResource: "ORB", ofType: "yml")!/*GT.getFileForWriting(name: "ORB.yml")!*/, Bundle.main.path(forResource: meshName, ofType: "ply")!)
+=======
+        openCV.setFilePaths(ymlPath,plyPath )
+>>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
 =======
         openCV.setFilePaths(ymlPath,plyPath )
 >>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
@@ -263,7 +267,12 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
                  object3D?.position = applyCameraTransformation(SCNVector3(getAverageValue(averX),getAverageValue(averY),getAverageValue(averZ)))
                  */
 <<<<<<< HEAD
+<<<<<<< HEAD
                 object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))
+=======
+                object3D?.position = SCNVector3(data.getX(),data.getY(),data.getZ())
+                //object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))
+>>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
 =======
                 object3D?.position = SCNVector3(data.getX(),data.getY(),data.getZ())
                 //object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))

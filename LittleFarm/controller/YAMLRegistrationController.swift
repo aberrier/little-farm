@@ -44,7 +44,11 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     let openCVRegistration = OpenCVRegistration()!
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     let imgData = ["img-link"]
+=======
+    let imgData = ["img-cube"]
+>>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
 =======
     let imgData = ["img-cube"]
 >>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
@@ -54,7 +58,11 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var modeDragSelector = false
     let name = "ORB.yml"
 <<<<<<< HEAD
+<<<<<<< HEAD
     let meshName = "meshLink"
+=======
+    let meshName = "mesh"
+>>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
 =======
     let meshName = "mesh"
 >>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
@@ -243,6 +251,10 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
             coord.y += meshWrapperView.frame.minY - imageWrapperView.frame.minY
             
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            
+>>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
 =======
             
 >>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5

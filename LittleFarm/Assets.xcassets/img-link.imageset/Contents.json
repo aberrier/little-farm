@@ -2,7 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+<<<<<<< HEAD
       "filename" : "image1.jpeg",
+=======
+      "filename" : "IMG_0060.JPG",
+>>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
       "scale" : "1x"
     },
     {

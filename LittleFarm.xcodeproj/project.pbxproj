@@ -26,6 +26,12 @@
 		93281F601F20FAC4004C93E2 /* TreeInventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */; };
 		93281F691F20FC6C004C93E2 /* LFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F681F20FC6C004C93E2 /* LFButton.swift */; };
 		93281F6B1F210E00004C93E2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F6A1F210E00004C93E2 /* Color.swift */; };
+<<<<<<< HEAD
+=======
+		935D3B851F5B37EC0010757D /* ORBL.yml in Resources */ = {isa = PBXBuildFile; fileRef = 935D3B841F5B37990010757D /* ORBL.yml */; };
+		935D3B861F5B3F840010757D /* mesh.ply in Resources */ = {isa = PBXBuildFile; fileRef = 93ED49CA1F4C9A0300F73C76 /* mesh.ply */; };
+		935D3B871F5B3F840010757D /* meshV1.2.ply in Resources */ = {isa = PBXBuildFile; fileRef = 9340E9491F53297C000A02E0 /* meshV1.2.ply */; };
+>>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
 		9363DBD61F4ADDD8006AB0FE /* YAMLRegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9363DBD51F4ADDD8006AB0FE /* YAMLRegistrationController.swift */; };
 		936ACA251F163DF700156AD8 /* test3DObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936ACA241F163DF700156AD8 /* test3DObject.swift */; };
 		93721AF91F4C6A60007674FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93721AF81F4C6A60007674FC /* Assets.xcassets */; };
@@ -48,6 +54,7 @@
 		93A004671F4F84F700ABBD39 /* ConfigDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A004661F4F84F700ABBD39 /* ConfigDataManager.swift */; };
 		93A0046B1F4F884600ABBD39 /* camera.json in Resources */ = {isa = PBXBuildFile; fileRef = 93A0046A1F4F884600ABBD39 /* camera.json */; };
 		93A0046D1F4F885B00ABBD39 /* productKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 93A0046C1F4F885B00ABBD39 /* productKey.json */; };
+		93AAC6F21F53557E00D3AE94 /* meshLink.ply in Resources */ = {isa = PBXBuildFile; fileRef = 937061571F516CE10058B664 /* meshLink.ply */; };
 		93B18E731F2510C000146BD5 /* main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E711F2510C000146BD5 /* main.xcdatamodeld */; };
 		93B18E751F25292300146BD5 /* PersistentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E741F25292300146BD5 /* PersistentDataManager.swift */; };
 		93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C43AE41F15427B00159522 /* QRCodeViewController.swift */; };
@@ -108,6 +115,11 @@
 		93281F681F20FC6C004C93E2 /* LFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFButton.swift; sourceTree = "<group>"; };
 		93281F6A1F210E00004C93E2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		9336439E1F2FCCF700A9C52E /* Model.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Model.hpp; sourceTree = "<group>"; };
+<<<<<<< HEAD
+=======
+		9340E9491F53297C000A02E0 /* meshV1.2.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = meshV1.2.ply; path = ../YAML/V1.2/meshV1.2.ply; sourceTree = "<group>"; };
+		935D3B841F5B37990010757D /* ORBL.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = ORBL.yml; sourceTree = "<group>"; };
+>>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
 		9363DBD51F4ADDD8006AB0FE /* YAMLRegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAMLRegistrationController.swift; sourceTree = "<group>"; };
 		9363DBD71F4AECD3006AB0FE /* ModelRegistration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModelRegistration.hpp; sourceTree = "<group>"; };
 		93667C711F44525700E0C023 /* Triangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Triangle.hpp; sourceTree = "<group>"; };
@@ -265,6 +277,7 @@
 				9376AB1C1F2F52D000D28C95 /* OpenCVWrapper.h */,
 				9376AB1D1F2F52D000D28C95 /* OpenCVWrapper.mm */,
 				9376AB1B1F2F52CF00D28C95 /* LittleFarm-Bridging-Header.h */,
+				931553141F2BE5650018D26C /* Tools.swift */,
 			);
 			path = OpenCV;
 			sourceTree = "<group>";
@@ -293,6 +306,7 @@
 		937C33521F20A9E8008361BB /* model */ = {
 			isa = PBXGroup;
 			children = (
+				93FE0FAF1F2A8C4300E08B42 /* StoryScreen.swift */,
 				93FB81921F474AD500EE055B /* BLE */,
 				931553161F2BEFD50018D26C /* Register */,
 				931553111F2BCE160018D26C /* AR */,
@@ -346,7 +360,6 @@
 			children = (
 				9376AB1A1F2F527700D28C95 /* OpenCV */,
 				939C19CB1F14EF7100C392CA /* AppDelegate.swift */,
-				931553141F2BE5650018D26C /* Tools.swift */,
 				939C19D11F14EF7200C392CA /* Main.storyboard */,
 				939C19D61F14EF7200C392CA /* LaunchScreen.storyboard */,
 				93281F671F20FBA4004C93E2 /* parameters */,
@@ -401,10 +414,18 @@
 		93ED49C91F4C978700F73C76 /* model */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				6A2478391F533E4100B89673 /* ORB.yml */,
 				6A2478341F532D6500B89673 /* meshV1.2.ply */,
 				6AF7FD1B1F52F31200AB39EC /* meshV2.1.ply */,
 				6A2478371F53390F00B89673 /* meshLink.ply */,
+=======
+				935D3B841F5B37990010757D /* ORBL.yml */,
+				937061571F516CE10058B664 /* meshLink.ply */,
+				93ED49CA1F4C9A0300F73C76 /* mesh.ply */,
+				6AF7FD1B1F52F31200AB39EC /* meshV2.1.ply */,
+				9340E9491F53297C000A02E0 /* meshV1.2.ply */,
+>>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -448,7 +469,6 @@
 		93FE0FB11F2A8CD800E08B42 /* story */ = {
 			isa = PBXGroup;
 			children = (
-				93FE0FAF1F2A8C4300E08B42 /* StoryScreen.swift */,
 				93FE0FB21F2A8CF600E08B42 /* StoryButton.swift */,
 				93FE0FB41F2A8D6600E08B42 /* StoryAction.swift */,
 				93FE0FB61F2A8F7800E08B42 /* StoryView.swift */,
@@ -579,8 +599,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
 				6A24783A1F533EF600B89673 /* ORB.yml in Resources */,
 				6A2478381F533A1000B89673 /* meshLink.ply in Resources */,
+=======
+				935D3B861F5B3F840010757D /* mesh.ply in Resources */,
+				935D3B871F5B3F840010757D /* meshV1.2.ply in Resources */,
+				935D3B851F5B37EC0010757D /* ORBL.yml in Resources */,
+				93AAC6F21F53557E00D3AE94 /* meshLink.ply in Resources */,
+>>>>>>> ed35faab694f66331120d359dcaa3e9f34652dd5
 				6AF7FD1C1F52F3E700AB39EC /* meshV2.1.ply in Resources */,
 				6A2478351F532D6F00B89673 /* meshV1.2.ply in Resources */,
 				939C19CE1F14EF7200C392CA /* art.scnassets in Resources */,
