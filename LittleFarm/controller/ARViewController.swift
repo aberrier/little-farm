@@ -83,7 +83,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     var averY : [Float] = []
     var averZ : [Float] = []
     
-    var meshName = "mesh"
+    var meshName = "meshLink"
     let configData = ConfigDataManager.sharedInstance
     override func viewDidLoad() {
         
@@ -122,7 +122,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
             print("No calibration matrix found for \(UIDevice.current.modelName)")
         }
         //File path
-        openCV.setFilePaths(GT.getFileForWriting(name: "ORB.yml")!, Bundle.main.path(forResource: meshName, ofType: "ply")!)
+        openCV.setFilePaths(Bundle.main.path(forResource: "ORB", ofType: "yml")!/*GT.getFileForWriting(name: "ORB.yml")!*/, Bundle.main.path(forResource: meshName, ofType: "ply")!)
         //Time interval
         openCV.setTimeInterval(0.016)
         //Setup
@@ -208,10 +208,11 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     }
     @objc func openCVFrameDetection()
     {
-        let sampleBuffer = sceneView.session.currentFrame?.capturedImage
+        
         if object3D != nil
         {
             
+            let sampleBuffer = sceneView.session.currentFrame?.capturedImage
             let data : redBox = openCV.detect(on: sampleBuffer)
             imageTest.image = data.getImage()
             //Conversion to ARKIT coordinate scale
@@ -233,7 +234,6 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
                 
                 object3D?.position = applyCameraTransformation(SCNVector3(getAverageValue(averX),getAverageValue(averY),getAverageValue(averZ)))
                  */
-                object3D?.position = SCNVector3(data.getX(),data.getY(),data.getZ())
                 object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))
                 updatePositionDisplay()
             }

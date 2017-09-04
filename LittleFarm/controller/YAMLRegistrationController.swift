@@ -43,13 +43,13 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var meshNode = SCNNode()
     let openCVRegistration = OpenCVRegistration()
     
-    let imgData = ["img-v2.1"]
+    let imgData = ["img-link"]
     var imgTab : [UIImage] = []
     var currentIndex = 0
     var modeDrag = false
     var modeDragSelector = false
     let name = "ORB.yml"
-    let meshName = "meshV1.2"
+    let meshName = "meshLink"
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -231,6 +231,10 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
             var coord = CGPoint(x: CGFloat(position.x), y: CGFloat(position.y))
             coord.x += meshWrapperView.frame.minX
             coord.y += meshWrapperView.frame.minY - imageWrapperView.frame.minY
+            
+            let test = UIImageView(image: UIImage(named: "ruby"))
+            test.frame = CGRect(x: Int(coord.x), y: Int(coord.y), width: 10, height: 10)
+            self.imageWrapperView.addSubview(test)
             
             let x = Int32((coord.x * image.size.width)/(imageWrapperView.frame.size.width))
             let y = Int32((coord.y * image.size.height)/(imageWrapperView.frame.size.height))

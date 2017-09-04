@@ -761,14 +761,14 @@ using namespace std;
     {
         self->AMatrix = cv::Mat::zeros(3, 3, CV_64FC1);   // intrinsic camera parameters
         self->AMatrix.at<double>(0, 0) = [param[0] doubleValue];       //      [ fx(0)   0  cx(2) ]
-        self->AMatrix.at<double>(0, 1) = [param[1] doubleValue];
+        self->AMatrix.at<double>(0, 1) = 0;
         self->AMatrix.at<double>(0, 2) = [param[2] doubleValue];
-        self->AMatrix.at<double>(1, 0) = [param[3] doubleValue];
+        self->AMatrix.at<double>(1, 0) = 0;
         self->AMatrix.at<double>(1, 1) = [param[4] doubleValue];
         self->AMatrix.at<double>(1, 2) = [param[5] doubleValue];
-        self->AMatrix.at<double>(2, 0) = [param[6] doubleValue];       //      [  0  fy(1)  cy(3) ]
-        self->AMatrix.at<double>(2, 1) = [param[7] doubleValue];      //      [  0   0   1 ]
-        self->AMatrix.at<double>(2, 2) = [param[8] doubleValue];
+        self->AMatrix.at<double>(2, 0) = 0;       //      [  0  fy(1)  cy(3) ]
+        self->AMatrix.at<double>(2, 1) = 0;      //      [  0   0   1 ]
+        self->AMatrix.at<double>(2, 2) = 1;
         self->DMatrix = cv::Mat::zeros(5, 1, CV_64FC1);
         self->RMatrix = cv::Mat::zeros(3, 3, CV_64FC1);   // rotation matrix
         self->TMatrix = cv::Mat::zeros(3, 1, CV_64FC1);   // translation matrix
