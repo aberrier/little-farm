@@ -1,0 +1,40 @@
+{
+    "story":[{
+             "id":"start-01",
+             "text":"Aaaaaaaaahhh\nJe suis tellement fatigué...\nQui me réveille ? Es tu un humain ?",
+             "action":{
+             "type":"callStoryScreen",
+             "screenId":"start-02"
+             },
+             "expression":"happy",
+             "buttons":[
+                        {
+                        "text":"Oui je suis un humain",
+                        "action":{
+                        "type":"callStoryScreen",
+                        "screenId":"start-02"
+                        }
+                        },
+                        {
+                        "text":"Non je suis un ouistiti",
+                        "action":{
+                        "type":"callStoryScreen",
+                        "screenId":"start-01a"
+                        }
+                        }
+                        ]
+             },
+             {
+             "id":"start-02",
+             "text":"Hihihi ! Génial ! J'adore les humains ! Comment tu t'appelles ?",
+             "arrow":"endStory",
+             "expression":"happy"
+             },
+             {
+             "id":"start-01a",
+             "text":"Hihihi ! Tu es un petit farceur toi !",
+             "arrow":"endStory",
+             "expression":"happy"
+             }
+             ]
+}

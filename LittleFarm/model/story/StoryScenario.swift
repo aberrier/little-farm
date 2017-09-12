@@ -11,32 +11,18 @@ import UIKit
 class StoryScenario
 {
     static let instance = StoryScenario()
-    var map : [String : StoryScreen]
+    var data : [String : StoryScreen]
     //This is where the script is written
     private init()
     {
-        map = [:]
+        data = [:]
         
-        //Scenario writing
-        let 😀 = StoryScreen(message: "Aaaaaaaaahhh\nJe suis tellement fatigué...\nQui me réveille ? Es tu un humain ?",
+        //Default scenario
+        let 😀 = StoryScreen(message: "Aucune histoire n'a été chargé.",
                                arrowAction: .DoNothing,
-                               dataButtons: [StoryDataButton(text : "Oui je suis un humain", action : .CallStoryScreen("start-02")),
-                                             StoryDataButton(text : "Non, je suis un ouistiti", action : StoryAction.CallStoryScreen("start-01a"))],
+                               dataButtons: [StoryDataButton(text : "Fermer", action : .EndStory)],
                                expression:  generalInformations.defaultImage)
-        
-        map[generalInformations.firstStoryId] = 😀
-        let 😇 = StoryScreen(message: "Hihihi ! Génial ! J'adore les humains ! Comment tu t'appelles ?",
-                               arrowAction: .EndStory,
-                               dataButtons: [],
-                               expression:  generalInformations.defaultImage)
-        
-        map["start-02"] = 😇
-        let 🤡 = StoryScreen(message: "Hihihi ! Tu es un petit farceur toi !",
-                               arrowAction: .EndStory,
-                               dataButtons: [],
-                               expression:  generalInformations.defaultImage)
-        
-        map["start-01a"] = 🤡
+        data[generalInformations.firstStoryId] = 😀
         
         
     }

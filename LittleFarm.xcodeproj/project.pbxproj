@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		12E612AE2CA880BCD6B5298C /* Pods_LittleFarm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20C3E8FD636C5845EC5D7025 /* Pods_LittleFarm.framework */; };
-		6AF7FD1C1F52F3E700AB39EC /* meshV2.1.ply in Resources */ = {isa = PBXBuildFile; fileRef = 6AF7FD1B1F52F31200AB39EC /* meshV2.1.ply */; };
 		930456B91F46587C00DA45AC /* BluetoothChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930456B81F46587C00DA45AC /* BluetoothChatViewController.swift */; };
 		9311D56A1F292B3F003E1538 /* AdminPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311D5691F292B3F003E1538 /* AdminPanelController.swift */; };
 		9315530E1F2BAD8A0018D26C /* StringPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9315530D1F2BAD8A0018D26C /* StringPair.swift */; };
@@ -23,7 +22,6 @@
 		93281F601F20FAC4004C93E2 /* TreeInventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F5F1F20FAC4004C93E2 /* TreeInventoryViewController.swift */; };
 		93281F691F20FC6C004C93E2 /* LFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F681F20FC6C004C93E2 /* LFButton.swift */; };
 		93281F6B1F210E00004C93E2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93281F6A1F210E00004C93E2 /* Color.swift */; };
-		935D3B851F5B37EC0010757D /* ORBL.yml in Resources */ = {isa = PBXBuildFile; fileRef = 935D3B841F5B37990010757D /* ORBL.yml */; };
 		9363DBD61F4ADDD8006AB0FE /* YAMLRegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9363DBD51F4ADDD8006AB0FE /* YAMLRegistrationController.swift */; };
 		936ACA251F163DF700156AD8 /* test3DObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936ACA241F163DF700156AD8 /* test3DObject.swift */; };
 		93721AF91F4C6A60007674FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93721AF81F4C6A60007674FC /* Assets.xcassets */; };
@@ -44,8 +42,6 @@
 		939C19EE1F14EF7200C392CA /* LittleFarmUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19ED1F14EF7200C392CA /* LittleFarmUITests.swift */; };
 		939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19FE1F14FDF800C392CA /* LandingController.swift */; };
 		93A004671F4F84F700ABBD39 /* ConfigDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A004661F4F84F700ABBD39 /* ConfigDataManager.swift */; };
-		93A0046B1F4F884600ABBD39 /* camera.json in Resources */ = {isa = PBXBuildFile; fileRef = 93A0046A1F4F884600ABBD39 /* camera.json */; };
-		93A0046D1F4F885B00ABBD39 /* productKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 93A0046C1F4F885B00ABBD39 /* productKey.json */; };
 		93B18E731F2510C000146BD5 /* main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E711F2510C000146BD5 /* main.xcdatamodeld */; };
 		93B18E751F25292300146BD5 /* PersistentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E741F25292300146BD5 /* PersistentDataManager.swift */; };
 		93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C43AE41F15427B00159522 /* QRCodeViewController.swift */; };
@@ -84,7 +80,6 @@
 
 /* Begin PBXFileReference section */
 		20C3E8FD636C5845EC5D7025 /* Pods_LittleFarm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LittleFarm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AF7FD1B1F52F31200AB39EC /* meshV2.1.ply */ = {isa = PBXFileReference; lastKnownFileType = text; path = meshV2.1.ply; sourceTree = "<group>"; };
 		8C5112F2AE149E7CAE1B4FDD /* Pods-LittleFarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LittleFarm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LittleFarm/Pods-LittleFarm.debug.xcconfig"; sourceTree = "<group>"; };
 		930456B81F46587C00DA45AC /* BluetoothChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothChatViewController.swift; sourceTree = "<group>"; };
 		9311D5691F292B3F003E1538 /* AdminPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPanelController.swift; sourceTree = "<group>"; };
@@ -101,15 +96,12 @@
 		93281F681F20FC6C004C93E2 /* LFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFButton.swift; sourceTree = "<group>"; };
 		93281F6A1F210E00004C93E2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		9336439E1F2FCCF700A9C52E /* Model.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Model.hpp; sourceTree = "<group>"; };
-		9340E9491F53297C000A02E0 /* meshV1.2.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = meshV1.2.ply; path = ../YAML/V1.2/meshV1.2.ply; sourceTree = "<group>"; };
-		935D3B841F5B37990010757D /* ORBL.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = ORBL.yml; sourceTree = "<group>"; };
 		9363DBD51F4ADDD8006AB0FE /* YAMLRegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAMLRegistrationController.swift; sourceTree = "<group>"; };
 		9363DBD71F4AECD3006AB0FE /* ModelRegistration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModelRegistration.hpp; sourceTree = "<group>"; };
 		93667C711F44525700E0C023 /* Triangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Triangle.hpp; sourceTree = "<group>"; };
 		93667C741F44527400E0C023 /* Ray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ray.hpp; sourceTree = "<group>"; };
 		93667C7A1F445BA800E0C023 /* Util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Util.hpp; sourceTree = "<group>"; };
 		936ACA241F163DF700156AD8 /* test3DObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test3DObject.swift; sourceTree = "<group>"; };
-		937061571F516CE10058B664 /* meshLink.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = meshLink.ply; path = ../YAML/link/meshLink.ply; sourceTree = "<group>"; };
 		93721AF81F4C6A60007674FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		937517651F2395B6007EF547 /* General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
 		937517671F23BA97007EF547 /* menuSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuSection.swift; sourceTree = "<group>"; };
@@ -141,8 +133,6 @@
 		939C19EF1F14EF7200C392CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		939C19FE1F14FDF800C392CA /* LandingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingController.swift; sourceTree = "<group>"; };
 		93A004661F4F84F700ABBD39 /* ConfigDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigDataManager.swift; sourceTree = "<group>"; };
-		93A0046A1F4F884600ABBD39 /* camera.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = camera.json; sourceTree = "<group>"; };
-		93A0046C1F4F885B00ABBD39 /* productKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = productKey.json; sourceTree = "<group>"; };
 		93B18E721F2510C000146BD5 /* main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = main.xcdatamodel; sourceTree = "<group>"; };
 		93B18E741F25292300146BD5 /* PersistentDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentDataManager.swift; sourceTree = "<group>"; };
 		93C208B01F41D62000FA8216 /* opencv-headers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "opencv-headers.h"; sourceTree = "<group>"; };
@@ -150,7 +140,6 @@
 		93ED0C801F2779A20015BCC8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		93ED0C821F278C150015BCC8 /* imagePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagePickerCell.swift; sourceTree = "<group>"; };
 		93ED0C841F2798E90015BCC8 /* LFLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFLabel.swift; sourceTree = "<group>"; };
-		93ED49CA1F4C9A0300F73C76 /* mesh.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = mesh.ply; path = ../YAML/cube/mesh.ply; sourceTree = "<group>"; };
 		93EE9A931F2A2408003CB029 /* userForAdminPanelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userForAdminPanelCell.swift; sourceTree = "<group>"; };
 		93FB81901F473B2000EE055B /* BluetoothConnexionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothConnexionViewController.swift; sourceTree = "<group>"; };
 		93FB81931F474AF700EE055B /* PeripheralTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralTableViewCell.swift; sourceTree = "<group>"; };
@@ -162,6 +151,20 @@
 		93FE0FB81F2A8F9100E08B42 /* StoryScenario.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryScenario.swift; sourceTree = "<group>"; };
 		93FE0FBA1F2A919300E08B42 /* StoryDataButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDataButton.swift; sourceTree = "<group>"; };
 		93FE0FBC1F2A9CF800E08B42 /* ControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerType.swift; sourceTree = "<group>"; };
+		B55489C01F603D21006AD14D /* camera.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = camera.json; sourceTree = "<group>"; };
+		B55489C11F603D21006AD14D /* productKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = productKey.json; sourceTree = "<group>"; };
+		B55489C21F603D21006AD14D /* story.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = story.json; sourceTree = "<group>"; };
+		B55489C41F603D21006AD14D /* ORB.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = ORB.yml; sourceTree = "<group>"; };
+		B55489C51F603D21006AD14D /* ORBC.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = ORBC.yml; sourceTree = "<group>"; };
+		B55489C61F603D21006AD14D /* ORBF.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = ORBF.yml; sourceTree = "<group>"; };
+		B55489C71F603D21006AD14D /* ORBL.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = ORBL.yml; sourceTree = "<group>"; };
+		B55489C91F603D21006AD14D /* mesh.ply */ = {isa = PBXFileReference; lastKnownFileType = text; path = mesh.ply; sourceTree = "<group>"; };
+		B55489CA1F603D21006AD14D /* meshC.ply */ = {isa = PBXFileReference; lastKnownFileType = text; path = meshC.ply; sourceTree = "<group>"; };
+		B55489CB1F603D21006AD14D /* meshF.ply */ = {isa = PBXFileReference; lastKnownFileType = text; path = meshF.ply; sourceTree = "<group>"; };
+		B55489CC1F603D21006AD14D /* meshL.ply */ = {isa = PBXFileReference; lastKnownFileType = text; path = meshL.ply; sourceTree = "<group>"; };
+		B55489CD1F603D21006AD14D /* meshLink.ply */ = {isa = PBXFileReference; lastKnownFileType = text; path = meshLink.ply; sourceTree = "<group>"; };
+		B55489CE1F603D21006AD14D /* meshV1.2.dae */ = {isa = PBXFileReference; lastKnownFileType = text.xml.dae; path = meshV1.2.dae; sourceTree = "<group>"; };
+		B55489CF1F603D21006AD14D /* meshV2.1.ply */ = {isa = PBXFileReference; lastKnownFileType = text; path = meshV2.1.ply; sourceTree = "<group>"; };
 		CBAC5D1C65603CF0C336D75F /* Pods-LittleFarm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LittleFarm.release.xcconfig"; path = "Pods/Target Support Files/Pods-LittleFarm/Pods-LittleFarm.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -203,13 +206,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		931553111F2BCE160018D26C /* AR */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AR;
-			sourceTree = "<group>";
-		};
 		931553161F2BEFD50018D26C /* Register */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,15 +241,6 @@
 			path = header;
 			sourceTree = "<group>";
 		};
-		93721AF51F4C6509007674FC /* data */ = {
-			isa = PBXGroup;
-			children = (
-				93A004681F4F880C00ABBD39 /* config */,
-				93ED49C91F4C978700F73C76 /* model */,
-			);
-			name = data;
-			sourceTree = "<group>";
-		};
 		9376AB1A1F2F527700D28C95 /* OpenCV */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,7 +249,6 @@
 				9376AB1C1F2F52D000D28C95 /* OpenCVWrapper.h */,
 				9376AB1D1F2F52D000D28C95 /* OpenCVWrapper.mm */,
 				9376AB1B1F2F52CF00D28C95 /* LittleFarm-Bridging-Header.h */,
-				931553141F2BE5650018D26C /* Tools.swift */,
 			);
 			path = OpenCV;
 			sourceTree = "<group>";
@@ -294,7 +280,6 @@
 				93FE0FAF1F2A8C4300E08B42 /* StoryScreen.swift */,
 				93FB81921F474AD500EE055B /* BLE */,
 				931553161F2BEFD50018D26C /* Register */,
-				931553111F2BCE160018D26C /* AR */,
 				93FE0FB11F2A8CD800E08B42 /* story */,
 				93EE9A921F2A23D2003CB029 /* cells */,
 				93EE9A901F2A2173003CB029 /* menu */,
@@ -320,7 +305,7 @@
 		939C19BF1F14EF7100C392CA = {
 			isa = PBXGroup;
 			children = (
-				93721AF51F4C6509007674FC /* data */,
+				B55489BE1F603D21006AD14D /* Ressources */,
 				939C19CA1F14EF7100C392CA /* LittleFarm */,
 				939C19E11F14EF7200C392CA /* LittleFarmTests */,
 				939C19EC1F14EF7200C392CA /* LittleFarmUITests */,
@@ -345,6 +330,7 @@
 			children = (
 				9376AB1A1F2F527700D28C95 /* OpenCV */,
 				939C19CB1F14EF7100C392CA /* AppDelegate.swift */,
+				931553141F2BE5650018D26C /* Tools.swift */,
 				939C19D11F14EF7200C392CA /* Main.storyboard */,
 				939C19D61F14EF7200C392CA /* LaunchScreen.storyboard */,
 				93281F671F20FBA4004C93E2 /* parameters */,
@@ -377,33 +363,12 @@
 			path = LittleFarmUITests;
 			sourceTree = "<group>";
 		};
-		93A004681F4F880C00ABBD39 /* config */ = {
-			isa = PBXGroup;
-			children = (
-				93A0046A1F4F884600ABBD39 /* camera.json */,
-				93A0046C1F4F885B00ABBD39 /* productKey.json */,
-			);
-			name = config;
-			sourceTree = "<group>";
-		};
 		93B18E701F25108B00146BD5 /* data */ = {
 			isa = PBXGroup;
 			children = (
 				93B18E711F2510C000146BD5 /* main.xcdatamodeld */,
 			);
 			path = data;
-			sourceTree = "<group>";
-		};
-		93ED49C91F4C978700F73C76 /* model */ = {
-			isa = PBXGroup;
-			children = (
-				935D3B841F5B37990010757D /* ORBL.yml */,
-				937061571F516CE10058B664 /* meshLink.ply */,
-				93ED49CA1F4C9A0300F73C76 /* mesh.ply */,
-				6AF7FD1B1F52F31200AB39EC /* meshV2.1.ply */,
-				9340E9491F53297C000A02E0 /* meshV1.2.ply */,
-			);
-			name = model;
 			sourceTree = "<group>";
 		};
 		93EE9A901F2A2173003CB029 /* menu */ = {
@@ -452,6 +417,59 @@
 				93FE0FBA1F2A919300E08B42 /* StoryDataButton.swift */,
 			);
 			path = story;
+			sourceTree = "<group>";
+		};
+		B55489BE1F603D21006AD14D /* Ressources */ = {
+			isa = PBXGroup;
+			children = (
+				B55489BF1F603D21006AD14D /* Configuration */,
+				B55489C31F603D21006AD14D /* ORBs */,
+				B55489C81F603D21006AD14D /* Polygons */,
+				B55489D01F603D21006AD14D /* Scenes */,
+			);
+			path = Ressources;
+			sourceTree = "<group>";
+		};
+		B55489BF1F603D21006AD14D /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				B55489C01F603D21006AD14D /* camera.json */,
+				B55489C11F603D21006AD14D /* productKey.json */,
+				B55489C21F603D21006AD14D /* story.json */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		B55489C31F603D21006AD14D /* ORBs */ = {
+			isa = PBXGroup;
+			children = (
+				B55489C41F603D21006AD14D /* ORB.yml */,
+				B55489C51F603D21006AD14D /* ORBC.yml */,
+				B55489C61F603D21006AD14D /* ORBF.yml */,
+				B55489C71F603D21006AD14D /* ORBL.yml */,
+			);
+			path = ORBs;
+			sourceTree = "<group>";
+		};
+		B55489C81F603D21006AD14D /* Polygons */ = {
+			isa = PBXGroup;
+			children = (
+				B55489C91F603D21006AD14D /* mesh.ply */,
+				B55489CA1F603D21006AD14D /* meshC.ply */,
+				B55489CB1F603D21006AD14D /* meshF.ply */,
+				B55489CC1F603D21006AD14D /* meshL.ply */,
+				B55489CD1F603D21006AD14D /* meshLink.ply */,
+				B55489CE1F603D21006AD14D /* meshV1.2.dae */,
+				B55489CF1F603D21006AD14D /* meshV2.1.ply */,
+			);
+			path = Polygons;
+			sourceTree = "<group>";
+		};
+		B55489D01F603D21006AD14D /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 		F0B4CEE0F607C84A72C83712 /* Pods */ = {
@@ -575,15 +593,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				935D3B851F5B37EC0010757D /* ORBL.yml in Resources */,
-				6AF7FD1C1F52F3E700AB39EC /* meshV2.1.ply in Resources */,
 				939C19CE1F14EF7200C392CA /* art.scnassets in Resources */,
 				93721AF91F4C6A60007674FC /* Assets.xcassets in Resources */,
 				939C19D81F14EF7200C392CA /* LaunchScreen.storyboard in Resources */,
 				939C19D31F14EF7200C392CA /* Main.storyboard in Resources */,
 				9375176A1F23C85F007EF547 /* menuSection.xib in Resources */,
-				93A0046B1F4F884600ABBD39 /* camera.json in Resources */,
-				93A0046D1F4F885B00ABBD39 /* productKey.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,7 +663,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -871,7 +885,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S6YLKG79F2;
+				DEVELOPMENT_TEAM = 6QMNP7KU5F;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LittleFarm/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -902,7 +916,7 @@
 					"-framework",
 					"\"opencv2\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = saad.LittleFarm;
+				PRODUCT_BUNDLE_IDENTIFIER = alain.LittleFarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LittleFarm/OpenCV/LittleFarm-Bridging-Header.h";
@@ -921,11 +935,11 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S6YLKG79F2;
+				DEVELOPMENT_TEAM = 6QMNP7KU5F;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LittleFarm/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = saad.LittleFarm;
+				PRODUCT_BUNDLE_IDENTIFIER = alain.LittleFarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LittleFarm/OpenCV/LittleFarm-Bridging-Header.h";

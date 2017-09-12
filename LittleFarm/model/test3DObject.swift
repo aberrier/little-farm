@@ -9,7 +9,7 @@
 import ARKit
 class testObject : SCNNode {
     func loadModal() {
-        guard let virtualObjectScene = SCNScene(named: "art.scnassets/happy.scn") else {return}
+        guard let virtualObjectScene = SCNScene(named: "art.scnassets/cupcake.scn") else {return}
         
         let wrapperNode = SCNNode()
         

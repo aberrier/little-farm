@@ -44,7 +44,7 @@ class StoryView: UIView {
         if let currentUser = dataManager.getCurrentUser()
         {
             isHidden = !currentUser.onStoryMode
-            loadScreen(screen: scenario.map[currentUser.storyId]!)
+            loadScreen(screen: scenario.data[currentUser.storyId]!)
         }
         else
         {

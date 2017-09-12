@@ -433,7 +433,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
             }
         case let .CallStoryScreen(id) :
             //Load the new screen
-            let newScreen = scenario.map[id]
+            let newScreen = scenario.data[id]
             
             storyView.loadScreen(screen: newScreen!)
         case let .CheckpointStory(storyId) :

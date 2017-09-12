@@ -2035,7 +2035,7 @@ using namespace std;
         [pnpDetection estimatePoseRANSAC : listPoints3DModelMatch : listPoints2DSceneMatch
                                           : pnpMethod : inliersIdx
                                           : iterationsCount : reprojectionError : confidence];
-        
+        std::cout << "pnpDetection - Position : " << [self convertPosMatrixToPosVec:[pnpDetection getPMatrix]] << std::endl;
         // -- Step 4: Catch the inliers keypoints to draw
         for(int inliersIndex = 0; inliersIndex < inliersIdx.rows; ++inliersIndex)
         {
