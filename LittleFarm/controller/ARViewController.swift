@@ -132,6 +132,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         //let ymlPath = GT.getFileForWriting(name: "ORB.yml")!
         //setupDetection(ymlPath: ymlPath, plyPath: Bundle.main.path(forResource: "mesh", ofType: "ply")!)
         
+        //Code : get the 2D Position of object
+        //Hittest
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -139,6 +141,16 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         
         // Pause the view's session
         sceneView.session.pause()
+    }
+    private func determineWorldCoord(_ boundingBox: CGRect) -> SCNVector3? {
+        let arHitTestResults = sceneView.hitTest(CGPoint(x: boundingBox.midX, y: boundingBox.midY), types: [.featurePoint])
+        
+        // Filter results that are to close
+        if let closestResult = arHitTestResults.filter({ LFFilter($0.worldTransform.toRedBox()) }).first {
+            //            print("vector distance: \(closestResult.distance)")
+            return SCNVector3.positionFromTransform(closestResult.worldTransform)
+        }
+        return nil
     }
     @IBAction func setPositionOfObject( _ sender : UIButton)
     {
