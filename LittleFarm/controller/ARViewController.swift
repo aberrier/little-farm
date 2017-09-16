@@ -114,7 +114,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         //Add the axis
         let axis = AxisCoordinate()
         axis.position = SCNVector3Zero
-        //sceneView.scene.rootNode.addChildNode(axis)
+        sceneView.scene.rootNode.addChildNode(axis)
         
         //If QRCode mode is activated, we place the 3D Object on it
         if(qrCodeMode)
@@ -129,8 +129,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         //OpenCV setup
         
         //let ymlPath = Bundle.main.path(forResource: "ORBL", ofType: "yml")!
-        //let ymlPath = GT.getFileForWriting(name: "ORB.yml")!
-        //setupDetection(ymlPath: ymlPath, plyPath: Bundle.main.path(forResource: "mesh", ofType: "ply")!)
+        let ymlPath = GT.getFileForWriting(name: "ORB.yml")!
+        setupDetection(ymlPath: ymlPath, plyPath: Bundle.main.path(forResource: "mesh", ofType: "ply")!)
         
     }
     
@@ -239,12 +239,14 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
             
             let sampleBuffer = sceneView.session.currentFrame?.capturedImage
             let data : redBox = openCV.detect(on: sampleBuffer)
+            print("Position given by openCV : \(data.getX()),\(data.getY()),\(data.getZ())")
             imageTest.image = data.getImage()
             //Conversion to ARKIT coordinate scale
             
             data.setX(data.getX()/100)
             data.setY(data.getY()/100)
-            data.setZ(-data.getZ()/100)
+            data.setZ(-data.getZ()/10)
+            print("Position after conversion : \(data.getX()),\(data.getY()),\(data.getZ())")
             if(!freeze /*&& LFFilter(data)*/)
             {
                 /*
@@ -259,8 +261,10 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
                  
                  object3D?.position = applyCameraTransformation(SCNVector3(getAverageValue(averX),getAverageValue(averY),getAverageValue(averZ)))
                  */
-                object3D?.position = SCNVector3(data.getX(),data.getY(),data.getZ())
-                //object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))
+                //object3D?.position = SCNVector3(data.getX(),data.getY(),data.getZ())
+                
+                object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))
+                print("Position of object : \(object3D?.position)")
 
                 updatePositionDisplay()
             }

@@ -42,6 +42,20 @@
 		939C19EE1F14EF7200C392CA /* LittleFarmUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19ED1F14EF7200C392CA /* LittleFarmUITests.swift */; };
 		939C19FF1F14FDF800C392CA /* LandingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939C19FE1F14FDF800C392CA /* LandingController.swift */; };
 		93A004671F4F84F700ABBD39 /* ConfigDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A004661F4F84F700ABBD39 /* ConfigDataManager.swift */; };
+		93A623541F68471600DD6353 /* camera.json in Resources */ = {isa = PBXBuildFile; fileRef = B55489C01F603D21006AD14D /* camera.json */; };
+		93A623551F68471600DD6353 /* productKey.json in Resources */ = {isa = PBXBuildFile; fileRef = B55489C11F603D21006AD14D /* productKey.json */; };
+		93A623561F68471600DD6353 /* story.json in Resources */ = {isa = PBXBuildFile; fileRef = B55489C21F603D21006AD14D /* story.json */; };
+		93A623571F68471600DD6353 /* ORB.yml in Resources */ = {isa = PBXBuildFile; fileRef = B55489C41F603D21006AD14D /* ORB.yml */; };
+		93A623581F68471600DD6353 /* ORBC.yml in Resources */ = {isa = PBXBuildFile; fileRef = B55489C51F603D21006AD14D /* ORBC.yml */; };
+		93A623591F68471600DD6353 /* ORBF.yml in Resources */ = {isa = PBXBuildFile; fileRef = B55489C61F603D21006AD14D /* ORBF.yml */; };
+		93A6235A1F68471600DD6353 /* ORBL.yml in Resources */ = {isa = PBXBuildFile; fileRef = B55489C71F603D21006AD14D /* ORBL.yml */; };
+		93A6235B1F68471600DD6353 /* mesh.ply in Resources */ = {isa = PBXBuildFile; fileRef = B55489C91F603D21006AD14D /* mesh.ply */; };
+		93A6235C1F68471600DD6353 /* meshC.ply in Resources */ = {isa = PBXBuildFile; fileRef = B55489CA1F603D21006AD14D /* meshC.ply */; };
+		93A6235D1F68471600DD6353 /* meshF.ply in Resources */ = {isa = PBXBuildFile; fileRef = B55489CB1F603D21006AD14D /* meshF.ply */; };
+		93A6235E1F68471600DD6353 /* meshL.ply in Resources */ = {isa = PBXBuildFile; fileRef = B55489CC1F603D21006AD14D /* meshL.ply */; };
+		93A6235F1F68471600DD6353 /* meshLink.ply in Resources */ = {isa = PBXBuildFile; fileRef = B55489CD1F603D21006AD14D /* meshLink.ply */; };
+		93A623601F68471600DD6353 /* meshV1.2.dae in Resources */ = {isa = PBXBuildFile; fileRef = B55489CE1F603D21006AD14D /* meshV1.2.dae */; };
+		93A623611F68471600DD6353 /* meshV2.1.ply in Resources */ = {isa = PBXBuildFile; fileRef = B55489CF1F603D21006AD14D /* meshV2.1.ply */; };
 		93B18E731F2510C000146BD5 /* main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E711F2510C000146BD5 /* main.xcdatamodeld */; };
 		93B18E751F25292300146BD5 /* PersistentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E741F25292300146BD5 /* PersistentDataManager.swift */; };
 		93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C43AE41F15427B00159522 /* QRCodeViewController.swift */; };
@@ -593,6 +607,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93A623541F68471600DD6353 /* camera.json in Resources */,
+				93A623551F68471600DD6353 /* productKey.json in Resources */,
+				93A623561F68471600DD6353 /* story.json in Resources */,
+				93A623571F68471600DD6353 /* ORB.yml in Resources */,
+				93A623581F68471600DD6353 /* ORBC.yml in Resources */,
+				93A623591F68471600DD6353 /* ORBF.yml in Resources */,
+				93A6235A1F68471600DD6353 /* ORBL.yml in Resources */,
+				93A6235B1F68471600DD6353 /* mesh.ply in Resources */,
+				93A6235C1F68471600DD6353 /* meshC.ply in Resources */,
+				93A6235D1F68471600DD6353 /* meshF.ply in Resources */,
+				93A6235E1F68471600DD6353 /* meshL.ply in Resources */,
+				93A6235F1F68471600DD6353 /* meshLink.ply in Resources */,
+				93A623601F68471600DD6353 /* meshV1.2.dae in Resources */,
+				93A623611F68471600DD6353 /* meshV2.1.ply in Resources */,
 				939C19CE1F14EF7200C392CA /* art.scnassets in Resources */,
 				93721AF91F4C6A60007674FC /* Assets.xcassets in Resources */,
 				939C19D81F14EF7200C392CA /* LaunchScreen.storyboard in Resources */,
@@ -663,7 +691,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

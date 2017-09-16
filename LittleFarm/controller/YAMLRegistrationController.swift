@@ -42,7 +42,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var pointsNode = SCNNode()
     var meshNode = SCNNode()
     let openCVRegistration = OpenCVRegistration()!
-    let imgData = ["img-cube"]
+    let imgData = ["img-link"]
 
     var imgTab : [UIImage] = []
     var currentIndex = 0
@@ -50,15 +50,17 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var modeDragSelector = false
     let name = "ORB.yml"
 
-    let meshName = "mesh"
+    let meshName = "meshL"
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        print("A")
         //print("\(GT.getFileOnString(name: name)!)")
         //setup
         //load the image array
         for str in imgData
         {
+            print("name : \(str)")
             if let image =  UIImage(named: str)
             {
                 imgTab += [GT.normalizedImage(image: image)]
