@@ -112,6 +112,7 @@
 		93281F681F20FC6C004C93E2 /* LFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFButton.swift; sourceTree = "<group>"; };
 		93281F6A1F210E00004C93E2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		9336439E1F2FCCF700A9C52E /* Model.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Model.hpp; sourceTree = "<group>"; };
+		93407DF71F6D4628002E8845 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9363DBD51F4ADDD8006AB0FE /* YAMLRegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAMLRegistrationController.swift; sourceTree = "<group>"; };
 		9363DBD71F4AECD3006AB0FE /* ModelRegistration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModelRegistration.hpp; sourceTree = "<group>"; };
 		93667C711F44525700E0C023 /* Triangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Triangle.hpp; sourceTree = "<group>"; };
@@ -217,6 +218,7 @@
 		73187368C3EABA2B8FB4CCE0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				93407DF71F6D4628002E8845 /* AVFoundation.framework */,
 				9376AB211F2F583000D28C95 /* libc++.tbd */,
 				9376AB1F1F2F580600D28C95 /* libstdc++.tbd */,
 				20C3E8FD636C5845EC5D7025 /* Pods_LittleFarm.framework */,
@@ -453,7 +455,6 @@
 				B55489BF1F603D21006AD14D /* Configuration */,
 				B55489C31F603D21006AD14D /* ORBs */,
 				B55489C81F603D21006AD14D /* Polygons */,
-				B55489D01F603D21006AD14D /* Scenes */,
 			);
 			path = Ressources;
 			sourceTree = "<group>";
@@ -491,13 +492,6 @@
 				B55489CF1F603D21006AD14D /* meshV2.1.ply */,
 			);
 			path = Polygons;
-			sourceTree = "<group>";
-		};
-		B55489D01F603D21006AD14D /* Scenes */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Scenes;
 			sourceTree = "<group>";
 		};
 		F0B4CEE0F607C84A72C83712 /* Pods */ = {
@@ -932,6 +926,7 @@
 				DEVELOPMENT_TEAM = S6YLKG79F2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LittleFarm/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -982,6 +977,7 @@
 				DEVELOPMENT_TEAM = S6YLKG79F2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LittleFarm/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = saad.LittleFarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
