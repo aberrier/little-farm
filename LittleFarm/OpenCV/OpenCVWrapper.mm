@@ -1994,7 +1994,7 @@ using namespace std;
     
     
     frameVis = imageMat.clone();    // refresh visualisation frame
-    
+    cv::Mat displayMat = imageMat.clone();
     // -- Step 1: Robust matching between model descriptors and scene descriptors
     
     vector<cv::DMatch> goodMatches;       // to obtain the 3D points of the model
@@ -2023,7 +2023,6 @@ using namespace std;
     
     // Draw outliers
     [Util draw2DPoints : frameVis : listPoints2DSceneMatch : red];
-    
     
     cv::Mat inliersIdx;
     vector<cv::Point2f> listPoints2DInliers;
@@ -2116,6 +2115,7 @@ using namespace std;
     [Util drawText2 : frameVis : text2 : red];
     
     //-- Step FINAL : Return data
+    
     redBox* data = [[redBox alloc] init];
     cv::Mat posVec = [self convertPosMatrixToPosVec:[pnpDetection getPMatrix]];
     data->posX=posVec.at<double>(0);
