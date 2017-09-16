@@ -15,7 +15,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     
     var dataManager = PersistentDataManager.sharedInstance
     
-    //Debug outlets, should be gone soon 🙂
+    //Debug outlets, should be gone soon 🙂aa
     @IBOutlet var labelX : UILabel!
     @IBOutlet var labelY : UILabel!
     @IBOutlet var labelZ : UILabel!

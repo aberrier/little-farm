@@ -55,7 +55,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     {
         super.viewDidLoad()
         print("A")
-        //print("\(GT.getFileOnString(name: name)!)")
+        //print("\(GT.getFileOnString(name: name)!)")aa
         //setup
         //load the image array
         for str in imgData
