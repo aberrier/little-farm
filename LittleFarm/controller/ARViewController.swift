@@ -114,7 +114,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         //Add the axis
         let axis = AxisCoordinate()
         axis.position = SCNVector3Zero
-        sceneView.scene.rootNode.addChildNode(axis)
+        //sceneView.scene.rootNode.addChildNode(axis)
         
         //If QRCode mode is activated, we place the 3D Object on it
         if(qrCodeMode)
@@ -129,11 +129,12 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         //OpenCV setup
         
         //let ymlPath = Bundle.main.path(forResource: "ORBL", ofType: "yml")!
-        let ymlPath = GT.getFileForWriting(name: "ORB.yml")!
-        setupDetection(ymlPath: ymlPath, plyPath: Bundle.main.path(forResource: "mesh", ofType: "ply")!)
+        //let ymlPath = GT.getFileForWriting(name: "ORB.yml")!
+        //setupDetection(ymlPath: ymlPath, plyPath: Bundle.main.path(forResource: "mesh", ofType: "ply")!)
         
         //Code : get the 2D Position of object
         //Hittest
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -181,7 +182,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         //Time interval
         openCV.setTimeInterval(0.016)
         //Setup
-        openCV.setup();
+        openCV.setup()
         //Start detection
         openCVTimer = Timer.scheduledTimer(timeInterval: openCV.getTimeInterval(), target: self, selector: (#selector(openCVFrameDetection)), userInfo: nil, repeats: true)
     }
