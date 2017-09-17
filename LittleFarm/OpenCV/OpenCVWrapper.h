@@ -41,6 +41,7 @@
 - (ModelRegistration*) getModel;
 @end
 
+
 //Detection
 @interface OpenCVDetection : NSObject
 - (id) init;
@@ -51,8 +52,11 @@
 - (void) setup;
 
 - (redBox*) detectOnPixelBuffer : (CVPixelBufferRef) pixelBuffer;
+- (CGRect) detect2DBoundingBoxOnPixelBuffer : (CVPixelBufferRef) pixelBuffer;
 - (double) getTimeInterval;
 - (void) setTimeInterval : (double) val;
+
+
 @end
 
 //Registration

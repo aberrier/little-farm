@@ -1780,6 +1780,7 @@ using namespace std;
 - (cv::Mat) euler2rot : (cv::Mat) vec3F;
 - (cv::Mat) rot2euler : (cv::Mat) mat;
 - (cv::Mat) convertPosMatrixToPosVec : (cv::Mat)pMat;
+- (CGRect) get2DBoundingBox: (vector<cv::Point2f>) vecPoints2D;
 @end
 
 @implementation OpenCVDetection
@@ -1978,6 +1979,48 @@ using namespace std;
     setuped = true;
     
 }
+- (CGRect) detect2DBoundingBoxOnPixelBuffer : (CVPixelBufferRef) pixelBuffer
+{
+    // -- Step 0: Convert pixelBuffer to cv::Mat
+    CIImage *ciImage = [CIImage imageWithCVPixelBuffer:pixelBuffer];
+    
+    CIContext *temporaryContext = [CIContext contextWithOptions:nil];
+    CGImageRef videoImage = [temporaryContext createCGImage:ciImage fromRect:CGRectMake(0, 0, CVPixelBufferGetWidth(pixelBuffer),CVPixelBufferGetHeight(pixelBuffer))];
+    UIImage *uiImage = [UIImage imageWithCGImage: videoImage];
+    CGImageRelease(videoImage);
+    cv::Mat imageMat;
+    
+    UIImageToMat(uiImage, imageMat);
+    transpose(imageMat,imageMat);
+    cv::flip(imageMat, imageMat, 1);
+    
+    
+    frameVis = imageMat.clone();    // refresh visualisation frame
+    cv::Mat displayMat = imageMat.clone();
+    // -- Step 1: Robust matching between model descriptors and scene descriptors
+    
+    vector<cv::DMatch> goodMatches;       // to obtain the 3D points of the model
+    vector<cv::KeyPoint> keypointsScene;  // to obtain the 2D points of the scene
+    if(fast_match)
+    {
+        [rmatcher fastRobustMatch : imageMat : goodMatches : keypointsScene : descriptors_model];
+    }
+    else
+    {
+        [rmatcher robustMatch : imageMat : goodMatches : keypointsScene : descriptors_model];
+    }
+    // -- Step 2: Find out the 2D correspondences
+    
+    vector<cv::Point2f> listPoints2DSceneMatch; // container for the model 2D coordinates found in the scene
+    
+    
+    for(unsigned int match_index = 0; match_index < goodMatches.size(); ++match_index)
+    {
+        cv::Point2f point2DScene = keypointsScene[ goodMatches[match_index].queryIdx ].pt; // 2D point from the scene
+        listPoints2DSceneMatch.push_back(point2DScene);         // add 2D point
+    }
+    return [self get2DBoundingBox:listPoints2DSceneMatch];
+}
 - (redBox*) detectOnPixelBuffer : (CVPixelBufferRef) pixelBuffer
 {
     // -- Step 0: Convert pixelBuffer to cv::Mat
@@ -2078,7 +2121,7 @@ using namespace std;
     }
     ///-- Step X : POSITION
     [Util drawPosition : frameVis : [pnpDetection getPMatrix] : red];
-    
+    [Util drawObjectMesh : frameVis : mesh : pnpDetection : green ];
     // -- Step X: Draw pose
     if(goodMeasurement)
     {
@@ -2117,7 +2160,7 @@ using namespace std;
     //-- Step FINAL : Return data
     
     redBox* data = [[redBox alloc] init];
-    cv::Mat posVec = [self convertPosMatrixToPosVec:[pnpDetection getPMatrix]];
+    cv::Mat posVec = [self convertPosMatrixToPosVec:[pnpDetectionEst getPMatrix]];
     data->posX=posVec.at<double>(0);
     data->posY=posVec.at<double>(1);
     data->posZ=posVec.at<double>(2);
@@ -2237,7 +2280,28 @@ using namespace std;
     rotation_estimated =[self euler2rot : eulers_estimated];
     
 }
-
+- (CGRect) get2DBoundingBox: (vector<cv::Point2f>) vecPoints2D
+{
+    cv::Point2f averagePoint =  cv::Point2f(0,0);
+    cv::Point2f farPoint = cv::Point2f(0,0);
+    for(int i=0;i<vecPoints2D.size();i++)
+    {
+        //Calculate the average point
+        averagePoint.x += vecPoints2D.at(i).x;
+        averagePoint.y += vecPoints2D.at(i).y;
+        //Calculate the farest point
+        farPoint.x = std::max(farPoint.x, vecPoints2D.at(i).x);
+        farPoint.y = std::max(farPoint.y, vecPoints2D.at(i).y);
+    }
+    if(vecPoints2D.size() > 0)
+    {
+        averagePoint.x = averagePoint.x/vecPoints2D.size();
+        averagePoint.y = averagePoint.y/vecPoints2D.size();
+    }
+    double dX = averagePoint.x - farPoint.x;
+    double dY = averagePoint.y - farPoint.y;
+    return CGRectMake(averagePoint.x-dX, averagePoint.y-dY, dX*2, dY*2);
+}
 /**********************************************************************************************************/
 - (void) fillMeasurements: (cv::Mat &) measurements : (cv::Mat &) translation_measured : (cv::Mat &)rotation_measured
 {

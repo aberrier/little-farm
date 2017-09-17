@@ -42,7 +42,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var pointsNode = SCNNode()
     var meshNode = SCNNode()
     let openCVRegistration = OpenCVRegistration()!
-    let imgData = ["img-link"]
+    let imgData = ["img-cube"]
 
     var imgTab : [UIImage] = []
     var currentIndex = 0
@@ -50,7 +50,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var modeDragSelector = false
     let name = "ORB.yml"
 
-    let meshName = "meshL"
+    let meshName = "mesh"
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -275,7 +275,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
             
             imageDisplay.image = openCVRegistration.computePose(originalImage)
             openCVRegistration.saveFile(at: GT.getFileForWriting(name: name)!)
-            print("\(GT.getFileOnString(name: name))")
+            //print("\(GT.getFileOnString(name: name))")
             
             
         }
