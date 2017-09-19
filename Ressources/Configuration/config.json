@@ -1,0 +1,17 @@
+{
+    "creation":{
+        "filename":"ORB.yml",
+        "meshname":"mesh",
+        "scenename":"mesh",
+        "device":"current"
+    },
+    "images":[
+              "img-cube"
+              ],
+    "detection":{
+        "meshname":"mesh",
+        "filename":"ORB.yml",
+        "meshname":"mesh",
+        "device":"current"
+    }
+}

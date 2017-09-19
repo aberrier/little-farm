@@ -10,6 +10,7 @@
 		12E612AE2CA880BCD6B5298C /* Pods_LittleFarm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20C3E8FD636C5845EC5D7025 /* Pods_LittleFarm.framework */; };
 		930456B91F46587C00DA45AC /* BluetoothChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930456B81F46587C00DA45AC /* BluetoothChatViewController.swift */; };
 		9311D56A1F292B3F003E1538 /* AdminPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311D5691F292B3F003E1538 /* AdminPanelController.swift */; };
+		931205391F71475C00E27D51 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 931205381F71475C00E27D51 /* config.json */; };
 		9315530E1F2BAD8A0018D26C /* StringPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9315530D1F2BAD8A0018D26C /* StringPair.swift */; };
 		931553151F2BE5650018D26C /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931553141F2BE5650018D26C /* Tools.swift */; };
 		931553181F2BEFEB0018D26C /* RegisterScenario.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931553171F2BEFEB0018D26C /* RegisterScenario.swift */; };
@@ -99,6 +100,7 @@
 		8C5112F2AE149E7CAE1B4FDD /* Pods-LittleFarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LittleFarm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LittleFarm/Pods-LittleFarm.debug.xcconfig"; sourceTree = "<group>"; };
 		930456B81F46587C00DA45AC /* BluetoothChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothChatViewController.swift; sourceTree = "<group>"; };
 		9311D5691F292B3F003E1538 /* AdminPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPanelController.swift; sourceTree = "<group>"; };
+		931205381F71475C00E27D51 /* config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		9315530D1F2BAD8A0018D26C /* StringPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringPair.swift; sourceTree = "<group>"; };
 		931553141F2BE5650018D26C /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		931553171F2BEFEB0018D26C /* RegisterScenario.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScenario.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 				B55489C01F603D21006AD14D /* camera.json */,
 				B55489C11F603D21006AD14D /* productKey.json */,
 				B55489C21F603D21006AD14D /* story.json */,
+				931205381F71475C00E27D51 /* config.json */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -632,6 +635,7 @@
 				939C19CE1F14EF7200C392CA /* art.scnassets in Resources */,
 				93721AF91F4C6A60007674FC /* Assets.xcassets in Resources */,
 				939C19D81F14EF7200C392CA /* LaunchScreen.storyboard in Resources */,
+				931205391F71475C00E27D51 /* config.json in Resources */,
 				939C19D31F14EF7200C392CA /* Main.storyboard in Resources */,
 				9375176A1F23C85F007EF547 /* menuSection.xib in Resources */,
 			);

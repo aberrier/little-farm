@@ -68,6 +68,10 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     let openCV = OpenCVDetection()!
     var openCVTimer = Timer();
     
+    let filename = ConfigDataManager.sharedInstance.configDetection["filename"]!
+    let device = ConfigDataManager.sharedInstance.configDetection["device"]!
+    let meshName = ConfigDataManager.sharedInstance.configDetection["meshname"]!
+    
     //Filter
     let minX : Float = -1.0
     let maxX : Float = 1.0
@@ -82,7 +86,6 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     //Average
     var positionArray: [SCNVector3] = []
     
-    var meshName = "meshLink"
     let configData = ConfigDataManager.sharedInstance
     override func viewDidLoad() {
         
@@ -128,8 +131,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         //OpenCV setup
         
         //let ymlPath = Bundle.main.path(forResource: "ORBL", ofType: "yml")!
-        let ymlPath = GT.getFileForWriting(name: "ORB.yml")!
-        setupDetection(ymlPath: ymlPath, plyPath: Bundle.main.path(forResource: "mesh", ofType: "ply")!)
+        let ymlPath = GT.getFileForWriting(name: filename)!
+        setupDetection(ymlPath: ymlPath, plyPath: Bundle.main.path(forResource: meshName, ofType: "ply")!)
         
         //Debug view
         //View to highligth the boudingbox
@@ -174,15 +177,15 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     func setupDetection(ymlPath : String,plyPath : String)
     {
         //Camera calibration
-        if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: UIDevice.current.modelName) ,
-            let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: UIDevice.current.modelName)
+        if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: device) ,
+            let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: device)
         {
             openCV.loadCameraParameters(cameraIntrinsic)
             openCV.loadDistorsionParameters(cameraDistorsion)
         }
         else
         {
-            print("No calibration matrix found for \(UIDevice.current.modelName)")
+            print("No calibration matrix found for \(device)")
         }
         //File path
         openCV.setFilePaths(ymlPath,plyPath )
@@ -201,11 +204,11 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         {
             
             let sampleBuffer = sceneView.session.currentFrame?.capturedImage
-            let area = openCV.detect2DBoundingBox(on: sampleBuffer)
+            let data = openCV.detect2DBoundingBox(on: sampleBuffer)!
             //print("AREA : \(area)")
-            boundingBoxView?.frame = area
-            
-            if let position = determineWorldCoord(area) {
+            boundingBoxView?.frame = data.getArea()
+            print("Box : \(data.getArea()) , \(data.getConfidence())")
+            if let position = determineWorldCoord(data.getArea()) {
                 print("New position \(position)")
                 positionArray.append(position)
             }

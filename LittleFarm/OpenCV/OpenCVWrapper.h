@@ -41,6 +41,16 @@
 - (ModelRegistration*) getModel;
 @end
 
+//YELLOWBOX
+@interface yellowBox : NSObject
+{
+@public CGRect area;
+@public double confidence;
+}
+- (double) getConfidence;
+- (void) setConfidence : (double)val;
+- (CGRect) getArea;
+@end
 
 //Detection
 @interface OpenCVDetection : NSObject
@@ -52,7 +62,7 @@
 - (void) setup;
 
 - (redBox*) detectOnPixelBuffer : (CVPixelBufferRef) pixelBuffer;
-- (CGRect) detect2DBoundingBoxOnPixelBuffer : (CVPixelBufferRef) pixelBuffer;
+- (yellowBox*) detect2DBoundingBoxOnPixelBuffer : (CVPixelBufferRef) pixelBuffer;
 - (double) getTimeInterval;
 - (void) setTimeInterval : (double) val;
 
