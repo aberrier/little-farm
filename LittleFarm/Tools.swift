@@ -10,7 +10,7 @@ import UIKit
 import UIKit
 
 public extension UIDevice {
-    
+    ///Get the name of the current device.
     var modelName: String {
         var systemInfo = utsname()
         uname(&systemInfo)
@@ -56,18 +56,42 @@ public extension UIDevice {
     }
     
 }
-
+/**
+ General tools that can be use for several actions such as :
+ - Give a random position
+ - Create an alert window
+ - Normalize a UIImage object
+ */
 struct GT {
+    /**
+     Give an random position between the **lower** bound and the **upper** bound
+     */
     static func randomPosition (lowerBound lower:Float, upperBound upper:Float) -> Float {
         return Float(arc4random()) / Float(UInt32.max) * (lower - upper) + upper
     }
-    //Display popup
+    /**
+     Display and "OK" alert popup.
+     
+     - Parameters:
+         - title: The title of the popup
+         - message: The message displayed on the popup
+         - sender: The viewcontroller where the popup alert is displayed
+     */
     static func alert(_ title: String, message: String,sender : UIViewController) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil)
         alert.addAction(ok)
         sender.present(alert, animated: true, completion: nil)
     }
+    /**
+     Used to create a shake animation.
+     ## Example of use : ##
+     ````
+     let view = UIView()
+     view.layer.add(GT.giveShakeAnimation(), forKey: nil)
+     ````
+     - Returns: A *CAKeyframeAnimation* object that can be add to a layer.
+     */
     static func giveShakeAnimation() -> CAKeyframeAnimation
     {
         let anim = CAKeyframeAnimation(keyPath : "transform")
@@ -80,6 +104,12 @@ struct GT {
         anim.duration = 7/100
         return anim
     }
+    /**
+     Convert an *NSMutableArray* object to a simple array.
+     - Parameter array: *NSMutableArray* object.
+     - Returns: An array of *Any* object
+     - Remark: The information about the type of the object inside of the initial array is lost.
+     */
     static func convertObjectiveCArray(_ array : NSMutableArray) -> [Any]
     {
         var newArray : [Any] = []
@@ -89,16 +119,12 @@ struct GT {
         }
         return newArray
     }
-    static func getFilePath(name : String) -> String?
-    {
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            
-            return dir.appendingPathComponent(name).absoluteString
-            
-        }
-        return nil
-        
-    }
+
+    /**
+     Concatenate the file named by **name** on a *String* object.
+     - Parameter name: The name of the file with its extension
+     - Returns: *nil* if the file can't be found.
+     */
     static func getFileOnString(name : String) -> String?
     {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -121,6 +147,11 @@ struct GT {
         
         
     }
+    /**
+     Give the file named by **name** on a *Data* object.
+     - Parameter name: The name of the file with its extension
+     - Returns: *nil* if the file can't be found.
+     */
     static func getFileOnData(name : String) -> Data?
     {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -143,6 +174,11 @@ struct GT {
         
         
     }
+    /**
+     Give the file with a full access path of **fullPath** on a *Data* object.
+     - Parameter fullPath: The full access path of the file.
+     - Returns: *nil* if the file can't be found.
+     */
     static func getFileOnData(fullPath : String) -> Data?
     {
         let url = URL(fileURLWithPath: fullPath)
@@ -156,7 +192,12 @@ struct GT {
                 return nil
             }
     }
-    static func getFileForWriting(name : String) -> String?
+    /**
+     Give the file path of of the file named by **name**.
+     - Parameter name: The name of the file with its extension
+     - Returns: *nil* if the file can't be found.
+     */
+    static func getFilePath(name : String) -> String?
     {
         let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         //On récupère le premier dossier, donc Documents
@@ -180,6 +221,11 @@ struct GT {
         }
         return nil
     }
+    /**
+     Normalize a *UIImage* context.
+     - Parameter image: *UIImage* input object.
+     - Returns: *UIImage* normalized output object.
+     */
     static func normalizedImage(image : UIImage) -> UIImage
     {
         if(image.imageOrientation == .up)

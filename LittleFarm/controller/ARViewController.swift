@@ -131,7 +131,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         //OpenCV setup
         
         //let ymlPath = Bundle.main.path(forResource: "ORBL", ofType: "yml")!
-        let ymlPath = GT.getFileForWriting(name: filename)!
+        let ymlPath = GT.getFilePath(name: filename)!
         setupDetection(ymlPath: ymlPath, plyPath: Bundle.main.path(forResource: meshName, ofType: "ply")!)
         
         //Debug view

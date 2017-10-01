@@ -272,7 +272,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
             infoText.text = "Registration finished."
             
             imageDisplay.image = openCVRegistration.computePose(originalImage)
-            openCVRegistration.saveFile(at: GT.getFileForWriting(name: filename)!)
+            openCVRegistration.saveFile(at: GT.getFilePath(name: filename)!)
             //print("\(GT.getFileOnString(name: name))")
             
             
