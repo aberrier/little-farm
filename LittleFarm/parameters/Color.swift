@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+///Set of UIColor objects for more shades 😊
 struct UIColorSet
 {
     static var ligthOrange = UIColor(red:1.00, green:0.58, blue:0.22, alpha:1.0)

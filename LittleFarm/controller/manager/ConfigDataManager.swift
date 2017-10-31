@@ -20,10 +20,15 @@ class ConfigDataManager
     
     var cameraTab : [String : [cameraInformation : [Double]]] = [:]
     var scenario = StoryScenario.instance
+    var configCreation : [String : String] = [:]
+    var imagesForCreation : [String] = []
+    var configDetection : [String : String] = [:]
+    
     private init()
     {
         extractCameraFeatures()
         extractStory()
+        extractConfiguration()
     }
     func extractCameraFeatures()
     {
@@ -45,6 +50,35 @@ class ConfigDataManager
             }
         } catch {
             print("Error deserializing camera JSON: \(error)")
+        }
+    }
+    func extractConfiguration()
+    {
+        //Get url
+        do
+        {
+            let data = try Data(contentsOf : URL(fileURLWithPath: Bundle.main.path(forResource: "config", ofType: "json")!))
+            //Get the json file
+            if let json = try JSONSerialization.jsonObject(with: data) as? [String : Any],
+                let creation = json["creation"] as? [String : String],
+                let detection = json["detection"] as? [String : String],
+                let images = json["images"] as? [String]
+            {
+                configCreation = creation
+                if creation["device"] == "current"
+                {
+                    configCreation["device"] = UIDevice.current.modelName
+                }
+                imagesForCreation = images
+                configDetection = detection
+                if detection["device"] == "current"
+                {
+                    configDetection["device"] = UIDevice.current.modelName
+                }
+            }
+        } catch
+        {
+            print("Error deserializing story JSON: \(error)")
         }
     }
     func extractStory()
@@ -179,7 +213,7 @@ class ConfigDataManager
                                 actionType = .EndStory
                                 break
                             case "doNothing" :
-                               actionType = .DoNothing
+                                actionType = .DoNothing
                                 break
                             default :
                                 print("Extracting story - Action type not supported.")

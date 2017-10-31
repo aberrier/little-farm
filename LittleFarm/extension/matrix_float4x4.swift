@@ -8,7 +8,9 @@
 
 import Foundation
 public extension matrix_float4x4 {
-    
+    /**
+     Convert the 4x4 transform matrix on redBox object.
+     */
     func toRedBox() -> redBox
     {
         let box = redBox()!

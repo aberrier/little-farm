@@ -1372,6 +1372,33 @@ using namespace std;
     self->confidence = val;
 }
 @end
+
+///YELLOWBOX
+@implementation yellowBox
+-(id) init
+{
+    self = [super init];
+    if(self)
+    {
+        self->area = CGRectZero;
+        self->confidence = -1;
+    }
+    return self;
+    
+}
+- (double) getConfidence
+{
+    return self->confidence;
+}
+- (void) setConfidence : (double)val
+{
+    self->confidence = val;
+}
+- (CGRect) getArea
+{
+    return self->area;
+}
+@end
 ///MODELREGISTRATION
 @interface ModelRegistration()
 {
@@ -1979,7 +2006,7 @@ using namespace std;
     setuped = true;
     
 }
-- (CGRect) detect2DBoundingBoxOnPixelBuffer : (CVPixelBufferRef) pixelBuffer
+- (yellowBox*) detect2DBoundingBoxOnPixelBuffer : (CVPixelBufferRef) pixelBuffer
 {
     // -- Step 0: Convert pixelBuffer to cv::Mat
     CIImage *ciImage = [CIImage imageWithCVPixelBuffer:pixelBuffer];
@@ -2019,7 +2046,10 @@ using namespace std;
         cv::Point2f point2DScene = keypointsScene[ goodMatches[match_index].queryIdx ].pt; // 2D point from the scene
         listPoints2DSceneMatch.push_back(point2DScene);         // add 2D point
     }
-    return [self get2DBoundingBox:listPoints2DSceneMatch];
+    yellowBox* box = [[yellowBox alloc] init];
+    box->area = [self get2DBoundingBox:listPoints2DSceneMatch];
+    box->confidence = goodMatches.size();
+    return box;
 }
 - (redBox*) detectOnPixelBuffer : (CVPixelBufferRef) pixelBuffer
 {

@@ -42,15 +42,26 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var pointsNode = SCNNode()
     var meshNode = SCNNode()
     let openCVRegistration = OpenCVRegistration()!
+<<<<<<< HEAD
     let imgData = ["img-v1.2"]
+=======
+    let imgData = ConfigDataManager.sharedInstance.imagesForCreation
+>>>>>>> 9129b835c26218ff2cb161d0472e50bf5b7806e1
 
     var imgTab : [UIImage] = []
     var currentIndex = 0
     var modeDrag = false
     var modeDragSelector = false
+<<<<<<< HEAD
     let name = "ORB.yml"
 
     let meshName = "meshV1.2"
+=======
+    let filename = ConfigDataManager.sharedInstance.configCreation["filename"]!
+    let device = ConfigDataManager.sharedInstance.configCreation["device"]!
+    let meshName = ConfigDataManager.sharedInstance.configCreation["meshname"]!
+    let sceneName = ConfigDataManager.sharedInstance.configCreation["scenename"]!
+>>>>>>> 9129b835c26218ff2cb161d0472e50bf5b7806e1
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -59,7 +70,6 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         //load the image array
         for str in imgData
         {
-            print("name : \(str)")
             if let image =  UIImage(named: str)
             {
                 imgTab += [GT.normalizedImage(image: image)]
@@ -91,15 +101,15 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         infoText.numberOfLines = 2
         //OpenCV setup
         
-        if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: "WAW"/*UIDevice.current.modelName*/ ) ,
-            let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: "WAW" )
+        if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: device) ,
+            let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: device )
         {
             openCVRegistration.loadCameraParameters(cameraIntrinsic)
             openCVRegistration.loadDistorsionParameters(cameraDistorsion)
         }
         else
         {
-            print("No calibration matrix found for \(UIDevice.current.modelName)")
+            print("No calibration matrix found for \(device)")
         }
         //File path
         openCVRegistration.setFilePath(Bundle.main.path(forResource: meshName, ofType: "ply")!)
@@ -117,7 +127,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         view.addGestureRecognizer(longPressRecognizer)
         imageWrapperView.addGestureRecognizer(tapRecognizer)
         //Load mesh
-        if let virtualObjectScene = SCNScene(named: "art.scnassets/"+meshName+".scn")
+        if let virtualObjectScene = SCNScene(named: "art.scnassets/"+sceneName+".scn")
         {
             let wrapperNode = SCNNode()
             
@@ -132,7 +142,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         }
         else
         {
-            return;
+            return
         }
         //setup image display
         updateDisplay()
@@ -272,7 +282,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
             infoText.text = "Registration finished."
             
             imageDisplay.image = openCVRegistration.computePose(originalImage)
-            openCVRegistration.saveFile(at: GT.getFileForWriting(name: name)!)
+            openCVRegistration.saveFile(at: GT.getFilePath(name: filename)!)
             //print("\(GT.getFileOnString(name: name))")
             
             
