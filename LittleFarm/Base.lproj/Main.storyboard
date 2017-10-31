@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9CD-dv-kTg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9CD-dv-kTg">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -15,7 +15,6 @@
         <scene sceneID="tXr-a1-R10">
             <objects>
                 <viewController storyboardIdentifier="ARView" title="ARView" id="BV1-FR-VrT" customClass="ARViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="vWn-2x-0xF" customClass="ViewC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -192,7 +191,6 @@
         <scene sceneID="gN0-p7-iRi">
             <objects>
                 <viewController storyboardIdentifier="menu" title="Menu" id="HB8-Gt-HZl" customClass="MenuViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="U63-My-ZnG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -284,7 +282,6 @@
         <scene sceneID="nrH-Xf-fdg">
             <objects>
                 <viewController storyboardIdentifier="BluetoothChat" title="BLE Chat" id="ozG-xd-8gA" customClass="BluetoothChatViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="tRx-jT-dwe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -345,7 +342,6 @@
         <scene sceneID="Yby-Dp-c8L">
             <objects>
                 <viewController title="Admin Panel" id="wSH-j3-E2h" customClass="AdminPanelController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="pl2-St-eoB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -432,7 +428,6 @@
         <scene sceneID="bNF-Ko-sGR">
             <objects>
                 <viewController title="YAML Creation" id="Guu-YZ-Jmy" customClass="YAMLRegistrationController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="Ybk-7a-4Mf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -602,7 +597,6 @@
         <scene sceneID="nWG-8g-ytm">
             <objects>
                 <viewController storyboardIdentifier="registerView" title="RegisterView" id="JkS-i9-DVH" customClass="RegisterViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="L1D-Tb-302">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -768,7 +762,6 @@
         <scene sceneID="ZNP-KO-uPm">
             <objects>
                 <viewController storyboardIdentifier="connexionView" title="ConnexionView" id="gsD-oB-7mm" customClass="ConnexionViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="QO2-a4-PIR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -834,7 +827,6 @@
         <scene sceneID="FGF-ps-5t7">
             <objects>
                 <viewController title="BLE Connexion" id="rCP-e4-kn9" customClass="BluetoothConnexionViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="7LR-WZ-Nmg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -913,7 +905,6 @@
         <scene sceneID="WON-vf-lW5">
             <objects>
                 <viewController storyboardIdentifier="landing" title="Landing" id="9CD-dv-kTg" customClass="LandingController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="9Bk-rM-OCG" customClass="Landing">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1001,7 +992,6 @@
         <scene sceneID="XBE-vF-0JE">
             <objects>
                 <viewController storyboardIdentifier="QRCodeView" title="QRCodeView" id="RXr-G9-ptT" customClass="QRCodeViewController" customModule="LittleFarm" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="LRu-8t-ptX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1077,7 +1067,8 @@
         <image name="target" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="P0d-KY-S2O"/>
+        <segue reference="PKm-WR-jCB"/>
         <segue reference="Xey-pJ-cbw"/>
+        <segue reference="P0d-KY-S2O"/>
     </inferredMetricsTieBreakers>
 </document>

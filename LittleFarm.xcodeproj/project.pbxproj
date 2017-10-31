@@ -54,8 +54,7 @@
 		93A6235D1F68471600DD6353 /* meshF.ply in Resources */ = {isa = PBXBuildFile; fileRef = B55489CB1F603D21006AD14D /* meshF.ply */; };
 		93A6235E1F68471600DD6353 /* meshL.ply in Resources */ = {isa = PBXBuildFile; fileRef = B55489CC1F603D21006AD14D /* meshL.ply */; };
 		93A6235F1F68471600DD6353 /* meshLink.ply in Resources */ = {isa = PBXBuildFile; fileRef = B55489CD1F603D21006AD14D /* meshLink.ply */; };
-		93A623601F68471600DD6353 /* meshV1.2.dae in Resources */ = {isa = PBXBuildFile; fileRef = B55489CE1F603D21006AD14D /* meshV1.2.dae */; };
-		93A623611F68471600DD6353 /* meshV2.1.ply in Resources */ = {isa = PBXBuildFile; fileRef = B55489CF1F603D21006AD14D /* meshV2.1.ply */; };
+		93A623611F68471600DD6353 /* meshV1.2.ply in Resources */ = {isa = PBXBuildFile; fileRef = B55489CF1F603D21006AD14D /* meshV1.2.ply */; };
 		93B18E731F2510C000146BD5 /* main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E711F2510C000146BD5 /* main.xcdatamodeld */; };
 		93B18E751F25292300146BD5 /* PersistentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B18E741F25292300146BD5 /* PersistentDataManager.swift */; };
 		93C43AE71F1552FB00159522 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C43AE41F15427B00159522 /* QRCodeViewController.swift */; };
@@ -182,8 +181,7 @@
 		B55489CB1F603D21006AD14D /* meshF.ply */ = {isa = PBXFileReference; lastKnownFileType = text; path = meshF.ply; sourceTree = "<group>"; };
 		B55489CC1F603D21006AD14D /* meshL.ply */ = {isa = PBXFileReference; lastKnownFileType = text; path = meshL.ply; sourceTree = "<group>"; };
 		B55489CD1F603D21006AD14D /* meshLink.ply */ = {isa = PBXFileReference; lastKnownFileType = text; path = meshLink.ply; sourceTree = "<group>"; };
-		B55489CE1F603D21006AD14D /* meshV1.2.dae */ = {isa = PBXFileReference; lastKnownFileType = text.xml.dae; path = meshV1.2.dae; sourceTree = "<group>"; };
-		B55489CF1F603D21006AD14D /* meshV2.1.ply */ = {isa = PBXFileReference; lastKnownFileType = text; path = meshV2.1.ply; sourceTree = "<group>"; };
+		B55489CF1F603D21006AD14D /* meshV1.2.ply */ = {isa = PBXFileReference; lastKnownFileType = text; path = meshV1.2.ply; sourceTree = "<group>"; };
 		CBAC5D1C65603CF0C336D75F /* Pods-LittleFarm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LittleFarm.release.xcconfig"; path = "Pods/Target Support Files/Pods-LittleFarm/Pods-LittleFarm.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -488,8 +486,7 @@
 				B55489CB1F603D21006AD14D /* meshF.ply */,
 				B55489CC1F603D21006AD14D /* meshL.ply */,
 				B55489CD1F603D21006AD14D /* meshLink.ply */,
-				B55489CE1F603D21006AD14D /* meshV1.2.dae */,
-				B55489CF1F603D21006AD14D /* meshV2.1.ply */,
+				B55489CF1F603D21006AD14D /* meshV1.2.ply */,
 			);
 			path = Polygons;
 			sourceTree = "<group>";
@@ -627,8 +624,7 @@
 				93A6235D1F68471600DD6353 /* meshF.ply in Resources */,
 				93A6235E1F68471600DD6353 /* meshL.ply in Resources */,
 				93A6235F1F68471600DD6353 /* meshLink.ply in Resources */,
-				93A623601F68471600DD6353 /* meshV1.2.dae in Resources */,
-				93A623611F68471600DD6353 /* meshV2.1.ply in Resources */,
+				93A623611F68471600DD6353 /* meshV1.2.ply in Resources */,
 				939C19CE1F14EF7200C392CA /* art.scnassets in Resources */,
 				93721AF91F4C6A60007674FC /* Assets.xcassets in Resources */,
 				939C19D81F14EF7200C392CA /* LaunchScreen.storyboard in Resources */,

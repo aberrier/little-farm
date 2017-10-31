@@ -15,7 +15,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     
     var dataManager = PersistentDataManager.sharedInstance
     
-    //Debug outlets, should be gone soon 🙂aa
+    //Debug variables, should be gone soon 🙂
     @IBOutlet var labelX : UILabel!
     @IBOutlet var labelY : UILabel!
     @IBOutlet var labelZ : UILabel!
@@ -25,6 +25,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     @IBOutlet var stepperX : UIStepper!
     @IBOutlet var stepperY : UIStepper!
     @IBOutlet var stepperZ : UIStepper!
+    var boundingBoxView:UIView?
     
     //Position placement
     @IBOutlet var positionButton : UIButton!
@@ -79,9 +80,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     let minConfidence = 20.0
     
     //Average
-    var averX : [Float] = []
-    var averY : [Float] = []
-    var averZ : [Float] = []
+    var positionArray: [SCNVector3] = []
     
     var meshName = "meshLink"
     let configData = ConfigDataManager.sharedInstance
@@ -108,7 +107,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         super.viewWillAppear(animated)
         
         // Create a session configuration
-        let configuration = ARWorldTrackingSessionConfiguration()
+        let configuration = ARWorldTrackingConfiguration()
         // Run the view's session
         sceneView.session.run(configuration)
         //Add the axis
@@ -129,11 +128,22 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         //OpenCV setup
         
         //let ymlPath = Bundle.main.path(forResource: "ORBL", ofType: "yml")!
-        //let ymlPath = GT.getFileForWriting(name: "ORB.yml")!
-        //setupDetection(ymlPath: ymlPath, plyPath: Bundle.main.path(forResource: "mesh", ofType: "ply")!)
-        
+        let ymlPath = GT.getFileForWriting(name: "ORB.yml")!
+        setupDetection(ymlPath: ymlPath, plyPath: Bundle.main.path(forResource: "mesh", ofType: "ply")!)
         //Code : get the 2D Position of object
         //Hittest
+        //Debug view
+        //View to highligth the boudingbox
+        boundingBoxView = UIView()
+        
+        if boundingBoxView != nil {
+            boundingBoxView?.layer.borderColor = UIColor.green.cgColor
+            boundingBoxView?.layer.borderWidth = 2
+            sceneView.addSubview(boundingBoxView!)
+            sceneView.bringSubview(toFront: boundingBoxView!)
+            
+        }
+
         
     }
     
@@ -142,6 +152,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         
         // Pause the view's session
         sceneView.session.pause()
+        timer.invalidate()
+        openCVTimer.invalidate()
     }
     private func determineWorldCoord(_ boundingBox: CGRect) -> SCNVector3? {
         let arHitTestResults = sceneView.hitTest(CGPoint(x: boundingBox.midX, y: boundingBox.midY), types: [.featurePoint])
@@ -185,6 +197,52 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         openCV.setup()
         //Start detection
         openCVTimer = Timer.scheduledTimer(timeInterval: openCV.getTimeInterval(), target: self, selector: (#selector(openCVFrameDetection)), userInfo: nil, repeats: true)
+    }
+    @objc func openCVFrameDetection()
+    {
+        
+        if object3D != nil && !freeze
+        {
+            
+            let sampleBuffer = sceneView.session.currentFrame?.capturedImage
+            let area = openCV.detect2DBoundingBox(on: sampleBuffer)
+            //print("AREA : \(area)")
+            boundingBoxView?.frame = area
+            
+            if let position = determineWorldCoord(area) {
+                print("New position \(position)")
+                positionArray.append(position)
+            }
+            print("Average position : \(SCNVector3.center(positionArray))")
+            object3D?.position = SCNVector3.center(positionArray)
+            if positionArray.count > 100
+            {
+                positionArray = []
+            }
+            updatePositionDisplay()
+            /*
+             let data : redBox = openCV.detect(on: sampleBuffer)
+             print("Position given by openCV : \(data.getX()),\(data.getY()),\(data.getZ())")
+             imageTest.image = data.getImage()
+             //Conversion to ARKIT coordinate scale
+             
+             data.setX(data.getX()/100)
+             data.setY(data.getY()/100)
+             data.setZ(-data.getZ()/10)
+             print("Position after conversion : \(data.getX()),\(data.getY()),\(data.getZ())")
+             if(!freeze && LFFilter(data))
+             {
+             object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))
+             print("Position of object : \(object3D?.position)")
+             
+             updatePositionDisplay()
+             }
+             */
+            
+            
+            
+        }
+        
     }
     //Modify position with steppers
     @IBAction func modifyPosition(sender : UIStepper)
@@ -244,49 +302,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
     {
         timer.invalidate()
     }
-    @objc func openCVFrameDetection()
-    {
-        
-        if object3D != nil
-        {
-            
-            let sampleBuffer = sceneView.session.currentFrame?.capturedImage
-            let data : redBox = openCV.detect(on: sampleBuffer)
-            print("Position given by openCV : \(data.getX()),\(data.getY()),\(data.getZ())")
-            imageTest.image = data.getImage()
-            //Conversion to ARKIT coordinate scale
-            
-            data.setX(data.getX()/100)
-            data.setY(data.getY()/100)
-            data.setZ(-data.getZ()/10)
-            print("Position after conversion : \(data.getX()),\(data.getY()),\(data.getZ())")
-            if(!freeze /*&& LFFilter(data)*/)
-            {
-                /*
-                 averX+=[data.getX()]
-                 averY+=[data.getY()]
-                 averZ+=[data.getZ()]
-                 print("Count : \(averX.count)")
-                 if averX.count > 100
-                 {
-                 freeze = true
-                 }
-                 
-                 object3D?.position = applyCameraTransformation(SCNVector3(getAverageValue(averX),getAverageValue(averY),getAverageValue(averZ)))
-                 */
-                //object3D?.position = SCNVector3(data.getX(),data.getY(),data.getZ())
-                
-                object3D?.position = applyCameraTransformation(SCNVector3(data.getX(),data.getY(),data.getZ()))
-                print("Position of object : \(object3D?.position)")
-
-                updatePositionDisplay()
-            }
-            
-            
-            
-        }
-        
-    }
+    
     func getAverageValue(_ tab : [Float]) -> Float
     {
         var avr : Float = 0
@@ -304,11 +320,11 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
             data.getZ() >= minZ && data.getZ() <= maxZ &&
             data.getConfidence() >= minConfidence)
         {
-            print("Position(\(data.getX()),\(data.getY()),\(data.getZ()),\(data.getConfidence())%) accepted.")
+            //print("Position(\(data.getX()),\(data.getY()),\(data.getZ()),\(data.getConfidence())%) accepted.")
             return true
         }
-        print("Stack : \(data.getX() >= minX):\(data.getX() <= maxX):\(data.getY() >= minY):\(data.getY() <= maxY):\(data.getZ() >= minZ):\(data.getZ() <= maxZ):\(data.getConfidence() >= minConfidence)")
-        print("Position(\(data.getX()),\(data.getY()),\(data.getZ()),\(data.getConfidence())%) rejected.")
+        //print("Stack : \(data.getX() >= minX):\(data.getX() <= maxX):\(data.getY() >= minY):\(data.getY() <= maxY):\(data.getZ() >= minZ):\(data.getZ() <= maxZ):\(data.getConfidence() >= minConfidence)")
+        //print("Position(\(data.getX()),\(data.getY()),\(data.getZ()),\(data.getConfidence())%) rejected.")
         return false
     }
     

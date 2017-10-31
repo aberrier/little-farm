@@ -42,7 +42,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var pointsNode = SCNNode()
     var meshNode = SCNNode()
     let openCVRegistration = OpenCVRegistration()!
-    let imgData = ["img-link"]
+    let imgData = ["img-v1.2"]
 
     var imgTab : [UIImage] = []
     var currentIndex = 0
@@ -50,11 +50,10 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var modeDragSelector = false
     let name = "ORB.yml"
 
-    let meshName = "meshL"
+    let meshName = "meshV1.2"
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        print("A")
         //print("\(GT.getFileOnString(name: name)!)")aa
         //setup
         //load the image array
@@ -95,7 +94,6 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
         if let cameraIntrinsic = configData.getCamera(informations: .intrinsicMatrix, ofModel: "WAW"/*UIDevice.current.modelName*/ ) ,
             let cameraDistorsion = configData.getCamera(informations: .distorsionMatrix, ofModel: "WAW" )
         {
-            print("Intrinsic \(cameraIntrinsic) , Distorsion \(cameraDistorsion)")
             openCVRegistration.loadCameraParameters(cameraIntrinsic)
             openCVRegistration.loadDistorsionParameters(cameraDistorsion)
         }
@@ -275,7 +273,7 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
             
             imageDisplay.image = openCVRegistration.computePose(originalImage)
             openCVRegistration.saveFile(at: GT.getFileForWriting(name: name)!)
-            print("\(GT.getFileOnString(name: name))")
+            //print("\(GT.getFileOnString(name: name))")
             
             
         }
