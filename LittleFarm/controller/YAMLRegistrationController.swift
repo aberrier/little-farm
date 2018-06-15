@@ -42,16 +42,26 @@ class YAMLRegistrationController : UIViewController, UIGestureRecognizerDelegate
     var pointsNode = SCNNode()
     var meshNode = SCNNode()
     let openCVRegistration = OpenCVRegistration()!
+<<<<<<< HEAD
+    let imgData = ["img-v1.2"]
+=======
     let imgData = ConfigDataManager.sharedInstance.imagesForCreation
+>>>>>>> 9129b835c26218ff2cb161d0472e50bf5b7806e1
 
     var imgTab : [UIImage] = []
     var currentIndex = 0
     var modeDrag = false
     var modeDragSelector = false
+<<<<<<< HEAD
+    let name = "ORB.yml"
+
+    let meshName = "meshV1.2"
+=======
     let filename = ConfigDataManager.sharedInstance.configCreation["filename"]!
     let device = ConfigDataManager.sharedInstance.configCreation["device"]!
     let meshName = ConfigDataManager.sharedInstance.configCreation["meshname"]!
     let sceneName = ConfigDataManager.sharedInstance.configCreation["scenename"]!
+>>>>>>> 9129b835c26218ff2cb161d0472e50bf5b7806e1
     override func viewDidLoad()
     {
         super.viewDidLoad()
