@@ -164,6 +164,24 @@ class ARViewController: UIViewController, ARSCNViewDelegate, StoryViewDelegate {
         }
         return nil
     }
+    private func determineWorldCoordInAllArea(_ boundingBox: CGRect) -> SCNVector3? {
+        var positionsList : [SCNVector3] = []
+        for x in Int(boundingBox.minX)...Int(boundingBox.maxX)
+        {
+            for y in Int(boundingBox.minY)...Int(boundingBox.maxY)
+            {
+                let arHitTestResults = sceneView.hitTest(CGPoint(x: x, y: y), types: [.featurePoint])
+                
+                // Filter results that are too close
+                if let closestResult = arHitTestResults.filter({ LFFilter($0.worldTransform.toRedBox()) }).first {
+                    //            print("vector distance: \(closestResult.distance)")
+                    positionsList += [SCNVector3.positionFromTransform(closestResult.worldTransform)]
+                }
+            }
+        }
+        return SCNVector3.center(positionsList)
+        //return nil
+    }
     @IBAction func setPositionOfObject( _ sender : UIButton)
     {
         object3D?.position = applyCameraTransformation(SCNVector3(0,0,-0.10))
